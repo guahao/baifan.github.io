@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+    
+    <entry>
+      <title><![CDATA[Java反射(Reflection)]]></title>
+      <url>/2017/06/26/java/basic/Manual-Java_Reflection-20170626/</url>
+      <content type="html"><![CDATA[<p>Java中很多框架和应用都会使用反射，本文简单的介绍了Java的反射。</p>
+<a id="more"></a>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>Reflection和Introspection这两个机制都是作用在Java运行时。<br>每一个类在JVM运行时，都是一个Class实例，该对象描述了响应类的全部属性，包括Annotation、Field、Method等等。<br>Java的反射和内省都非常的使用，在比较流行的框架Spring和MyBatis中就使用了反射和内省。</p>
+<p>先看一个简单的Demo</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.lang.reflect.Field;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.Method;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.Modifier;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.Parameter;</div><div class="line"><span class="keyword">import</span> java.util.HashMap;</div><div class="line"><span class="keyword">import</span> java.util.Map;</div><div class="line"><span class="keyword">import</span> java.util.Objects;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StartDemo</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></div><div class="line">        <span class="keyword">throws</span> ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException &#123;</div><div class="line">        Class&lt;HashMap&gt; mapClazz = (Class&lt;HashMap&gt;) Class.forName(<span class="string">"java.util.HashMap"</span>);</div><div class="line">        System.out.println(mapClazz.getName());</div><div class="line">        System.out.println(<span class="string">"------------------------------------------"</span>);</div><div class="line">        Method[] methods = mapClazz.getMethods();</div><div class="line">        <span class="keyword">for</span> (Method method : methods) &#123;</div><div class="line">            System.out.print(<span class="string">" "</span> + method.getName() + <span class="string">"("</span>);</div><div class="line">            Parameter[] parameters = method.getParameters();</div><div class="line">            <span class="keyword">for</span> (Parameter parameter : parameters) &#123;</div><div class="line">                System.out.print(parameter.getType().getName() + <span class="string">","</span>);</div><div class="line">            &#125;</div><div class="line">            System.out.println(<span class="string">");"</span>);</div><div class="line">        &#125;</div><div class="line">        System.out.println(<span class="string">"------------------------------------------"</span>);</div><div class="line">        Field[] fields = mapClazz.getDeclaredFields();</div><div class="line">        <span class="keyword">for</span> (Field field : fields) &#123;</div><div class="line">            System.out.println(<span class="string">" "</span> + Modifier.toString(field.getModifiers()) + <span class="string">" "</span> + field.getName());</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        Map&lt;String,String&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</div><div class="line">        Method putMethod = mapClazz.getMethod(<span class="string">"put"</span>, Object.class,Object.class);</div><div class="line">        Method getMethod = mapClazz.getMethod(<span class="string">"get"</span>,Object.class);</div><div class="line">        putMethod.invoke(map,<span class="string">"hello"</span>,<span class="string">"world"</span>);</div><div class="line">        String world = (String) getMethod.invoke(map,<span class="string">"hello"</span>);</div><div class="line">        System.out.println(<span class="string">"------------------------------------------"</span>);</div><div class="line">        System.out.println(world);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个示例中首先通过Class的描述符获取ClassLoader中对应的Class实例对象。<br>第二步，遍历该类可访问方法（包含父类继承的）。<br>第三步，遍历该类声明的属性（不包括父类声明的属性）。<br>第四步，获取Map接口的<code>put</code>方法，获取Map接口的<code>get</code>方法。通过反射得到的put方法将[“hello”:”world”]放入到map对象中，在通过反射得到的方法get，获得map中对应的value。</p>
+<h4 id="Java反射的机制的主要作用："><a href="#Java反射的机制的主要作用：" class="headerlink" title="Java反射的机制的主要作用："></a>Java反射的机制的主要作用：</h4><ol>
+<li>Jvm运行时校验类的信息。</li>
+<li>Jvm运行时修改类或者对象的信息。</li>
+<li>Jvm运行时动态创建对象实例。</li>
+<li>Jvm运行时动态调用对象方法。</li>
+<li>修改构造函数、方法、属性的访问权限。</li>
+</ol>
+<h4 id="不足"><a href="#不足" class="headerlink" title="不足"></a>不足</h4><ol>
+<li>性能消耗<ul>
+<li>由于反射是动态解析类的结构，所有不能执行包含了虚拟机优化的动作。因此，反射操作会比未使用反射的部分性能要差，应当避免在频繁调用的、性能敏感的代码块中使用反射。</li>
+</ul>
+</li>
+<li>安全限制<ul>
+<li>反射需要运行时的权限，当一个安全管理器内运行时，肯能是不存在该权限的。当代码必须在受限的安全上下文中调用时，这是一个重要的考虑因素，例如Applet。</li>
+</ul>
+</li>
+<li>私有信息曝光<ul>
+<li>由于反射允许非反射代码执行代码操作，这可能导致非法操作，例如访问私有（private）属性和变量，使用反射可能导致意外的副作用，可能是使代码功能失调和破坏可移植性。<br>反射会打破抽象设计，因此升级平台后可能导致不同的执行动作。</li>
+</ul>
+</li>
+</ol>
+<h3 id="类"><a href="#类" class="headerlink" title="类"></a>类</h3><p>在Java中，每个对象不是一个引用类型，就是一个原始类型。所有的引用类型都继承自<code>java.lang.Object</code>。类、枚举、数组和接口都是引用类型。<br>原始类型的固定集合是<code>boolean</code>、<code>char</code>、<code>byte</code>、<code>short</code>、<code>int</code>、<code>long</code>、<code>float</code>、<code>double</code>。<br>对于每种类型，JVM都会实例化一个不可变的<code>java.lang.Class</code>实例，该实例提供了一系列的方法，检查该对象运行时的属性（包括成员和类型信息）。<br><code>java.lang.Class</code>还提供了创建新类和新对象的能力。最重要的是，它是所有反射接口的入口。</p>
+<h4 id="Class的获取方式"><a href="#Class的获取方式" class="headerlink" title="Class的获取方式"></a>Class的获取方式</h4><p>所有反射操作的入口，都是<code>java.lang.Class</code>。有多种获取<code>java.lang.Class</code>对象的方法，使用何种，取决于代码是否有权访问该类的对象、或者该类的名称、或者一个类型、或者一个已有的<code>java.lang.Class</code>对象。</p>
+<p>可以获取<code>java.lang.Class</code>的方法和描述如下：</p>
+<ol>
+<li>Object.getClass()</li>
+</ol>
+<p>如果有一个该类的实例，获取<code>Class</code>最简单的方法就是通过调用对象的<code>getClass()</code>方法获取。这只适用于引用类型的对象。<br>示例：</p>
+<blockquote>
+<p>Class stringClazz = “foo”.getClass()</p>
+</blockquote>
+<ol>
+<li><code>.class</code>语法</li>
+</ol>
+<p>如果不能访问对象实例，可以访问对象的类型，那么可以通过”Class.class”语法获取Class实例。这个语法可用于原始类型和引用数据类型。<br>示例：</p>
+<blockquote>
+<p>Class intClazz = int.class;</p>
+<p>Class mapClazz = java.util.Map.class;</p>
+</blockquote>
+<ol>
+<li><code>java.lang.Class.forName</code>方法</li>
+</ol>
+<p>如果类的全限定名称是可用的，则可以通过静态方法<code>Class.forName</code>获取Class对象。该方法不适用于原始类型。<br>数组的全限定名称的语法可以通过”Class.getName()”方法获取。该语法适用于引用对象的数组和原始类型的数组。<br>示例：</p>
+<blockquote>
+<p>Class c = Class.forName(“com.duke.MyLocaleServiceProvider”);</p>
+<p>Class cDoubleArray = Class.forName(“[D”);</p>
+<p>Class cStringArray = Class.forName(“[[Ljava.lang.String;”);</p>
+</blockquote>
+<ol>
+<li>原始类型包装类的TYPE属性</li>
+</ol>
+<p><code>.class</code>语法用于获取一个原始类型的Class对象是更为方便的方式；但还有其他获取该对象的方式。<br>每一个原始类型和void类型都有一个在<code>java.lang</code>包中的包装类，用于原始类型和引用类型之间的装箱和拆箱操作。<br>每一个对应的包装类，都有一个命名为<code>TYPE</code>的属性，这个属性的值就是被包装的原始类型的Class实例。</p>
+<ol>
+<li>Class.getSuperclass()</li>
+</ol>
+<p>返回该类的超类。</p>
+<ol>
+<li>Class.getClasses()</li>
+</ol>
+<p>返回该类声明的或者从超类声明继承的内部公共类、接口、枚举。</p>
+<ol>
+<li>Class.getDeclaredClasses()</li>
+</ol>
+<p>返回该类声明的内部类、接口、枚举。</p>
+<ol>
+<li>Class、Field、Method、Constructor.getDeclaringClass()</li>
+</ol>
+<p>返回声明该Class、Field、Method、Constructor的Class，如果Class不是被其他Class所声明的、或者是匿名内部类，则该接口返回null。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.lang.reflect.Field;</div><div class="line"></div><div class="line">Field f = System.class.getField(<span class="string">"out"</span>);</div><div class="line">Class c = f.getDeclaringClass();</div></pre></td></tr></table></figure>
+<ol>
+<li>Class.getEnclosingClass()</li>
+</ol>
+<p>返回声明该内部类、或者匿名类的Class对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> Object o = <span class="keyword">new</span> Object() &#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">m</span><span class="params">()</span> </span>&#123;&#125;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">static</span> Class&lt;?&gt; c = o.getClass().getEnclosingClass();</div></pre></td></tr></table></figure>
+<h3 id="Class的方法"><a href="#Class的方法" class="headerlink" title="Class的方法"></a>Class的方法</h3><p>自身非私有：自身声明的成员，包括public、protected、default</p>
+<p>继承的公共：父类声明的public成员</p>
+<p>自身私有：自身声明的private成员</p>
+<table>
+<thead>
+<tr>
+<th>Class接口</th>
+<th>自身非私有</th>
+<th>继承的公共</th>
+<th>自身私有</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>getDeclaredField()</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>getField()</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>getDeclaredFields()</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>getFields()</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Class接口</th>
+<th>自身非私有</th>
+<th>继承的公共</th>
+<th>自身私有</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>getDeclaredMethod()</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>getMethod()</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>getDeclaredMethods()</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>getMethods()</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Class接口</th>
+<th>自身非私有</th>
+<th>继承的</th>
+<th>自身私有</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>getDeclaredConstructor()</td>
+<td>Yes</td>
+<td>N/A</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>getConstructor()</td>
+<td>Yes</td>
+<td>N/A</td>
+<td>No</td>
+</tr>
+<tr>
+<td>getDeclaredConstructors()</td>
+<td>Yes</td>
+<td>N/A</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>getConstructors()</td>
+<td>Yes</td>
+<td>N/A</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<h4 id="获取父类"><a href="#获取父类" class="headerlink" title="获取父类"></a>获取父类</h4><p>通过Class实例的<code>getSuperClass()</code>方法可以获取class的父类，<br>如果该Class实例表示的是Object、一个接口、一个原始类型或者void类型，该方法会返回null。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Class&lt;?&gt; superClass = HashMap.class.getSuperclass();</div><div class="line">System.out.println(superClass);                        <span class="comment">// "class java.util.AbstractMap"</span></div><div class="line">System.out.println(Object.class.getSuperclass());      <span class="comment">// "null"</span></div><div class="line">System.out.println(String[][].class.getSuperclass());  <span class="comment">// "class java.lang.Object"</span></div></pre></td></tr></table></figure>
+<h4 id="获取Package"><a href="#获取Package" class="headerlink" title="获取Package"></a>获取Package</h4><p><code>getPackage()</code>将返回该类的包信息。可以调用<code>Package.getName()</code>获取包名称。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">System.out.println(HashMap.class.getPackage().getName());</div></pre></td></tr></table></figure></p>
+<p>Package 对象包含有关 Java 包的实现和规范的版本信息。<br>规范的版本号使用了一个由句点 “.” 分隔的十进制正整数组成的语法，例如 “2.0” 或 “1.2.3.4.5.6.7”。这允许使用可扩展的编号来表示主版本号、次版本号、缩微版本号，等等。</p>
+<h4 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h4><p>Java中共有四种访问限制修饰符：private、protected、缺省、public</p>
+<ul>
+<li>private：私有,内部访问</li>
+<li>缺省：是默认的,同一个package下可以访问。</li>
+<li>protected：同一个packege或者子类可以访问</li>
+<li>public:共有,都可以访问</li>
+</ul>
+<p>每种修饰符，具体可以修饰的组件如下：</p>
+<table>
+<thead>
+<tr>
+<th>修饰符</th>
+<th>类</th>
+<th>成员方法</th>
+<th>构造方法</th>
+<th>成员变量</th>
+<th>局部变量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>abstract（抽象的）</td>
+<td>√</td>
+<td>√</td>
+<td>－</td>
+<td>－</td>
+<td>－</td>
+</tr>
+<tr>
+<td>static （静态的）</td>
+<td>√</td>
+<td>√</td>
+<td>－</td>
+<td>√</td>
+<td>－</td>
+</tr>
+<tr>
+<td>public（公共的）</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>－</td>
+</tr>
+<tr>
+<td>protected（受保护的）</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>－</td>
+<td>－</td>
+</tr>
+<tr>
+<td>private（私有的）</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>－</td>
+</tr>
+<tr>
+<td>synchronized（同步的）</td>
+<td>－</td>
+<td>√</td>
+<td>－</td>
+<td>－</td>
+<td>－</td>
+</tr>
+<tr>
+<td>native（本地的）</td>
+<td>－</td>
+<td>√</td>
+<td>－</td>
+<td>－</td>
+<td>－</td>
+</tr>
+<tr>
+<td>transient（暂时的）</td>
+<td>－</td>
+<td>－</td>
+<td>－</td>
+<td>√</td>
+<td>－</td>
+</tr>
+<tr>
+<td>volatie（易失的）</td>
+<td>－</td>
+<td>－</td>
+<td>－</td>
+<td>√</td>
+<td>－</td>
+</tr>
+<tr>
+<td>final（不要改变的）</td>
+<td>√</td>
+<td>√</td>
+<td>－</td>
+<td>√</td>
+<td>√</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">System.out.println(Modifier.toString(HashMap.class.getModifiers())); </div><div class="line"><span class="comment">//"public"</span></div><div class="line">System.out.println(Modifier.toString(AbstractMap.class.getModifiers()));</div><div class="line"><span class="comment">//"public abstract"</span></div></pre></td></tr></table></figure>
+<h4 id="泛型的参数"><a href="#泛型的参数" class="headerlink" title="泛型的参数"></a>泛型的参数</h4><p><code>getTypeParameters()</code>方法按照顺序返回定义该类所使用泛型参数信息。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Class&lt;?&gt; hashClass = HashMap.class.getSuperclass();</div><div class="line">TypeVariable&lt;?&gt;[] typeParameters = hashClass.getTypeParameters();</div><div class="line"><span class="keyword">for</span> (TypeVariable&lt;?&gt; typeVariable : typeParameters) &#123;</div><div class="line">    System.out.print(typeVariable+<span class="string">","</span>);</div><div class="line">&#125;</div><div class="line"><span class="comment">//输出 K,V,</span></div></pre></td></tr></table></figure></p>
+<h4 id="获取所有实现的接口"><a href="#获取所有实现的接口" class="headerlink" title="获取所有实现的接口"></a>获取所有实现的接口</h4><p><code>getGenericInterfaces()</code>：该方法返回一个Type数组，携带了泛型信息。表示该class所有实现的接口集合。<br><code>getInterfaces()</code>：该方法返回一个Class数组。表示该class所有实现的接口集合。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Class&lt;?&gt; listClass = ArrayList.class;</div><div class="line">Type[] typeInterfaces = listClass.getGenericInterfaces();</div><div class="line">System.out.println(Arrays.toString(typeInterfaces));</div><div class="line"><span class="comment">// [java.util.List&lt;E&gt;, interface java.util.RandomAccess, interface java.lang.Cloneable, interface java.io.Serializable]</span></div><div class="line">Class[] interfaces = listClass.getInterfaces();</div><div class="line">System.out.println(Arrays.toString(interfaces));</div><div class="line"><span class="comment">//[interface java.util.List, interface java.util.RandomAccess, interface java.lang.Cloneable, interface java.io.Serializable]</span></div></pre></td></tr></table></figure>
+<h3 id="操作对象"><a href="#操作对象" class="headerlink" title="操作对象"></a>操作对象</h3><p>首先声明一个Demo类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">   </div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Comparable</span>&lt;<span class="title">Person</span>&gt;</span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age = <span class="number">0</span>;</div><div class="line">    </div><div class="line">    <span class="keyword">public</span> String name = <span class="string">"demo"</span>;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 无参公共构造函数</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Person</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(<span class="keyword">int</span> age, String name)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.age = age;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Person o)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.age - o.age;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> age;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> Person <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.age = age;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> Person <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"Person&#123;"</span> + <span class="string">"age="</span> + age + <span class="string">", name='"</span> + name + <span class="string">'\''</span> + <span class="string">'&#125;'</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="获取-设置公共属性"><a href="#获取-设置公共属性" class="headerlink" title="获取/设置公共属性"></a>获取/设置公共属性</h4><p><code>get()</code>方法返回的是一个对象，所以原始类型的属性，会返回相应的包装类。<br> 如果属性是<code>static</code>的，那么方法的对象入参需要是<code>null</code>。</p>
+<p>有一系列的<code>set*()</code>方法，用于设置不同的类型的属性，需要获取相应属性的类型，来确定使用正确的<code>set</code>方法。<br>如果属性是<code>final</code>的，则会抛出<code>java.lang.IllegalAccessException</code>。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Field field = Person.class.getField(<span class="string">"name"</span>);</div><div class="line">Person person = <span class="keyword">new</span> Person(<span class="number">1</span>, <span class="string">"demo-01"</span>);</div><div class="line">System.out.println(field.get(person)); <span class="comment">//demo-01</span></div><div class="line">field.set(person, <span class="string">"demo-02"</span>); <span class="comment">//设置成 demo-02</span></div><div class="line">System.out.println(field.get(person)); <span class="comment">//demo-01</span></div></pre></td></tr></table></figure></p>
+<h4 id="获取-设置私有成员变量"><a href="#获取-设置私有成员变量" class="headerlink" title="获取/设置私有成员变量"></a>获取/设置私有成员变量</h4><p>私有的属性在类的外部是不能被访问的，但是使用反射，我们可以关闭私有属性的访问限制。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Field field = Person.class.getDeclaredField(<span class="string">"age"</span>);</div><div class="line">Person person = <span class="keyword">new</span> Person(<span class="number">1</span>, <span class="string">"demo-01"</span>);</div><div class="line">field.setAccessible(<span class="keyword">true</span>); <span class="comment">//关闭访问限制</span></div><div class="line">System.out.println(field.get(person)); <span class="comment">// 1</span></div><div class="line">field.set(person, <span class="number">2</span>); <span class="comment">//设置成 2</span></div><div class="line">System.out.println(field.get(person)); <span class="comment">//2</span></div></pre></td></tr></table></figure>
+<h4 id="调用公共方法"><a href="#调用公共方法" class="headerlink" title="调用公共方法"></a>调用公共方法</h4><p>我们可以通过调用<code>Method.invoke()</code>方法来调用一个方法。<br>如果这个方法是一个<code>static</code>的方法，则相应的对象入参，需要设置为<code>null</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Method setMethod = Person.class.getMethod(<span class="string">"setName"</span>, String.class);</div><div class="line">Person person = <span class="keyword">new</span> Person(<span class="number">1</span>, <span class="string">"demo-01"</span>);</div><div class="line">System.out.println(setMethod.invoke(person, <span class="string">"demo-02"</span>));</div><div class="line">Method getMethod = Person.class.getMethod(<span class="string">"getName"</span>);</div><div class="line">System.out.println(getMethod.invoke(person)); <span class="comment">//demo-02</span></div></pre></td></tr></table></figure>
+<h4 id="调用私有方法"><a href="#调用私有方法" class="headerlink" title="调用私有方法"></a>调用私有方法</h4><p>调用私有方法需要使用<code>setAccessible()</code>方法关闭访问限制。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Method setMethod = Person.class.getDeclaredMethod(<span class="string">"setAge"</span>, <span class="keyword">int</span>.class);</div><div class="line">Person person = <span class="keyword">new</span> Person(<span class="number">1</span>, <span class="string">"demo-01"</span>);</div><div class="line">setMethod.setAccessible(<span class="keyword">true</span>);<span class="comment">//关闭访问限制</span></div><div class="line">System.out.println(setMethod.invoke(person, <span class="number">2</span>));</div><div class="line">Method getMethod = Person.class.getDeclaredMethod(<span class="string">"getAge"</span>);</div><div class="line">getMethod.setAccessible(<span class="keyword">true</span>);<span class="comment">//关闭访问限制</span></div><div class="line">System.out.println(getMethod.invoke(person)); <span class="comment">//2</span></div></pre></td></tr></table></figure>
+<h4 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h4><p>我们可以通过调用构造函数的<code>newInstance()</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//获取无参构造函数</span></div><div class="line">Constructor&lt;Person&gt; constructor = Person.class.getDeclaredConstructor();</div><div class="line">constructor.setAccessible(<span class="keyword">true</span>);<span class="comment">//关闭访问限制</span></div><div class="line">Person person = constructor.newInstance();</div><div class="line">System.out.println(person);<span class="comment">// Person&#123;age=0, name='demo'&#125;</span></div><div class="line"></div><div class="line"><span class="comment">//获取入参属性顺序是int.class、String.class的构造函数</span></div><div class="line">constructor = Person.class.getConstructor(<span class="keyword">int</span>.class, String.class);</div><div class="line">person = constructor.newInstance(<span class="number">1</span>, <span class="string">"demo-2"</span>);</div><div class="line">System.out.println(person);<span class="comment">// Person&#123;age=1, name='demo-2'&#125;</span></div></pre></td></tr></table></figure>
+<ol>
+<li><p><a href="http://tutorials.jenkov.com/java-reflection/index.html" target="_blank" rel="external">参考文章：http://tutorials.jenkov.com/java-reflection/index.html</a></p>
+</li>
+<li><p><a href="http://docs.oracle.com/javase/tutorial/reflect/index.html" target="_blank" rel="external">参考文章： http://docs.oracle.com/javase/tutorial/reflect/index.html</a></p>
+</li>
+</ol>
+<div style="display: none;"><br>TODO:<br> 注解、泛型、数组<br></div>]]></content>
+      
+        <categories>
+            
+            <category> Program </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Java </tag>
+            
+            <tag> Manual </tag>
+            
+        </tags>
+        
+    </entry>
+    
+  
+  
+</search>
