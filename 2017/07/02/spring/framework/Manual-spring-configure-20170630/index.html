@@ -1,11 +1,492 @@
-<?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.4.0 -->
+    <script>window.materialVersion = "1.4.0"</script>
+
+    <!-- Title -->
     
-    <entry>
-      <title><![CDATA[Spring MVC使用详解]]></title>
-      <url>/2017/07/02/spring/framework/Manual-spring-configure-20170630/</url>
-      <content type="html"><![CDATA[<p>这里先讲述spring MVC使用详解，主要介绍web.xml、spring MVC常用注解标签、Bean概述。</p>
+    <title>
+        
+            Spring MVC使用详解 | 
+        
+        微医系统架构技术博客
+    </title>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    
+    
+    
+    
+    
+    
+        <link rel="dns-prefetch" href="https://s95.cnzz.com"/>
+    
+    
+    
+    
+    
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="theme-color" content="#0097A7">
+    <meta name="author" content="IOTA">
+    <meta name="description" itemprop="description" content="这里先讲述spring MVC使用详解，主要介绍web.xml、spring MVC常用注解标签、Bean概述。">
+    <meta name="keywords" content="null,Manual,Spring">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/favicon.ico">
+    <link rel="icon" sizes="192x192" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/favicon.ico">
+
+    <!--iOS -->
+    <meta name="apple-mobile-web-app-title" content="Title">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="480">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="微医系统架构技术博客">
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://weiyi.tech">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Spring MVC使用详解 | 微医系统架构技术博客">
+    <meta property="og:image" content="/favicon.ico" />
+    <meta property="og:description" content="这里先讲述spring MVC使用详解，主要介绍web.xml、spring MVC常用注解标签、Bean概述。">
+    <meta property="og:article:tag" content="Manual"> <meta property="og:article:tag" content="Spring"> 
+
+    
+        <meta property="article:published_time" content="Sun Jul 02 2017 11:20:24 GMT+0800" />
+        <meta property="article:modified_time" content="Fri Jul 07 2017 12:09:12 GMT+0800" />
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:title" content="Spring MVC使用详解 | 微医系统架构技术博客">
+    <meta name="twitter:description" content="这里先讲述spring MVC使用详解，主要介绍web.xml、spring MVC常用注解标签、Bean概述。">
+    <meta name="twitter:image" content="/favicon.ico">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="http://weiyi.tech" />
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="http://weiyi.tech/2017/07/02/spring/framework/Manual-spring-configure-20170630/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "微医系统架构技术博客",
+        "logo": "/favicon.ico"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "IOTA",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/favicon.ico"
+        },
+        "description": "任何足够先进的技术都等同于魔术"
+    },
+    "headline": "Spring MVC使用详解",
+    "url": "http://weiyi.tech/2017/07/02/spring/framework/Manual-spring-configure-20170630/index.html",
+    "datePublished": "Sun Jul 02 2017 11:20:24 GMT+0800",
+    "dateModified": "Fri Jul 07 2017 12:09:12 GMT+0800",
+    "description": "这里先讲述spring MVC使用详解，主要介绍web.xml、spring MVC常用注解标签、Bean概述。",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://weiyi.tech"
+    }
+}
+</script>
+
+
+    
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(key){try{localStorage.removeItem(key)}catch(e){}};lsloader.setLS=function(key,val){try{localStorage.setItem(key,val)}catch(e){}};lsloader.getLS=function(key){var val="";try{val=localStorage.getItem(key)}catch(e){val=""}return val};versionString="/*"+materialVersion+"*/";lsloader.clean=function(){try{var keys=[];for(var i=0;i<localStorage.length;i++){keys.push(localStorage.key(i))}keys.forEach(function(key){var data=lsloader.getLS(key);if(data&&data.indexOf(versionString)===-1){lsloader.removeLS(key)}})}catch(e){}};lsloader.clean();lsloader.load=function(jsname,jspath,cssonload){cssonload=cssonload||function(){};var code;code=this.getLS(jsname);if(code&&code.indexOf(versionString)===-1){this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload);return}if(code){var versionNumber=code.split(versionString)[0];if(versionNumber!=jspath){console.log("reload:"+jspath);this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload);return}code=code.split(versionString)[1];if(/\.js?.+$/.test(versionNumber)){this.jsRunSequence.push({name:jsname,code:code});this.runjs(jspath,jsname,code)}else{document.getElementById(jsname).appendChild(document.createTextNode(code));cssonload()}}else{this.requestResource(jsname,jspath,cssonload)}};lsloader.requestResource=function(name,path,cssonload){var that=this;if(/\.js?.+$/.test(path)){this.iojs(path,name,function(path,name,code){that.setLS(name,path+versionString+code);that.runjs(path,name,code)})}else if(/\.css?.+$/.test(path)){this.iocss(path,name,function(code){document.getElementById(name).appendChild(document.createTextNode(code));that.setLS(name,path+versionString+code)},cssonload)}};lsloader.iojs=function(path,jsname,callback){var that=this;that.jsRunSequence.push({name:jsname,code:""});try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(path,jsname,xhr.response);return}}that.jsfallback(path,jsname)}};xhr.send(null)}catch(e){that.jsfallback(path,jsname)}};lsloader.iocss=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.iofonts=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.runjs=function(path,name,code){if(!!name&&!!code){for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code=code}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var script=document.createElement("script");script.appendChild(document.createTextNode(this.jsRunSequence[0].code));script.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(script);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var that=this;var script=document.createElement("script");script.src=this.jsRunSequence[0].path;script.type="text/javascript";this.jsRunSequence[0].status="loading";script.onload=function(){that.jsRunSequence.shift();if(that.jsRunSequence.length>0){that.runjs()}};document.body.appendChild(script)}};lsloader.tagLoad=function(path,name){this.jsRunSequence.push({name:name,code:"",path:path,status:"failed"});this.runjs()};lsloader.jsfallback=function(path,name){if(!!this.jsnamemap[name]){return}else{this.jsnamemap[name]=name}for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code="";this.jsRunSequence[k].status="failed";this.jsRunSequence[k].path=path}}this.runjs()};lsloader.cssfallback=function(path,name,cssonload){if(!!this.cssnamemap[name]){return}else{this.cssnamemap[name]=1}var link=document.createElement("link");link.type="text/css";link.href=path;link.rel="stylesheet";link.onload=link.onerror=cssonload;var root=document.getElementsByTagName("script")[0];root.parentNode.insertBefore(link,root)};lsloader.runInlineScript=function(scriptId,codeId){var code=document.getElementById(codeId).innerText;this.jsRunSequence.push({name:scriptId,code:code});this.runjs()};lsloader.loadCombo=function(jslist){var updateList="";var requestingModules={};for(var k in jslist){var LS=this.getLS(jslist[k].name);if(!!LS){var version=LS.split(versionString)[0];var code=LS.split(versionString)[1]}else{var version=""}if(version==jslist[k].path){this.jsRunSequence.push({name:jslist[k].name,code:code,path:jslist[k].path})}else{this.jsRunSequence.push({name:jslist[k].name,code:null,path:jslist[k].path,status:"comboloading"});requestingModules[jslist[k].name]=true;updateList+=(updateList==""?"":";")+jslist[k].path}}var that=this;if(!!updateList){var xhr=new XMLHttpRequest;xhr.open("get",combo+updateList,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){that.runCombo(xhr.response,requestingModules);return}}else{for(var i in that.jsRunSequence){if(requestingModules[that.jsRunSequence[i].name]){that.jsRunSequence[i].status="failed"}}that.runjs()}}};xhr.send(null)}this.runjs()};lsloader.runCombo=function(comboCode,requestingModules){comboCode=comboCode.split("/*combojs*/");comboCode.shift();for(var k in this.jsRunSequence){if(!!requestingModules[this.jsRunSequence[k].name]&&!!comboCode[0]){this.jsRunSequence[k].status="comboJS";this.jsRunSequence[k].code=comboCode[0];this.setLS(this.jsRunSequence[k].name,this.jsRunSequence[k].path+versionString+comboCode[0]);comboCode.shift()}}this.runjs()}})();</script>
+
+    <!-- Import CSS & jQuery -->
+    
+        <style id="css/material.min.css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("css/material.min.css","/css/material.min.css?fJTiM/K1J3dWIruo3pxtAw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";})</script>
+        <style id="css/style.min.css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("css/style.min.css","/css/style.min.css?oCSEO3ST+aEypEwttTDI9g==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";})</script>
+        
+        
+            <style>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</style>
+
+        
+        <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+
+
+        <script>lsloader.load("js/jquery.min.js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==")</script>
+    
+    
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Analytics -->
+    <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1262696393&web_id=1262696393" language="JavaScript"></script>
+</div>
+
+    <!-- Custom Head -->
+    
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-简介"><span class="post-toc-number">1.</span> <span class="post-toc-text">1 简介</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-web-xml详解"><span class="post-toc-number">2.</span> <span class="post-toc-text">2 web.xml详解</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-1-web-xml示例"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">2.1 web.xml示例</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-2-加载过程"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">2.2 加载过程</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-3标签详解"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">2.3标签详解</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-3-1-display-name"><span class="post-toc-number">2.3.1.</span> <span class="post-toc-text">2.3.1 display-name</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-3-2-description"><span class="post-toc-number">2.3.2.</span> <span class="post-toc-text">2.3.2 description</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-3-3-context-param"><span class="post-toc-number">2.3.3.</span> <span class="post-toc-text">2.3.3 context-param</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#配置："><span class="post-toc-number">2.3.3.1.</span> <span class="post-toc-text">配置：</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#使用场景："><span class="post-toc-number">2.3.3.2.</span> <span class="post-toc-text">使用场景：</span></a></li></ol></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-3-4-filter"><span class="post-toc-number">2.3.4.</span> <span class="post-toc-text">2.3.4 filter</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#配置：-1"><span class="post-toc-number">2.3.4.1.</span> <span class="post-toc-text">配置：</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#Filter介绍："><span class="post-toc-number">2.3.4.2.</span> <span class="post-toc-text">Filter介绍：</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#Filter配置："><span class="post-toc-number">2.3.4.3.</span> <span class="post-toc-text">Filter配置：</span></a></li></ol></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-3-5-filter-mapping"><span class="post-toc-number">2.3.5.</span> <span class="post-toc-text">2.3.5 filter-mapping</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#配置：-2"><span class="post-toc-number">2.3.5.1.</span> <span class="post-toc-text">配置：</span></a></li></ol></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-3-6-listener"><span class="post-toc-number">2.3.6.</span> <span class="post-toc-text">2.3.6 listener</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#配置：-3"><span class="post-toc-number">2.3.6.1.</span> <span class="post-toc-text">配置：</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#listener介绍："><span class="post-toc-number">2.3.6.2.</span> <span class="post-toc-text">listener介绍：</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#listener配置："><span class="post-toc-number">2.3.6.3.</span> <span class="post-toc-text">listener配置：</span></a></li></ol></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-3-7-servlet"><span class="post-toc-number">2.3.7.</span> <span class="post-toc-text">2.3.7 servlet</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#配置：-4"><span class="post-toc-number">2.3.7.1.</span> <span class="post-toc-text">配置：</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#Servlet介绍："><span class="post-toc-number">2.3.7.2.</span> <span class="post-toc-text">Servlet介绍：</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#Servlet配置："><span class="post-toc-number">2.3.7.3.</span> <span class="post-toc-text">Servlet配置：</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-Spring-MVC注解标签详解"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">3 Spring MVC注解标签详解</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-1-Controller"><span class="post-toc-number">2.4.1.</span> <span class="post-toc-text">3.1 @Controller</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-2-RequestMapping"><span class="post-toc-number">2.4.2.</span> <span class="post-toc-text">3.2 @RequestMapping</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-3-Resource和-Autowired"><span class="post-toc-number">2.4.3.</span> <span class="post-toc-text">3.3 @Resource和@Autowired</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#共同点："><span class="post-toc-number">2.4.3.1.</span> <span class="post-toc-text">共同点：</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#不同点"><span class="post-toc-number">2.4.3.2.</span> <span class="post-toc-text">不同点</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#Resource装配顺序："><span class="post-toc-number">2.4.3.3.</span> <span class="post-toc-text">@Resource装配顺序：</span></a></li></ol></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-4-PathVariable"><span class="post-toc-number">2.4.4.</span> <span class="post-toc-text">3.4 @PathVariable</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-5-requestParam"><span class="post-toc-number">2.4.5.</span> <span class="post-toc-text">3.5 @requestParam</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-6-ResponseBody"><span class="post-toc-number">2.4.6.</span> <span class="post-toc-text">3.6 @ResponseBody</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-7-RequestBody"><span class="post-toc-number">2.4.7.</span> <span class="post-toc-text">3.7 @RequestBody</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-8-ModelAttribute和-SessionAttributes"><span class="post-toc-number">2.4.8.</span> <span class="post-toc-text">3.8 @ModelAttribute和 @SessionAttributes</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-9-Component"><span class="post-toc-number">2.4.9.</span> <span class="post-toc-text">3.9 @Component</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-10-Repository"><span class="post-toc-number">2.4.10.</span> <span class="post-toc-text">3.10 @Repository</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-11-RestController："><span class="post-toc-number">2.4.11.</span> <span class="post-toc-text">3.11 @RestController：</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-Bean概述"><span class="post-toc-number">3.</span> <span class="post-toc-text">4 Bean概述</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4-1-命名空间"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">4.1 命名空间</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#ns"><span class="post-toc-number">3.1.0.1.</span> <span class="post-toc-text">ns:</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#xsd文件："><span class="post-toc-number">3.1.0.2.</span> <span class="post-toc-text">xsd文件：</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#Xsd文件跟xml文件的关系："><span class="post-toc-number">3.1.0.3.</span> <span class="post-toc-text">Xsd文件跟xml文件的关系：</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#Schema："><span class="post-toc-number">3.1.0.4.</span> <span class="post-toc-text">Schema：</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4-2-别名（alias）"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">4.2 别名（alias）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#场景："><span class="post-toc-number">3.2.0.1.</span> <span class="post-toc-text">场景：</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#用法："><span class="post-toc-number">3.2.0.2.</span> <span class="post-toc-text">用法：</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4-3-实例化bean"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">4.3 实例化bean</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#使用构造方法实例化"><span class="post-toc-number">3.3.0.1.</span> <span class="post-toc-text">使用构造方法实例化</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#使用静态工厂方法实例化"><span class="post-toc-number">3.3.0.2.</span> <span class="post-toc-text">使用静态工厂方法实例化</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#使用实例的工厂方法实例化（非静态）"><span class="post-toc-number">3.3.0.3.</span> <span class="post-toc-text">使用实例的工厂方法实例化（非静态）</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4-4-依赖"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">4.4 依赖</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#4-4-1-依赖注入"><span class="post-toc-number">3.4.1.</span> <span class="post-toc-text">4.4.1 依赖注入</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#基于构造方法的依赖注入"><span class="post-toc-number">3.4.1.1.</span> <span class="post-toc-text">基于构造方法的依赖注入</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#基于setter方法的依赖注入"><span class="post-toc-number">3.4.1.2.</span> <span class="post-toc-text">基于setter方法的依赖注入</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#构造方法和setter方法的选择"><span class="post-toc-number">3.4.1.3.</span> <span class="post-toc-text">构造方法和setter方法的选择</span></a></li></ol></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#4-4-2-依赖与配置详解"><span class="post-toc-number">3.4.2.</span> <span class="post-toc-text">4.4.2 依赖与配置详解</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#直接设置值"><span class="post-toc-number">3.4.2.1.</span> <span class="post-toc-text">直接设置值</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#ref元素"><span class="post-toc-number">3.4.2.2.</span> <span class="post-toc-text">ref元素</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#集合"><span class="post-toc-number">3.4.2.3.</span> <span class="post-toc-text">集合</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#idref元素"><span class="post-toc-number">3.4.2.4.</span> <span class="post-toc-text">idref元素</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#集合的合并"><span class="post-toc-number">3.4.2.5.</span> <span class="post-toc-text">集合的合并</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#强类型集合"><span class="post-toc-number">3.4.2.6.</span> <span class="post-toc-text">强类型集合</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#null和空字符串值"><span class="post-toc-number">3.4.2.7.</span> <span class="post-toc-text">null和空字符串值</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#使用p命名空间简写XML"><span class="post-toc-number">3.4.2.8.</span> <span class="post-toc-text">使用p命名空间简写XML</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#使用c命名空间简写XML"><span class="post-toc-number">3.4.2.9.</span> <span class="post-toc-text">使用c命名空间简写XML</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#合成属性名"><span class="post-toc-number">3.4.2.10.</span> <span class="post-toc-text">合成属性名</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#内部bean"><span class="post-toc-number">3.4.2.11.</span> <span class="post-toc-text">内部bean</span></a></li></ol></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#4-4-3-使用depends-on"><span class="post-toc-number">3.4.3.</span> <span class="post-toc-text">4.4.3 使用depends-on</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#4-4-4-延迟初始化的bean"><span class="post-toc-number">3.4.4.</span> <span class="post-toc-text">4.4.4 延迟初始化的bean</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#4-4-5-自动装配（不建议使用）"><span class="post-toc-number">3.4.5.</span> <span class="post-toc-text">4.4.5 自动装配（不建议使用）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#自动装配的局限性和缺点："><span class="post-toc-number">3.4.5.1.</span> <span class="post-toc-text">自动装配的局限性和缺点：</span></a></li></ol></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#4-4-6-方法注入"><span class="post-toc-number">3.4.6.</span> <span class="post-toc-text">4.4.6 方法注入</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4-5-bean的作用域"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">4.5 bean的作用域</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#4-5-1-单例作用域"><span class="post-toc-number">3.5.1.</span> <span class="post-toc-text">4.5.1 单例作用域</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#4-5-2-原型作用域"><span class="post-toc-number">3.5.2.</span> <span class="post-toc-text">4.5.2 原型作用域</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#4-5-3-依赖于原型bean的单例bean"><span class="post-toc-number">3.5.3.</span> <span class="post-toc-text">4.5.3 依赖于原型bean的单例bean</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#4-5-4-请求、会话、全局会话、应用及WebSocket作用域"><span class="post-toc-number">3.5.4.</span> <span class="post-toc-text">4.5.4 请求、会话、全局会话、应用及WebSocket作用域</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#请求作用域："><span class="post-toc-number">3.5.4.1.</span> <span class="post-toc-text">请求作用域：</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#会话作用域"><span class="post-toc-number">3.5.4.2.</span> <span class="post-toc-text">会话作用域</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#全局会话作用域"><span class="post-toc-number">3.5.4.3.</span> <span class="post-toc-text">全局会话作用域</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#应用作用域"><span class="post-toc-number">3.5.4.4.</span> <span class="post-toc-text">应用作用域</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4-6-bean的特性（生命周期）"><span class="post-toc-number">3.6.</span> <span class="post-toc-text">4.6 bean的特性（生命周期）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#初始化回调"><span class="post-toc-number">3.6.0.1.</span> <span class="post-toc-text">初始化回调</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#销毁回调"><span class="post-toc-number">3.6.0.2.</span> <span class="post-toc-text">销毁回调</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#默认的初始化和销毁方法"><span class="post-toc-number">3.6.0.3.</span> <span class="post-toc-text">默认的初始化和销毁方法</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4-7-bean定义的继承"><span class="post-toc-number">3.7.</span> <span class="post-toc-text">4.7 bean定义的继承</span></a></li></ol></li></ol>
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
+    
+
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                Spring MVC使用详解
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar-white.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>IOTA</strong>
+        <span>7月 02, 2017</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+        <button id="article-functions-qrcode-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">devices other</i>
+    <span class="visuallyhidden">devices other</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-qrcode-button">
+    <li class="mdl-menu__item">在其它设备中阅读本文章</li>
+    
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAADgklEQVR42u3aS47bMBAFwLn/pZNtgIk973WTigMUV4YhS2Rp0e7P1y/rj/WFAAcOHDhw4MCBAweOD+b4itf3X726w18e+e36/OnJlauz4MCBAweOCxw/hKK3h3x11FfX5N9voPOz4MCBAweOexzvA1gSVhO4V3ebfdPuEwcOHDhwfCZHfsj3wS9PDvMgjQMHDhw4/keOPKDui3ctEw4cOHDg+ByOJBzmBcH88/vnfnStFAcOHDhwrAcaPv/zo/MdOHDgwIHjG0e7ksfPCn+b0YfViXDgwIEDx1GOPFDliV+y9VNY+Z8GHDhw4MDxrzg2pbd2ZKEtArYruT8OHDhw4HieY18unLWgNi2uYykcDhw4cOAYceQJT8s0I773qoZdOBw4cODAUXK8T3X2JcLZ2EFbHMyLjDhw4MCB4x5He+B203kClqdws5E4HDhw4MDxDEeeSrWjD5uRhaJpVJYsDxQHceDAgQPHodmwdgwuB6pD4+hZw4wWBw4cOHAscpb9+NqNMHxqkOLlKXDgwIEDx1GOTUhrW1Nn6VvuolaKAwcOHDiOcszWrO00G4nbNMzqQIsDBw4cOEqOPCCduqZtbm0GKaKXgQMHDhw4LnD80PIPgl8+GDFrTf0arSg5xIEDBw4c1ziK8bLFAW40omahFwcOHDhw3OBIftyODrTNpH0wnqWXOHDgwIHjBkcSivL2T1523ITGvPwXweHAgQMHjqMcbbhtN5ffIW8v5YE8epE4cODAgeMox368YJ/O5QfbtL5w4MCBA8fzHPl2E4hZQjgbkmjDOQ4cOHDgeJIjD5xJcbBN6qLQWCaWOHDgwIHjeY79wdor8/vnryRJHaMUDgcOHDhwHOJoQ2ASzOpSXfAyTgVyHDhw4MDxDEfyedZwmg3V5SlZjo4DBw4cOJ7haNOkFuJUOJ+9Nhw4cODA8TxHW25Lgtxso23obQfmcODAgQPHPY52taXAZHP5SNzsFf4AigMHDhw4jnK0B8jLcJtRthZxE9px4MCBA8cNjjy4thBt4rcvUNYDEzhw4MCB4xpHHsDygJoXAWeDDm1BEAcOHDhwfCbHbDShTRQ3ba3ibwQOHDhw4PhIjvelvbpgFwTgPTEOHDhw4LjNkQ8xtE2pzX2SveUFShw4cODA8QzHqeG2WdA9VeZLEkscOHDgwHGbw8KBAwcOHDhw4MCBA8eHrd/braPtWjZ+uQAAAABJRU5ErkJggg==">
+    
+</ul>
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/Manual/">Manual</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/Spring/">Spring</a>
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Spring MVC使用详解&url=http://weiyi.tech/2017/07/02/spring/framework/Manual-spring-configure-20170630/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Spring MVC使用详解&url=http://weiyi.tech/2017/07/02/spring/framework/Manual-spring-configure-20170630/index.html&via=IOTA" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://weiyi.tech/2017/07/02/spring/framework/Manual-spring-configure-20170630/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://weiyi.tech/2017/07/02/spring/framework/Manual-spring-configure-20170630/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <p>这里先讲述spring MVC使用详解，主要介绍web.xml、spring MVC常用注解标签、Bean概述。</p>
 <a id="more"></a>
 <h3 id="1-简介"><a href="#1-简介" class="headerlink" title="1 简介"></a>1 简介</h3><p>Spring Web MVC是一种基于Java的实现了Web MVC设计模式的请求驱动类型的轻量级Web框架，即使用了MVC架构模式的思想，将web层进行职责解耦，基于请求驱动指的就是使用请求-响应模型，框架的目的就是帮助我们简化开发。</p>
 <p>这里先讲述spring MVC使用详解，主要介绍web.xml、spring MVC常用注解标签、Bean概述。</p>
@@ -305,1199 +786,411 @@
 <p>其余的配置总是取决于子定义：依赖、自动装配模式、依赖检查、单例、延迟初始化。</p>
 <p>上面的例子中在父定义中显式地使用了abstract属性。如果父定义不指定类，那么必须显式地标记abstract属性，如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"inheritedTestBeanWithoutClass"</span> <span class="attr">abstract</span>=<span class="string">"true"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"parent"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"age"</span> <span class="attr">value</span>=<span class="string">"1"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"inheritsWithClass"</span> <span class="attr">class</span>=<span class="string">"org.springframework.beans.DerivedTestBean"</span></span></div><div class="line">        <span class="attr">parent</span>=<span class="string">"inheritedTestBeanWithoutClass"</span> <span class="attr">init-method</span>=<span class="string">"initialize"</span>&gt;</div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"override"</span>/&gt;</span></div><div class="line">    <span class="comment">&lt;!-- age will inherit the value of 1 from the parent bean definition--&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure></p>
 <p>父bean不能被实例化，因为它本身并不完整，并且被显式地标记为abstract了。当一个bean被定义为abstract，则它只能用做定义子bean的模板。如果试着使用abstract的父bean，比如通过另一个bean引用它或调用<code>getBean()</code>方法获取它，都会报错。同样，容器内部的<code>preInstantiateSingletons()</code>方法也会忽略定义为abstract的bean。</p>
-]]></content>
-      
-        <categories>
-            
-            <category> Spring </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> Manual </tag>
-            
-            <tag> Spring </tag>
-            
-        </tags>
-        
-    </entry>
+
     
-    <entry>
-      <title><![CDATA[MySQL研发优化解析]]></title>
-      <url>/2017/07/02/mysql/Manual-MySQL-20170702/</url>
-      <content type="html"><![CDATA[<p>数据库是一个易于访问和修改的信息集合。它允许使用事务来确保数据的安全性和一致性，并能快速处理百万条以上的数据。</p>
-<a id="more"></a>
-<p>数据库是一个易于访问和修改的信息集合。它允许使用事务来确保数据的安全性和一致性，并能快速处理百万条以上的数据。数据库一般可以用如下图形来理解：</p>
-<p><img src="/img/doc/mysql/Manual-MySQL-20170702/image1.png" alt=""></p>
-<p>数据库是由多种互相交互的组件构成的。大致可以分为三层，最上层是面向用户的组件：查询管理器、数据管理器、工具包，中间层是数据库的核心实现模块，最底层是数据存储引擎。下面简单介绍一下各个模块的功能：</p>
-<p><strong>查询管理器</strong></p>
-<p>查询解析器（Query parser）：用于检查查询是否合法</p>
-<p>查询重写器（Query rewriter）：用于预优化查询</p>
-<p>查询优化器（Query optimizer）：用于优化查询</p>
-<p>查询执行器（Query executor）：用于编译和执行查询</p>
-<p><strong>数据管理器</strong></p>
-<p>事务管理器（Transaction manager）：用于处理事务</p>
-<p>缓存管理器（Cache manager）：数据被使用之前置于内存，或者数据写入磁盘之前置于内存</p>
-<p>数据访问管理器（Data access manager）：访问磁盘中的数据</p>
-<p><strong>工具</strong></p>
-<p>备份管理器（Backup manager）：用于保存和恢复数据。</p>
-<p>复原管理器（Recovery manager）：用于崩溃后重启数据库到一个一致状态。</p>
-<p>监控管理器（Monitor manager）：用于记录数据库活动信息和提供监控数据库的工具。</p>
-<p>Administration管理器（Administration manager）：用于保存元数据（比如表的名称和结构），提供管理数据库、模式、表空间的工具。</p>
-<p><strong>核心组件</strong></p>
-<p>进程管理器（process manager）：管理进程/线程池。</p>
-<p>网络管理器（network manager）：网路I/O是个大问题，尤其是对于分布式数据库，所以一些数据库具备自己的网络管理器。</p>
-<p>文件系统管理器（File system manager）：磁盘I/O是数据库的首要瓶颈。具备一个文件系统管理器来完美地处理OS文件系统甚至取代OS文件系统，是非常重要的。</p>
-<p>内存管理器（memory manager）：为了避免磁盘I/O带来的性能损失，需要大量的内存。处理大容量内存需要高效的内存管理器，尤其是有很多查询同时使用内存的时候。</p>
-<p>安全管理器（Security Manager）：用于对用户的验证和授权。</p>
-<p>客户端管理器（Client manager）：用于管理客户端连接。</p>
-<p><strong>存储引擎</strong></p>
-<p>存储引擎是真正存放数据的地方，实现mysql预定义的接口，提供数据获取、管理的功能。mysql预定义了存储引擎接口，用户可以根据自己业务需求选择合适的第三方存储引擎，也可以实现自己的存储引擎。我们可以根据对数据处理的需求，选择不同的存储引擎，从而最大限度的利用MySQL强大的功能。</p>
-<p>熟悉了mysql的组件后，我们通过一个典型的MySQL查询流程来串一下各模块之间的调用关系，具体的步骤就不细说了。查询流程图如下：</p>
-<p><img src="/img/doc/mysql/Manual-MySQL-20170702/image2.png" alt=""></p>
-<p>本文的目的是为了帮助开发理解数据的原理，所以本文不会讨论工具类组件。本文剩余部分，我们会集中探讨数据库的查询管理器、数据管理器以及存储引擎InnoDB。</p>
-<h1 id="查询管理器"><a href="#查询管理器" class="headerlink" title="查询管理器"></a>查询管理器</h1><p>查询管理器分为查询解析器、查询优化器（查询重写器也属于优化器的一部分）、查询执行器。查询解析器的工作主要是对查询语句进行语法分析，得到一颗“语法树”，查询优化器选择一种最优的查询计划，最后查询执行器编译和执行查询。下面介绍一下查询解析器和查询优化器具体如果实现的。</p>
-<h2 id="查询解析器"><a href="#查询解析器" class="headerlink" title="查询解析器"></a>查询解析器</h2><p>连接线程接收到客户端的一条查询请求后，会直接将该查询请求转交给一个专门负责解析SQL、对SQL语句进行语法分析，将SQL语句转换成按某种更利于程序识别的方式表示的语法树，这个模块就是查询解析器。</p>
-<p>查询解析器的工作主要是对查询语句进行语法分析，语法分析的结果是MySql内部定义的一个树状的数据结构，称为“语法树”。“语法树”的每个结点都是以下两类之一：第一类是单个的元素，比如关键字、表或属性等的名字、常数、括号、运算符等；第二类是语法类，比如子查询等。</p>
-<p>比如有如下的SQL语句：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> movieTitle</div><div class="line"><span class="keyword">FROM</span> StarsIn</div><div class="line"><span class="keyword">WHERE</span> starName <span class="keyword">IN</span> (</div><div class="line">    <span class="keyword">SELECT</span> <span class="keyword">name</span></div><div class="line">    <span class="keyword">FROM</span> MovieStar</div><div class="line">    <span class="keyword">WHERE</span> birthdate <span class="keyword">LIKE</span> <span class="string">'%1960'</span></div><div class="line">);</div></pre></td></tr></table></figure></p>
-<p>它被解析成的语法树类似于：</p>
-<p><img src="/img/doc/mysql/Manual-MySQL-20170702/image3.png" alt=""></p>
-<h2 id="查询优化器"><a href="#查询优化器" class="headerlink" title="查询优化器"></a>查询优化器</h2><p>查询优化分为逻辑查询优化（查询重写）和物理查询优化（查询优化）两个部分。逻辑查询优化着重对查询语句的本身进行调整优化，物理查询优化则着力于对查询语句对应的某几种可能的执行计划进行代价估算，也就是选择一种最优的查询计划，这个过程一般需要从存储引擎读取相关统计数据，是种基于现有数据进行查询代价估算的方法。</p>
-<h3 id="逻辑查询优化"><a href="#逻辑查询优化" class="headerlink" title="逻辑查询优化"></a>逻辑查询优化</h3><p>逻辑查询优化主要包括以下几部分：</p>
-<p><strong>视图重写</strong></p>
-<p>视图重写就是将对视图的引用重写为对基本表的引用。视图重写后的SQL多被作为子查询进行进一步优化。所有的视图都可以被子查询替换。MySQL只支持对简单视图的视图重写优化。</p>
-<p><strong>子查询优化</strong></p>
-<p>MySQL支持使用子查询展开算法优化子查询，又称子查询反嵌套或子查询上拉。把一些子查询置于外层的父查询中，作为连接关系与外层父查询并列，其实质是把某些子查询重写为等价的多表连接操作。带来的好处是，减少表扫描次数的同时，有关的访问路径、连接方法和连接顺序可能被有效使用。MySQL支持对简单SELECT查询中的子查询优化，包括：<br>简单SELECT查询中的子查询；带有DISTINCT、ORDER BY、LIMIT操作的简单SELECT查询中的子查询。MySQL不支持对如下情况的子查询进行优化：带有UNION操作；带有GROUP BY、HAVING、聚集函数；使用ORDER BY中带有LIMIT；内表、外表的各种超过MySQL支持的最大表的连接数。</p>
-<p><strong>等价谓词重写</strong></p>
-<p>通过分析处理查询中的谓词，把逻辑表达式改写成等价的且效率更高的形式，能有效提高查询效率。这就是等价谓词重写。</p>
-<p>等价谓词重写有很多规则和算法提供支持，MySQL对等价谓词重写优化技术的支持情况如下表所示：</p>
-<table>
-<thead>
-<tr>
-<th>规则</th>
-<th>谓词原型</th>
-<th>转换后的谓词形式</th>
-<th>带来的好处</th>
-<th>MySQL支持情况</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>NOT规则</td>
-<td>NOT(age!=8)<br>NOT(age!=sno)<br>NOT(age=sno)<br>NOT(age&lt;sno)<br>NOT(age&gt;sno)</td>
-<td>(test.age=8)<br>(test.sno=test.age)<br>(test.age&lt;&gt;test.sno)<br>(test.age&gt;=test.sno)<br>(test.age&lt;=test.sno)</td>
-<td>NOT规则重写的好处是，如果age列上建立了索引，则可以用索引扫描代替原来的全表扫描</td>
-<td>支持</td>
-</tr>
-<tr>
-<td>LIKE规则</td>
-<td>name LIKE &#39;abc%&#39;</td>
-<td>test.name &gt;= &#39;abc&#39; AND name &lt; &#39;abd&#39;</td>
-<td>LIKE谓词只能进行全表扫描，如果name列上存在索引则转换后可以进行索引范围扫描</td>
-<td>不支持</td>
-</tr>
-<tr>
-<td>BETWEEN-AND规则</td>
-<td>BETWEEN 10 AND 20</td>
-<td>test.sno &gt;= 10 and sno &lt;=20</td>
-<td>如果sno上简历了索引，则可以避免BETWEEN-AND限定的全表扫描</td>
-<td>不支持</td>
-</tr>
-</tbody>
-</table>
-<p>可以看出，MySQL只对NOT谓词进行了谓词重写优化，因此在编写SQL时应根据情况进行适当的SQL优化来提高执行效率。还有其他几种谓词重写优化规则，因为MySQL并不支持优化因此未全部列出。</p>
-<p><strong>条件化简</strong></p>
-<p>WHERE、HAVING和ON条件由许多表达式组成，而这些表达式在某些时候彼此之间存在一定的联系。利用等式和不等式的性质，可以将WHERE、HAVING和ON化简。MySQL支持的条件化简规则如下：</p>
-<table>
-<thead>
-<tr>
-<th>规则</th>
-<th>表达式原型</th>
-<th>支持情况</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>去除表达式中冗余的括号</td>
-<td>((a AND b) AND (c AND d))</td>
-<td>支持</td>
-</tr>
-<tr>
-<td>常量传递</td>
-<td>name=age AND age=3</td>
-<td>支持</td>
-</tr>
-<tr>
-<td>消除死码</td>
-<td>(0&gt;1 OR a=5)</td>
-<td>支持</td>
-</tr>
-<tr>
-<td>合取项只要有一个为假，即整个表达式为假</td>
-<td>(0&gt;1 AND s1=5)</td>
-<td>支持</td>
-</tr>
-<tr>
-<td>AND操作符是可交换的</td>
-<td>name+age=100 AND name&gt;1 AND age&gt;2</td>
-<td>支持，MySQL支持对条件按表达式的连接顺序进行排序，有限判断连接的表涉及的条件</td>
-</tr>
-<tr>
-<td>表达式计算</td>
-<td>name = 1+2</td>
-<td>部分支持如果操作数都是常量则能计算求值；</td>
-</tr>
-</tbody>
-</table>
-<p><strong>外连接消除</strong></p>
-<p>MySQL支持外连接转换为内连接，转换的条件是内表符合“空值拒绝”。所谓“空值拒绝”一般指的是一下两种情形：条件可以保证从结果中排除外连接右侧生成的值为NULL的行（即条件确保应用在右表带有空值的对象上时，条件不满足，条件的结果值为FALSE或UNKNOWN，这样右表就不会有值为NULL的行生成），所以能使该查询在语义上等效于内连接。外连接的提供空值的一侧（可能是左侧的外表也可能是右侧的内表）为另一侧的每行只返回一行。如果该条件为真，则不存在提供空值的行，并且外连接等价于内连接。</p>
-<p><strong>嵌套连接消除</strong></p>
-<p>嵌套连接消除的意义在于：对嵌套连接消除为多表的直接连接，表之间的连接次序是可以交换的，这样能灵活求解不同连接方式的花费，进而得到最小花费的连接方式。而嵌套连接则不能利用交换表的位置而获得优化。</p>
-<p><strong>语义优化</strong></p>
-<p>MySQL通过add_not_null_conds函数，部分实现了语义优化的功能(这是通过对DDL中定义了非空的属性，而SQL查询语句中限定了IS NULL)，比如创建表的DDL中指定了name为NOT NULL，而SQL查询语句如下所示：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> s.name,s.age <span class="keyword">FROM</span> student s <span class="keyword">WHERE</span> <span class="keyword">name</span> <span class="keyword">IS</span> <span class="literal">NULL</span> <span class="keyword">AND</span> age &gt; <span class="number">18</span>;</div></pre></td></tr></table></figure></p>
-<p>优化后的SQL为：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> s.name,s.age <span class="keyword">FROM</span> student s <span class="keyword">WHERE</span> <span class="number">0</span>;</div></pre></td></tr></table></figure></p>
-<p><strong>非SPJ优化</strong></p>
-<p><strong>GROUP BY优化</strong>　MySQL对GROUP BY的处理通常采用的方式是扫描整个表，创建一个临时表用以执行分组操作。所以查询执行计划中出现Using temporary字样就表示MySQL采用了常规处理方式。MySQL对GROUP BY的优化方法就是尽量利用索引。利用索引的条件是：分组子句中的列对象源自同一个b树索引（不支持hash索引优化）的全部或前缀部分的部分有序的键（分组使用的索引列与索引索引简历的顺序不匹配则不能使用索引）。主要方式有松散索引扫描和严密索引扫描。这两个扫描都是以WHERE中的列对象为依据，用索引匹配，如果全部匹配上，则表示是严密索引扫描；如果部分匹配上，则表示是松散索引扫描，如果没有可以匹配的，则表示不能利用索引进行分组操作的优化。</p>
-<p><strong>ORDER BY优化</strong>　所谓的ORDER BY优化其实是使用基于对索引的扫描对排序进行优化。通过扫描索引来减少扫描表带来的IO，但该优化只支持查询的目标列都是索引列的情况。</p>
-<p><strong>DISTINCT优化</strong>　对于DISTINCT的优化，MySQL支持基于索引的DISTINCT优化和DISTINCT迁移的优化技术。<br>基于索引的优化同其他优化类似，都是使用基于索引的扫描来代替表扫描来减少IO从而提供性能。<br>而DISTINCT迁移的优化是指在对连接操作的结果执行DISTINCT时，可能可以把DISTINCT迁移到一个子查询中优先进行。</p>
-<p><strong>LIMIT优化</strong>　MySQL支持对不带HAVING子句的LIMIT进行优化。主要优化点如下：</p>
-<p>LIMIT对单表扫描的影响：如果索引扫描可用且花费低于全表扫描，则用索引扫描实现LIMIT（如果LIMIT取的行数过大，则优化器可能会使用全表扫描）。</p>
-<p>LIMIT对排序的影响：如果LIMIT和ORDER BY子句一起使用，当取到LIMIT设定个数的有序元组数后，后续的排序操作将不再进行。</p>
-<p>LIMIT对去重的影响：如果LIMIT和DISTINCT子句一起使用，当取到LIMIT设定个数的唯一的元组数后，后续的去重操作将不再进行。</p>
-<p>LIMIT受分组的影响：如果LIMIT和GROUP BY子句一起使用，GROUP BY按索引有序计算每个组的总数的过程中，LIMIT操作不必计数直到下一个分组开始计算。</p>
-<p>LIMIT 0：直接返回空结果集。</p>
-<h3 id="物理查询优化"><a href="#物理查询优化" class="headerlink" title="物理查询优化"></a>物理查询优化</h3><p>物理查询优化阶段，MySQL对转变后的语法树，进一步根据代价估算模型，评估单表扫描的方式和多表连接最优的连接方式。即先对多个表的连接次序进行组合，得到多种不同的连接次序下形成的执行计划，然后用贪婪算法完成每种访问方式的代价估算。</p>
-<p>查询代价估算基于CPU代价和IO代价，代价模型可表示为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">总代价 = IO 代价 + CPU代价，</div><div class="line">即 COST = P*a_page_cpu_time + W*T</div></pre></td></tr></table></figure></p>
-<p>其中：</p>
-<ul>
-<li>P为该计划执行时可能访问的页面数，a_page_cpu_time是每个页面读取花费的时间，其乘积反映了IO代价；</li>
-<li>T为访问的记录数，反映了CPU花费（访问记录需要解析记录的结构，才能把记录上的字段读出，这消耗的是cpu）。如果是索引扫描，还会包括索引读取的代价。</li>
-<li>W为权重因子，表示IO到CPU的相关性，又称为选择率。选择率表示满足条件的记录数与表中总记录数的比值。需要注意的是，选择率的计算不可能全表扫描得出，一般采用数据抽样方法评估和采用数据结构提前维护属性值的一个直方图描述分布情况。</li>
-</ul>
-<p>特别地，对于单表扫描，在使用基于索引的扫描和全表扫描时的代价估算公式分别如下：</p>
-<p>其中：</p>
-<ul>
-<li>a_page_IO_time, 一个页面的IO花费</li>
-<li>N_page, 读取的页面数</li>
-<li>N_page_index, 索引页面数</li>
-<li>a_tuple_CPU_time, 一条记录从页面解析的CPU花费</li>
-<li>N_tuple, 记录数</li>
-<li>C_index, 索引的IO花费，C_index = N_page_index * a_page_IO_time</li>
-<li>N_tuple_index, 索引作用下的记录数， N_tuple_index = N_tuple * 索引选择率</li>
-</ul>
-<p>从以上公式中可以看出，使用索引扫描能明显减少IO代价，索引是提高查询效率的有效手段。但是某个列上存在索引，并不意味着索引能够被使用。通常查询优化器使用索引的原则如下：<br>索引列作为条件出现在WHERE、HAVING、ON子句中，这样有利于利用索引过滤出记录；<br>索引列是被连接的表的列且存在于连接条件中；</p>
-<p>除了以上两种情况，还有一些特殊情况可以使用索引，比如基于索引列的排序操作、在索引列上求MIN、MAX值等。</p>
-<p>对于有索引的列，索引可用的条件总结如下：<br>　<br>| 扫描方式 | 代价估算公式 |<br>| — | — |<br>| 全表扫描 | N_page*a_tuple_IO_time + N_tuple*a_tuple_CPU_time |<br>| 索引扫描 | C_index + N_page_index * a_tuple_IO_time |</p>
-<ul>
-<li><p>在<code>WHERE</code>、<code>JOIN/ON</code>、<code>HAVING</code>的条件中出现“列名 &lt;操作符>常量”格式的条件子句（索引列不能参与带有变量的表达式计算）；</p>
-</li>
-<li><p>操作符不能是&lt;>操作符（不等于操作符在任何类型的列上不能使用索引，可以认为这是一个优化规则，在这种情况下，顺序扫描的效果通常好于索引扫描）；</p>
-</li>
-<li><p>索引列的选择率越低，索引越有效，通常认为索引选择率小于0.1则索引扫描效果会更好。</p>
-</li>
-</ul>
-<p>需要注意的是在以下情况中不一定会使用索引：</p>
-<ul>
-<li><p>做连接条件的记录定位不一定用索引（代价估算决定哪种扫描方式最优）；</p>
-</li>
-<li><p>索引在<code>WHERE</code>中出现，但是是与子查询比较，不会使用索引，比如:<figure class="highlight plain"><figcaption><span>t.t1 IN (SELECT a.a1 FROM A a);```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div></pre></td><td class="code"><pre><div class="line"> 其中t1是索引列；</div><div class="line"></div><div class="line">* 索引列出现在`GROUP BY`子句中，而不在WHERE子句中，不触发索引扫描；</div><div class="line"></div><div class="line">**联合索引对索引使用的影响：**</div><div class="line"></div><div class="line">联合索引只由多个列组合形成的组合索引，如果在WHERE子句中出现了部分索引列，但是这部分索引列不是联合索引的前缀部分，不会使用索引。例如有如下的联合索引（r1, r2, r3, r4）则有如下情形：</div><div class="line"></div><div class="line">| WHERE中出现的索引列 | 是否使用索引 | 哪些索引列起作用 | 解释 |</div><div class="line">| --- | --- | --- | --- |</div><div class="line">| r1, r2 | 是 | r1, r2 | r1, r2是r1, r2, r3, r4的前缀 |</div><div class="line">| r2, r3 | 否 | - | r2, r3是r1, r2, r3, r4的前缀 |</div><div class="line">| r1, r2, r4 | 是 | r1, r2 | 只有r1, r2是r1, r2, r3, r4的前缀 |</div><div class="line"></div><div class="line"></div><div class="line">**多个索引对使用的影响:**</div><div class="line"></div><div class="line">* `WHERE`条件中出现两个可利用的索引，优选最简单的索引；</div><div class="line"></div><div class="line">* `WEHRE`条件中包含一个索引但在两个条件中出现，优选最简单的索引；</div><div class="line"></div><div class="line">* 独立索引优先于联合索引；</div><div class="line"></div><div class="line">* 等值比较优先于范围扫描；</div><div class="line"></div><div class="line">## 数据管理器</div><div class="line"></div><div class="line">数据管理器包含缓冲管理器、事务管理器以及数据访问管理器。事务管理器用于处理事务，缓存管理器负责数据被使用之前和写入磁盘之前置于内存。数据访问管理器通过定义的接口访问磁盘中的数据。这部分主要深入聊一下缓存管理器和事务管理器。</div><div class="line"></div><div class="line">### 缓存管理器</div><div class="line"></div><div class="line">数据库的主要瓶颈是磁盘 I/O。为了提高性能，现代数据库使用缓存管理器。查询执行器不会直接从文件系统拿数据，而是向缓存管理器要。缓存管理器有一个内存缓存区，叫做缓冲池，从内存读取数据显著地提升数据库性能。缓存的操作和管理由存储引擎实现，MYSQL只定义缓存的接口。</div><div class="line"></div><div class="line">缓冲只是容量有限的内存空间，因此，为了加载新的数据，它需要移除一些数据。加载和清除缓存需要一些磁盘和网络I/O的成本。如果你有个经常执行的查询，那么每次都把查询结果加载然后清除，效率就太低了。现代数据库用缓冲区置换策略来解决这个问题。</div><div class="line"></div><div class="line">#### 缓冲区置换策略</div><div class="line"></div><div class="line">多数现代数据库(至少 SQL Server, MYSQL, Oracle 和 DB2)使用 LRU 算法。LRU代表最近最少使用（Least Recently Used）算法，背后的原理是：在缓存里保留的数据是最近使用的，所以更有可能再次使用。这个算法效果很好，但是有些限制。如果对一个大表执行全表扫描怎么办？换句话说，当表/索引的大小超出缓冲区会发生什么？使用这个算法会清除之前缓存内所有的数据，而且全扫描的数据很可能只使用一次。为了解决这个问题，LRU算法产生了很多衍生的优化算法，大致原理类似，新数据不是直接插到队列头部，而是中间某个位置，当达到一定访问次数之后，才进入热数据区域。</div><div class="line"></div><div class="line">#### 写缓冲区</div><div class="line"></div><div class="line">我只探讨了读缓存--在使用之前预先加载数据。缓冲区域也可以用来保存数据，然后成批刷入磁盘，而不是逐条写入数据从而造成很多单次磁盘访问。要记住，缓冲区保存的是页（最小的数据单位）而不是行（逻辑上/人类习惯的观察数据的方式）。缓冲池内的页如果被修改了但还没有写入磁盘，就是脏页。MYSQL会有另外一颗共享B+树记录脏页，当相同页的其他行数据再次修改，可以先在内存中进行Merge，MYSQL会定期（每秒和每10秒）进行刷脏，每次读取涉及脏页也会触发刷脏。</div><div class="line"></div><div class="line">### Innodb事务管理</div><div class="line"></div><div class="line">事务（Transaction）是数据库区别于文件系统的重要特性之一，事务会把数据库从一种一致性状态转换为另一种一致性状态。在数据库提交时，可以确保要么所有修改都已保存，要么所有修改都不保存。事务可由一条非常简单的SQL语句组成，也可以由一组复杂的SQL语句组成。事务是访问并更新数据库中各种数据项的一个程序执行单元。</div><div class="line"></div><div class="line">InnoDB存储引擎中的事务满足ACID的特性:</div><div class="line"></div><div class="line">* 原子性(atomicity )</div><div class="line"></div><div class="line">* 一致性(consistency)</div><div class="line"></div><div class="line">* 隔离性(isolation )</div><div class="line"></div><div class="line">* 持久性(durability)</div><div class="line"></div><div class="line">#### 事务分类</div><div class="line"></div><div class="line">从事务理论的角度可以把事务分为以下几种类型：</div><div class="line"></div><div class="line">* 扁平事务（Flat Transactions）</div><div class="line"></div><div class="line">* 带有保存节点的扁平事务（Flat Transactions with Savepoints）</div><div class="line"></div><div class="line">* 链事务（Chained Transactions）</div><div class="line"></div><div class="line">* 嵌套事务（Nested Transactions）</div><div class="line"></div><div class="line">* 分布式事务（Distributed Transactions）</div><div class="line"></div><div class="line">**扁平事务**</div><div class="line"></div><div class="line">扁平事务（Flat Transactions）是事务类型中最简单但使用最频繁的事务。在扁平事务中，所有的操作都处于同一层次，由`BEGIN/START TRANSACTION`开始事务，由`COMMIT/ROLLBACK`结束，且都是原子的，要么都执行，要么都回滚。因此扁平事务是应用程序成为原子操作的基本组成模块。</div><div class="line"></div><div class="line">扁平事务的主要限制是不能提交或者回滚事务的某一部分。如果某一事务中有多个操作，在一个操作有异常时并不希望之的操作全部回滚，而是保存前面操作的更改。扁平事务并不能支持这样的事例，因此就出现了带有保存节点的扁平事务。</div><div class="line"></div><div class="line">**带有保存节点的扁平事务**</div><div class="line"></div><div class="line">带有保存节点的扁平事务（Flat Transactions with Savepoints）允许事务在执行过程中回滚到较早的一个状态，而不是回滚所有的操作。保存点（Savepoint）用来通知系统应该记住事务当前的状态，以便当之后发生错误时，事务能回到保存点当时的状态。对于扁平事务来说，在事务开始时隐式地设置了一个保存点，回滚时只能回滚到事务开始时的状态。</div><div class="line"></div><div class="line">**链事务**</div><div class="line"></div><div class="line">链事务（Chained Transaction）是指一个事务由多个子事务链式组成。前一个子事务的提交操作和下一个子事务的开始操作合并成一个原子操作，这意味着下一个事务将看到上一个事务的结果，就好像在一个事务中进行的一样。这样，在提交子事务时就可以释放不需要的数据对象，而不必等到整个事务完成后才释放。</div><div class="line"></div><div class="line">链事务与带保存节点的扁平事务不同的是，链事务中的回滚仅限于当前事务，相当于只能恢复到最近的一个保存节点，而带保存节点的扁平事务能回滚到任意正确的保存点。但是，带有保存节点的扁平事务中的保存点是易失的，当发生系统崩溃是，所有的保存点都将消失，这意味着当进行恢复时，事务需要从开始处重新执行。</div><div class="line"></div><div class="line">**嵌套事务**</div><div class="line"></div><div class="line">嵌套事务（Nested Transaction）是一个层次结构框架。由一个顶层事务（top-level transaction）控制着各个层次的事务。顶层事务之下嵌套的事务成为子事务（subtransaction）,其控制着每一个局部的操作，子事务本身也可以是嵌套事务。因此，嵌套事务的层次结构可以看成是一颗树，其结构如下图所示：</div><div class="line"></div><div class="line">![](/img/doc/mysql/Manual-MySQL-20170702/image4.png)</div><div class="line"></div><div class="line">**分布式事务**</div><div class="line"></div><div class="line">分布式事务（Distributed Transactions）通常是一个在分布式环境下运行的扁平事务，因此需要根据数据所在位置访问网络中不同节点的数据库资源。</div><div class="line">#### 事务实现</div><div class="line"></div><div class="line">redo log（重做日志）用来保证事务的持久性。undo log用来保证事务的原子性和MVCC。锁机制来保证事务的隔离性。</div><div class="line"></div><div class="line">redo和undo的作用都可以视为是一种恢复操作，redo恢复提交事务修改的页操作，而undo回滚行记录到某个特定版本。因此两者记录的内容不同，redo通常是物理日志，记录的是页的物理修改操作。undo是逻辑日志，根据每行记录进行记录。</div><div class="line"></div><div class="line">**redo 日志**</div><div class="line"></div><div class="line">重做日志用来实现事务的持久性，即事务ACID中的D。其由两部分组成:一是内存中的重做日志缓冲(redo log buffer，其是易失的；二是重做日志文件(redo log file其是持久的。</div><div class="line"></div><div class="line">InnoDB是事务的存储引擎，其通过Force Log at Commit机制实现事务的持久性，即当事务提交(COMMIT)时，必须先将该事务的所有日志写人到重做日志文件进行持久化，待事务的COMMIT操作完成才算完成。</div><div class="line"></div><div class="line">redo log基本上都是顺序写的，在数据库运行时不需要对redo log的文件进行读取操作。为了确保每次日志都写入重做日志文件，在每次将重做日志缓冲写人重做日志文件后，InnoDB存储引擎都需要调用一次fsync操作。由于重做日志文件打开并没有使用o_DIRECT选项，因此重做日志缓冲先写入文件系统缓存。为了确保重做日志写入磁盘，必须进行一次fsync操作。由于fsync的效率取决于磁盘的性能，因此磁盘的性能决定了事务提交的性能，也就是数据库的性能。</div><div class="line"></div><div class="line">InnoDB存储引擎允许用户手工设置非持久性的情况发生，以此提高数据库的性能。即当事务提交时，日志不写入重做日志文件，而是等待一个时间周期后再执行fsync操作。由于并非强制在事务提交时进行一次fsync操作，显然这可以显著提高数据库的性能。但是当数据库发生宕机时，由于部分日志未刷新到磁盘，因此会丢失最后一段时间的事务。</div><div class="line"></div><div class="line">参数innodb_flush_log_at_trx_commit用来控制重做日志刷新到磁盘的策略。该参数的默认值为1，表示事务提交.时必须调用一次fcync操作。还可以设置该参数的值为0和2。0表示事务提交时不进行写入重做日志操作，这个操作仅在maser thread中完成，而在master thread中每1秒会进行一次重做日志文件的fsync操作。2表示事务提交时将重做日志写入重做日志文件，但仅写入文件系统的缓存中，不进行fsync操作。在这个设置下，当MySQL数据库发生宕机而操作系统不发生宕机时，并不会导致事务的丢失。</div><div class="line"></div><div class="line">**undo 日志**</div><div class="line"></div><div class="line">重做日志记录了事务的行为，可以很好地通过其对页进行“重做”操作。但是事务有时还需要进行回滚操作，这时就需要undo。因此在对数据库进行修改时，InnoDB存储引擎不但会产生redo，还会产生一定量的undo。这样如果用户执行的事务或语句由于某种原因失败了，又或者用户用一条ROLLBACK语句请求回滚，就可以利用这些undo信息将数据回滚到修改之前的样子。</div><div class="line"></div><div class="line">redo存放在重做日志文件中，与redo不同，undo存放在数据库内部的一个特殊段(segment)中，这个段称为undo段(undo segment ) 。undo段位于共享表空间内。</div><div class="line"></div><div class="line">用户通常对undo有这样的误解:undo用于将数据库物理地恢复到执行语句或事务之前的样子--但事实并非如此。undo是逻辑日志，因此只是将数据库逻辑地恢复到原来的样子。所有修改都被逻辑地取消了，但是数据结构和页本身在回滚之后可能大不相同。这是因为在多用户并发系统中，可能会有数十、数百甚至数千个并发事务。数据库的主要任务就是协调对数据记录的并发访问。比如，一个事务在修改当前一个页中某几条记录，同时还有别的事务在对同一个页中另几条记录进行修改。因此，不能将一个页回滚到事务开始的样子，因为这样会影响其他事务正在进行的工作。</div><div class="line"></div><div class="line">例如，用户执行了一个`INSERT `10W条记录的事务，这个事务会导致分配一个新的段，即表空间会增大。在用户执行`ROLLBACK`时，会将插入的事务进行回滚，但是表空间的大小并不会因此而收缩。因此，当InnoDB存储引擎回滚时，它实际上做的是与先前相反的工作。对于每个`INSERT`,  InnoDB存储引擎会完成一个`DELETE`；对于每个`DELETE`，InnoDB存储引擎会执行一个`INSERT`；对于每个`UPDATE`，InnoDB存储引擎会执行一个相反的`UPDATE`，将修改前的行放回去。</div><div class="line"></div><div class="line">除了回滚操作，undo的另一个作用是MVCC，即在InnoDB存储引擎中MVCC的实现是通过undo来完成。当用户读取一行记录时，若该记录已经被其他事务占用，当前事务可以通过undo读取之前的行版本信息，以此实现非锁定读取。</div><div class="line"></div><div class="line">最后也是最为重要的一点是，undo log会产生redo log，也就是undo log的产生会伴随着redo log的产生，这是因为undo log也需要持久性的保护。</div><div class="line"></div><div class="line">### 事务的隔离级别</div><div class="line"></div><div class="line">SQL标准定义的四个隔离级别为:</div><div class="line"></div><div class="line">* READ UNCOMMITTED</div><div class="line"></div><div class="line">* READ COMMITTED</div><div class="line"></div><div class="line">* REPEATABLE READ</div><div class="line"></div><div class="line">* SERIALIZABLE</div><div class="line"></div><div class="line">**Read Uncommitted（读取未提交内容）**</div><div class="line"></div><div class="line">   在该隔离级别，所有事务都可以看到其他未提交事务的执行结果。本隔离级别很少用于实际应用，因为它的性能也不比其他级别好多少。读取未提交的数据，也被称之为脏读（Dirty Read）。脏页是因为数据库实例内存和磁盘的异步造成的，这并不影响数据的一致性(或者说两者最终会达到一致性，即当脏页都刷回到磁盘)。并且因为脏页的刷新是异步的，不影响数据库的可用性，因此可以带来性能的提高。</div><div class="line"></div><div class="line">**Read Committed（读取提交内容）**</div><div class="line"></div><div class="line"> 　 这是大多数数据库系统的默认隔离级别（但不是MySQL默认的）。它满足了隔离的简单定义：一个事务只能看见已经提交事务所做的改变。这种隔离级别也支持所谓的不可重复读（Nonrepeatable Read）。不可重复读是指在一个事务内多次读取同一数据集合，在这个事务还没有结束时，另外一个事务也访问该同一数据集合，并做了一些DML操作，因此，在第一个事务中的两次读数据之间，由于第二个事务的修改，那么第一个事务两次读到的数据可能是不一样的。</div><div class="line"></div><div class="line">不可重复读和脏读的区别是:脏读是读到未提交的数据，而不可重复读读到的却是已经提交的数据，但是其违反了数据库事务一致性的要求。一般来说，不可重复读的问题是可以接受的，因为其读到的是已经提交的数据，本身并不会带来很大的问题。因此，很多数据库厂商(如Oracle, Microsoft SQL Server) 将其数据库事务的默认隔离级别设置为READ COMMITTED，在这种隔离级别下允许不可重复读的现象。</div><div class="line"></div><div class="line">**Repeatable Read（可重读）**</div><div class="line"></div><div class="line"> 这是MySQL的默认事务隔离级别，它确保同一事务的多个实例在并发读取数据时，会看到同样的数据行。不过理论上，这会导致另一个棘手的问题：幻读（Phantom Read）。幻读是指当事务不是独立执行时发生的一种现象，例如第一个事务对一个表中的数据进行了修改，比如这种修改涉及到表中的“全部数据行”。同时，第二个事务也修改这个表中的数据，这种修改是向表中插入“一行新数据”。那么，以后就会发生操作第一个事务的用户发现表中还存在没有修改的数据行，就好象发生了幻觉一样.</div><div class="line"></div><div class="line">**Serializable（可串行化）**</div><div class="line"></div><div class="line"> 这是最高的隔离级别，它通过强制事务排序，使之不可能相互冲突，从而解决幻读问题。简言之，它是在每个读的数据行上加上锁。在这个级别，可能导致大量的超时现象和锁竞争。</div><div class="line">√: 可能出现    ×: 不会出现</div><div class="line"></div><div class="line">|   | 脏读 | 不可重复读 | 幻读 |</div><div class="line">| --- | --- | --- | --- |</div><div class="line">| Read uncommitted | √ | √ | √ |</div><div class="line">| Read committed | × | √ | √ |</div><div class="line">| Repeatable read | × | × | √ |</div><div class="line">| Serializable | × | × | × |</div><div class="line"></div><div class="line">**注意：**</div><div class="line">幻读的问题理应由更高的隔离级别来解决，但MySQL和其它数据不一样，它同样在可重复读的隔离级别解决了这个问题。也就是说, MySQL的可重复读的隔离级别解决了&quot;不可重复读&quot; 和 “幻读” 2个问题，其中“幻读”需要应用使用加锁读来保证。而这个加锁度使用到的机制就是next-keylocks。MySQL默认的隔离级别也是: REPEATABLE READ(可重复读)。下面我们来看InnoDB如何通过锁机制解决以上问题：</div><div class="line"></div><div class="line">#### 锁机制</div><div class="line"></div><div class="line">锁是数据库系统区别于文件系统的一个关键特性。锁机制用于管理对共享资源的并发访问。InnoDB存储引擎会在行级别上对表数据上锁，这固然不错。不过InnoDB存储引擎也会在数据库内部其他多个地方使用锁，从而允许对多种不同资源提供并发访问。例如，操作缓冲池中的LRU列表，删除、添加、移动LRU列表中的元素，为了保证一致性，必须有锁的介人。数据库系统使用锁是为了支持对共享资源进行并发访问，提供数据的完整性和一致性。</div><div class="line"></div><div class="line">**锁的类型**</div><div class="line"></div><div class="line">InnoDB存储引擎实现了如下两种标准的行级锁:</div><div class="line">* 共享锁((S Lock)，允许事务读一行数据。</div><div class="line">* 排他锁(X Lock)，允许事务删除或更新一行数据。</div><div class="line"></div><div class="line">如果一个事务T1已经获得了行t的共享锁，那么另外的事务T2可以立即获得行r的共享锁，因为读取并没有改变行r的数据，称这种情况为锁兼容(Lock Compatible)。但若有其他的事务T3想获得行r的排他锁，则其必须等待事务T1, T2释放行r上的共享锁—这种情况称为锁不兼容。下表显示了共享锁和排他锁的兼容性。</div><div class="line"></div><div class="line">**排他锁和共享锁的兼容性:**</div><div class="line"></div><div class="line">从上表可以发现X锁与任何的锁都不兼容，而S锁仅和S锁兼容。需要特别注意的是，S和x锁都是行锁，兼容是指对同一记录(row)锁的兼容性情况。此外，InnoDB存储引擎支持多粒度(granular)锁定，这种锁定允许事务在行级上的锁和表级上的锁同时存在。为了支持在不同粒度上进行加锁操作，InnoDB存储引擎支持一种额外的锁方式，称之为意向锁(Intention Lock )。意向锁是将锁定的对象分为多个层次，意向锁意味着事务希望在更细粒度(fine granularity)上进行加锁。若将上锁的对象看成一棵树，那么对最下层的对象上锁，进行上锁，行上X锁，那么首先需要对粗粒度的对象上锁。也就是对最细粒度的对象如果需要对页上的记录r进 那么分别需要对数据库A、表、页上意向锁IX，最后对记录r上x锁。若其中任何一个部分导致等待，那么该操作需要等待粗粒度锁的完成。举例来说，在对记录r加X锁之前，已经有事务对表1进行了S表锁，那么表i上已存在S锁，之后事务需要对记录r在表1上加上IX，由于不兼容，所以该事务需要等待表锁操作的完成。</div><div class="line"></div><div class="line">InnoDB存储引擎支持意向锁设计比较简练，其意向锁即为表级别的锁。设计目的主要是为了在一个事务中揭示下一行将被请求的锁类型。其支持两种意向锁:</div><div class="line"></div><div class="line">* 意向共享锁(IS Lock)，事务想要获得一张表中某几行的共享锁</div><div class="line">* 意向排他锁(IX Lock)，事务想要获得一张表中某几行的排他锁</div><div class="line"></div><div class="line">由于InnoDB存储引擎支持的是行级别的锁，因此意向锁其实不会阻塞除全表扫以外的任何请求。故表级意向锁与行级锁的兼容性如下标所示。</div><div class="line">Innodb存储引擎中锁的兼容性</div><div class="line"></div><div class="line">| 时间 | 会话A | 会话B |</div><div class="line">| --- | --- | --- |</div><div class="line">| 1 | BEGIN; |   |</div><div class="line">| 2 | SELECT \* FROM t WHERE a=5 FOR UPDATE; |   |</div><div class="line">| 3 |   | BEGIN; |</div><div class="line">| 4 |   | INSERT INTO t SELECT 4; |</div><div class="line">| 5 |   | COMMIT; |</div><div class="line">| 6 | COMMIT; |   |</div><div class="line"></div><div class="line">#### 多版本并发控制（MVCC）</div><div class="line"></div><div class="line">在并发读写数据库时，为了避免出现读操作出现不一致的情况，需要实现数据库的并发访问控制，最简单的方式就是加锁访问。由于，加锁会将读写操作串行化，所以不会出现不一致的状态。但是，读操作会被写操作阻塞，大幅降低读性能。为了提高性能，解决并发访问的问题，InnoDB使用MVCC（Multi-Version Concurrent Control，即多版本并发控制）来解决这个问题。</div><div class="line">在MVCC协议下，每个读操作会看到一个一致性的snapshot，并且可以实现非阻塞的读。MVCC允许数据具有多个版本，这个版本可以是时间戳或者是全局递增的事务ID，在同一个时间点，不同的事务看到的数据是不同的。如果读取的行正在执行DELETE或UPDATE操作，这时读取操作不会因此去等待行上锁的释放。相反地，InnoDB存储引擎会去读取行的一个快照数据。快照数据是指该行的之前版本的数据，该实现是通过undo段来完成。而undo用来在事务中回滚数据，因此快照数据本身是没有额外的开销。此外，读取快照数据是不需要上锁的，因为没有事务需要对历史的数据进行修改操作。</div><div class="line"></div><div class="line">可以看到，非锁定读机制极大地提高了数据库的并发性。在InnoDB存储引擎的默认设置下，这是默认的读取方式，即读取不会占用和等待表上的锁。但是在READ COMMITTED事务隔离级别下，快照数据读取的是被锁定行的最新一份快照数据。而在REPEATABLE READ事务隔离级别下，快照数据读取的是事务开始时的行数据版本。</div><div class="line"></div><div class="line">在事务的隔离级别为REPEATABLE READ模式下，InnoDB存储引擎的SELECT操作是不需要加锁的。但是在某些情况下，用户需要显式地对数据库读取操作进行加锁以保证数据逻辑的一致性。而这要求数据库支持加锁语句，即使是对于SELECT的只读操作。InnoDB存储引擎对于SELECT语句支持两种一致性的锁定读(locking read )操作:</div><div class="line"></div><div class="line">* SELECT…FOR UPDATE</div><div class="line">* SELECT…LOCK IN SHARE MODE</div><div class="line">* SELECT FOR UPDATE对读取的行记录加一个X锁，其他事务不能对已锁定的行加上任何锁。SELECT…LOCK IN SNARE MODE对读取的行记录加一个S锁，其他事务可以向被锁定的行加S锁，但是如果加X锁，则会被阻塞。</div><div class="line"></div><div class="line">结论：当一个事务请求的锁模式与当前的锁兼容，InnoDB就将请求的锁授予该事务；反之如果请求不兼容，则该事务就等待锁释放。</div><div class="line"></div><div class="line"> 对于insert、update、delete，InnoDB会自动给涉及的数据加排他锁（X）；对于一般的Select语句，InnoDB不会加任何锁，事务可以通过以下语句给显示加共享锁或排他锁。</div><div class="line"></div><div class="line"> 共享锁：</div><div class="line">```sql</div><div class="line">select * from table_name where .....lock in share mode</div></pre></td></tr></table></figure></p>
-</li>
-</ul>
-<p>排他锁：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> table_name <span class="keyword">where</span> .....for <span class="keyword">update</span></div></pre></td></tr></table></figure></p>
-<p><strong>锁的算法</strong></p>
-<p>行锁的3种算法</p>
-<p>InnoDB存储引擎有3种行锁的算法，其分别是:</p>
-<ul>
-<li>Record Lock:单个行记录上的锁</li>
-<li>Gap Lock:间隙锁，锁定一个范围，但不包含记录本身</li>
-<li>Next-Key Lock:Gap Lock+Record Lock锁定一个范围，并且锁定记录本身</li>
-</ul>
-<p>Record Lock总是会去锁住索引记录，如果InnoDB存储引擎表在建立的时候没有设置任何一个索引，那么这时InnoDB存储引擎会使用隐式的主键来进行锁定。</p>
-<p>Next-Key Lock是结合了Gap Lock和Record Lock的一种锁定算法，在Next-Key Lock算法下，InnoDB对于行的查询都是采用这种锁定算法。例如一个索引有10,11,13和20这四个值，那么该索引可能被Next-Key Locking的区间为:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">(-∞，10]</div><div class="line">(10，11]</div><div class="line">(11，13]</div><div class="line">(13，20]</div><div class="line">(20，+∞)</div></pre></td></tr></table></figure>
-<p>若事务T1已经通过next-key locking 锁定了如下范围：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">（10,11）、(11，13)</div></pre></td></tr></table></figure>
-<p>当插入新的记录12时，则锁定的范围会变成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">（10,11）、(11，12) 、(12，13)</div></pre></td></tr></table></figure></p>
-<p>然而，当查询的索引含有唯一属性时，InnoDB存储引擎会对Next-Key Lock进行优化，将其降级为Record Lock，即仅锁住索引本身，而不是范围。例如，根据代码创建表t:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> t;</div><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> t(a <span class="built_in">INT</span> PRIMARY <span class="keyword">KEY</span>);</div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t <span class="keyword">SELECT</span> <span class="number">1</span>;</div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t <span class="keyword">SELECT</span> <span class="number">2</span>;</div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t <span class="keyword">SELECT</span> <span class="number">5</span>;</div></pre></td></tr></table></figure>
-<p>接着执行下表中的sql语句</p>
-<table>
-<thead>
-<tr>
-<th>时间</th>
-<th>会话A</th>
-<th>会话B</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>BEGIN;</td>
-<td></td>
-</tr>
-<tr>
-<td>2</td>
-<td>SELECT * FROM t WHERE a=5 FOR UPDATE;</td>
-<td></td>
-</tr>
-<tr>
-<td>3</td>
-<td></td>
-<td>BEGIN;</td>
-</tr>
-<tr>
-<td>4</td>
-<td></td>
-<td>INSERT INTO t SELECT 4;</td>
-</tr>
-<tr>
-<td>5</td>
-<td></td>
-<td>COMMIT;</td>
-</tr>
-<tr>
-<td>6</td>
-<td>COMMIT;</td>
-</tr>
-</tbody>
-</table>
-<p>表t共有1, 2, 5三个值。在上面的例子中，在会话A中首先对a=5进行X锁定。而由于a是主键且唯一，因此锁定的仅是5这个值，而不是(2,5)这个范围，这样在会话B中插入值4而不会阻塞，可以立即插人并返回。即锁定由Next-Key Lock算法降级为了Record Lock，从而提高应用的并发性。<br>Next-Key Lock降级为Record Lock仅在查询的列是唯一索引情况下。若是辅助索引，则情况会完全不同。同样，首先根据如下代码创建测试表z:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> z(a <span class="built_in">INT</span>, b <span class="built_in">INT</span>,PRIMARY <span class="keyword">KEY</span>(a), <span class="keyword">KEY</span>(b));</div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> z <span class="keyword">SELECT</span> <span class="number">1</span>,<span class="number">1</span>;</div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> z <span class="keyword">SELECT</span> <span class="number">3</span>,<span class="number">1</span>;</div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> z <span class="keyword">SELECT</span> <span class="number">5</span>,<span class="number">3</span>;</div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> z <span class="keyword">SELECT</span> <span class="number">7</span>,<span class="number">6</span>;</div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> z <span class="keyword">SELECT</span> <span class="number">10</span>,<span class="number">8</span>;</div></pre></td></tr></table></figure></p>
-<p>表z的列b是辅助索引，若在会话A中执行下面sql语句</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> z <span class="keyword">WHERE</span> b=<span class="number">3</span> <span class="keyword">FOR</span> <span class="keyword">UPDATE</span>;</div></pre></td></tr></table></figure>
-<p>很明显，这时SQL语句通过索引列b进行查询，因此其使用传统的Next-Key Locking技术加锁，并且由于有两个索引，其需要分别进行锁定。对于聚集索引，其仅对列a等于5的索引加上Record Lock。而对于辅助索引，其加上的是Next-Key Lock. 锁定的范围是(1, 3]，特别需要注意的是，InnoDB存储引擎还会对辅助索引下一个键值加上gap lock，即还有一个辅助索引范围为(3,6]的锁。因此，若在新会话B中运行下面的SQL语句，都会被阻塞:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> z <span class="keyword">WHERE</span> a=<span class="number">5</span> <span class="keyword">LOCK</span> <span class="keyword">IN</span> <span class="keyword">SHARE</span> <span class="keyword">MODE</span>;</div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> z <span class="keyword">SELECT</span> <span class="number">4</span>,<span class="number">2</span>;</div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> z <span class="keyword">SELECT</span> <span class="number">6</span>,<span class="number">5</span>;</div></pre></td></tr></table></figure>
-<p>第一个SQL语句不能执行，因为在会话A中执行的SQL语句已经对聚集索引中列a=5的值加上X锁，因此执行会被阻塞。第二个SQL语句，主键插入4，没有问题，但是插入的辅助索引值2在锁定的范围(1,3]中，因此执行同样会被阻塞。第三个SQL语句，插入的主键6没有被锁定，5也不在范围(1, 3)之间。.但插入的值5在另一个锁定的范围(3 ,6]中，故同样需要等待。而下面的SQL语句，不会被阻塞，可以立即执行:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> z <span class="keyword">SELECT</span> <span class="number">8</span>,<span class="number">6</span>;</div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> z <span class="keyword">SELECT</span> <span class="number">2</span>,<span class="number">0</span>;</div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> z <span class="keyword">SELECT</span> <span class="number">6</span>,<span class="number">7</span>;</div></pre></td></tr></table></figure>
-<p>从上面的例子中可以看到，Gap Lock的作用是为了阻止多个事务将记录插入到同一范围内，而这会导致Phantom Problem问题的产生。例如在上面的例子中，会话A中用户已经锁定了b=3的记录。若此时没有Gap Lock锁定(3,  6)，那么用户可以插人索引b列为3的记录，这会导致会话A中的用户再次执行同样查询时会返回不同的记录，即导致Phantom Problem问题的产生。用户可以通过以下两种方式来显式地关闭Gap Lock:将事务的隔离级别设置为READ COMMITTED；将参数innodb_locks_unsafese_for_binlog设置为1。</p>
-<p>在上述的配置下，除了外键约束和唯一性检查依然需要的Gap Lock，其余情况仅使用Record Lock进行锁定。但需要牢记的是，上述设置破坏了事务的隔离性，并且对于replication，可能会导致主从数据的不一致。此外，从性能上来看，READ COMMITTED也不会优于默认的事务隔离级别READ REPEATABLE.</p>
-<p>在InnoDB存储引擎中，对于INSERT的操作，其会检查插人记录的下一条记录是否被锁定，若已经被锁定，则不允许查询。对于上面的例子，会话A已经锁定了表Z中b=3的记录，即已经锁定了(1, 3)的范围，这时若在其他会话中进行如下的插人同样会导致阻塞:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> z <span class="keyword">SELECT</span> <span class="number">2</span>,<span class="number">2</span>;</div></pre></td></tr></table></figure>
-<p>因为在辅助索引列b上插人值为2的记录时，会监测到下一个记录3已经被索引。而将插入修改为如下的值，可以立即执行:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> z <span class="keyword">SELECT</span> <span class="number">2</span>,<span class="number">0</span>;</div></pre></td></tr></table></figure>
-<p>最后需再次提醒的是，对于唯一键值的锁定，Next-Key Lock降级为Record Lock仅存在于查询所有的唯一索引列。若唯一索引由多个列组成，而查询仅是查找多个唯一索引列中的其中一个，那么查询其实是range类型查询，而不是point类型查询，故InnoDB存储引擎依然使用Next-Key Lock进行锁定。<br>锁选择</p>
-<p>sql语句会根据查询计划（where条件和索引）来决定加何种类型的锁。如果更新条件没有走索引，进行全表扫描，扫表的时候，要阻止其他任何的更新操作，所以上升为表锁。如果更新条件为索引字段，但是并非唯一索引（包括主键索引），那么此时更新会使用Next-Key Lock。使用Next-Key Lock的原因：首先要保证在符合条件的记录上加上排他锁，会锁定当前非唯一索引和对应的主键索引的值；还要保证锁定的区间不能插入新的数据。如果更新条件为唯一索引，则使用Record Lock（记录锁）。</p>
-<h3 id="死锁与检测"><a href="#死锁与检测" class="headerlink" title="死锁与检测"></a>死锁与检测</h3><p>死锁是指两个或两个以上的事务在执行过程中，因争夺锁资源而造成的一种互相等待的现象。解决死锁问题最简单的一种方法是超时，即当两个事务互相等待时，当一个等待时间超过设置的某一阂值时，其中一个事务进行回滚，另一个等待的事务就能继续进行。在InnoDB存储引擎中，参数innodb_lock_wait_timeout用来设置超时的时间。超时机制虽然简单，但是其仅通过超时后对事务进行回滚的方式来处理，或者说其是根据FIFO的顺序选择回滚对象。但若超时的事务所占权重比较大，如事务操作更新了很多行，占用了较多的undo log，这时采用FIFO的方式，就显得不合适了，因为回滚这个事务的时间相对另一个事务所占用的时间可能会很多。</p>
-<p>因此，除了超时机制，当前数据库还都普遍采用wait-for graph(等待图)的方式来进行死锁检测。较之超时的解决方案，这是一种更为主动的死锁检测方式。InnoDB存储引擎也采用的这种方式。wait-for graph要求数据库保存以下两种信息:</p>
-<ul>
-<li>锁的信息链表</li>
-<li>事务等待链表</li>
-</ul>
-<p>通过上述链表可以构造出一张图，而在这个图中若存在回路，就代表存在死锁，因此资源间相互发生等待。在wait-for graph中，事务为图中的节点。而在图中，事务T1指向T2边的定义为:</p>
-<ul>
-<li>事务T1等待事务T2所占用的资源</li>
-<li>事务T1最终等待T2所占用的资源，也就是事务之间在等待相同的资源，而事务T1发生在事务T2的后面</li>
-</ul>
-<p>下面来看一个例子，当前事务和锁的状态下图所示：</p>
-<p><img src="/img/doc/mysql/Manual-MySQL-20170702/image5.png" alt=""></p>
-<p>在Transaction Wait Lists中可以看到共有4个事务t1. t2, t3, t4，故在wait-for graph中应有4个节点。而事务t2对row 1占用X锁，事务t1对row2占用s锁。事务t1需要等待事务t2中row 1的资源，因此在wait-for graph中有条边从节点tt指向节点t2。事务t2需要等待事务t1 . t4所占用的row2对象，故而存在节点t2到节点t1, t4的边。同样，存在节点t3到节点t1. t2. t4的边，因此最终的wait-for graph如下图所示。</p>
-<p><img src="/img/doc/mysql/Manual-MySQL-20170702/image6.png" alt=""></p>
-<p>通过上图可以发现存在回路(tl，t2)，因此存在死锁。通过上述的介绍，可以发现wait-for graph是一种较为主动的死锁检测机制，在每个事务请求锁并发生等待时都会判断是否存在回路，若存在则有死锁，通常来说InnoDB存储引擎选择回滚undo量最小的事务。</p>
-<p>在InnoDB中，使用行锁机制，于是，锁通常是逐步获得的，这就决定了在InnoDB中发生死锁是可能的。</p>
-<p>死锁产生的四要素(跟操作系统的死锁条件一样)：</p>
-<ul>
-<li>互斥条件：一个资源每次只能被一个进程使用；</li>
-<li>请求与保持条件：一个进程因请求资源而阻塞时，对已获得的资源保持不放；</li>
-<li>不剥夺条件:进程已获得的资源，在末使用完之前，不能强行剥夺；</li>
-<li><p>循环等待条件:若干进程之间形成一种头尾相接的循环等待资源关系。</p>
-<pre><code>死锁的形式是多样的，但分析到innodb加锁情况的最底层，因循环等待条件而产生的死锁只有可能是四种形式：
-</code></pre></li>
-<li>两张表两行记录交叉申请互斥锁；</li>
-<li>同一张表则存在主键索引锁冲突；</li>
-<li>主键索引锁与非聚簇索引锁冲突；</li>
-<li><p>锁升级导致的锁等待队列阻塞。</p>
-<pre><code>一些发生死锁的情况：
-</code></pre></li>
-</ul>
-<ol>
-<li>同一索引上,两个session相反的顺序加锁多行记录；</li>
-<li>Primary key和Secondary index，通过primary key找到记录，更新Secondary index字段与通过Secondary index更新记录；</li>
-<li>UPDATE/DELETE通过不同的二级索引更新多条记录,可能造成在Primary key上不同的加锁顺序；</li>
-</ol>
-<p>Innodb检测死锁有两种策略：超时和等待图。但是在我们开发中以单个SQL语句组成的隐式事务来说，建议的避免死锁的方法如下：      1.如果使用insert…select语句备份表格且数据量较大，在单独的时间点操作，避免与其他sql语句争夺资源，或使用select into outfile加上load data infile代替 insert…select，这样不仅快，而且不会要求锁定      2. 一个锁定记录集的事务，其操作结果集应尽量简短，以免一次占用太多资源，与其他事务处理的记录冲突。      3.更新或者删除表格数据，sql语句的where条件都是主键或都是索引，避免两种情况交叉，造成死锁。对于where子句较复杂的情况，将其单独通过sql得到后，再在更新语句中使用。      4. sql语句的嵌套表格不要太多，能拆分就拆分，避免占有资源同时等待资源，导致与其他事务冲突。      5. 对定点运行脚本的情况，避免在同一时间点运行多个对同一表进行读写的脚本，特别注意加锁且操作数据量比较大的语句。      6.应用程序中增加对死锁的判断，如果事务意外结束，重新运行该事务，减少对功能的影响。</p>
-<h2 id="mysql存储引擎"><a href="#mysql存储引擎" class="headerlink" title="mysql存储引擎"></a>mysql存储引擎</h2><p>由于mysql开源的特性，mysql预定义了存储引擎接口，用户可以根据自己业务需求选择合适的第三方存储引擎，也可以实现自己的存储引擎。这个也是mysql区别于oracle的一个主要特性。Innodb存储引擎是其中应用最为广泛的OLTP（在线事务处理）存储引擎。下面简单介绍一下常用的mysql存储引擎。</p>
-<p>innodb存储引擎，特点支持外键、行锁、非锁定读(默认情况下读取不会产生锁)、mysql-4.1开始支持每个innodb引擎的表单独放到一个表空间里。innodb通过使用MVCC来获取高并发性，并且实现sql标准的4种隔离级别，同时使用一种被称成next-key locking的策略来避免换读(phantom)现象。除此之外innodb引擎还提供了插入缓存(insert buffer)、二次写(double write)、自适应哈希索引(adaptive hash index)、预读(read ahead)等高性能技术。</p>
-<p>myisam存储引擎，myisam特点是不支持事务，适合OLAP（在线分析处理）应用，myisam表由MYD和MYI组成。mysql-5.0版本之前，myisam默认支持的表大小为4G，从mysql-5.0以后，myisam默认支持256T的表单数据。myisam只缓存索引数据。</p>
-<p>NDB存储引擎，特点是数据放在内存中，mysql-5.1版本开始可以将非索引数据放到磁盘上。NDB之前的缺陷是join查询是mysql数据库层完成的，而不是存储引擎完成的，复杂的join查询需要巨大的网络开销，速度很慢。当前mysql cluster7.2版本中已经解决此问题，join查询效率提高了70倍。</p>
-<p>memeory存储引擎，将数据放到内存中，默认使用hash索引，不支持text和blob类型，varchara是按照char的方式来存储的。mysql数据库使用memory存储引擎作为临时表还存储中间结果集(intermediate result)，如果中间集结果大于memorg表的容量设置，又或者中间结果集包含text和blog列类型字段，则mysql会把他们转换到myisam存储引擎表而放到磁盘上，会对查询产生性能影响。</p>
-<p>archive存储引擎，压缩能力较强，主要用于归档存储。</p>
-<p>下面这张表列出了MySQL中5种常用的存储引擎以及它们支持的特性。
-　</p>
-<table>
-<thead>
-<tr>
-<th>Feature</th>
-<th>MyISAM</th>
-<th>Memory</th>
-<th>InnoDB</th>
-<th>Archive</th>
-<th>NDB</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Storage limits</td>
-<td>256TB</td>
-<td>Yes</td>
-<td>64TB</td>
-<td>No</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Transactions</td>
-<td>No</td>
-<td>No</td>
-<td>Yes</td>
-<td>No</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Locking granularity</td>
-<td>Table</td>
-<td>Table</td>
-<td>Row</td>
-<td>Row</td>
-<td>Row</td>
-</tr>
-<tr>
-<td>MVCC (snapshot read)</td>
-<td>No</td>
-<td>No</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Geospatial support</td>
-<td>Yes</td>
-<td>No</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>B-tree indexes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>No</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Hash indexes</td>
-<td>No</td>
-<td>Yes</td>
-<td>No</td>
-<td>No</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Full-text search indexes</td>
-<td>Yes</td>
-<td>No</td>
-<td>No</td>
-<td>No</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Clustered indexes</td>
-<td>No</td>
-<td>No</td>
-<td>Yes</td>
-<td>No</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Data caches</td>
-<td>No</td>
-<td>N/A</td>
-<td>Yes</td>
-<td>No</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Index caches</td>
-<td>Yes</td>
-<td>N/A</td>
-<td>Yes</td>
-<td>No</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Compressed data</td>
-<td>Yes</td>
-<td>No</td>
-<td>No</td>
-<td>Yes</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Encrypted data</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Cluster database support</td>
-<td>No</td>
-<td>No</td>
-<td>No</td>
-<td>No</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Replication support</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Foreign key support</td>
-<td>No</td>
-<td>No</td>
-<td>Yes</td>
-<td>No</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Backup / point-in-time recovery</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Query cache support</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Update statistics for data dictionary</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-</tr>
-</tbody>
-</table>
-<p>使用mysql绝大多数场景都是使用innodb，目前innodb也是mysql的默认引擎，以下将从引擎架构、文件、表、索引四个方面介绍innodb。</p>
-<h3 id="innodb引擎架构"><a href="#innodb引擎架构" class="headerlink" title="innodb引擎架构"></a>innodb引擎架构</h3><p>InnoDB体系架构图如下：</p>
-<p><img src="/img/doc/mysql/Manual-MySQL-20170702/image7.png" alt=""></p>
-<h4 id="后台线程简介"><a href="#后台线程简介" class="headerlink" title="后台线程简介"></a>后台线程简介</h4><ol>
-<li>Master Thread：Master Thread 是一个非常核心的后台线程，主要负责将缓冲池中的数据异步刷新到磁盘，保证数据的一致性，包括脏页的刷新、合并插入缓冲（INSERT BUFFER）、回滚页（UNDO PAGE）的回收等。</li>
-<li>IO Thread在InnoDB存储引擎中大量使用了AIO（Async IO）来处理IO请求，这样可以极大提高数据库的性能。而IO Thread（insert buffer thread、log thread、read thread、write thread）的工作主要是负责这些IO请求的回调（call back）处理。</li>
-<li>Purge Thread：事务被提交后，其所使用的undo log可能不再需要，因此需要Purge Thread来回收已经使用并分配的undo页。</li>
-<li>Page Cleaner Thread：Page Cleaner Thread是在InnoDB 1.2.x版本中引人的。其作用是将之前版本中脏页的刷新操作都放入到单独的线程中来完成。而其目的是为了减轻原Master Thread的工作及对于用户查询线程的阻塞，进一步提高InnoDB存储引擎的性能。</li>
-</ol>
-<h4 id="InnoDB内存数据对象简介"><a href="#InnoDB内存数据对象简介" class="headerlink" title="InnoDB内存数据对象简介"></a>InnoDB内存数据对象简介</h4><p>在数据库系统中，由于CPU速度与磁盘速度之间的鸿沟，基于磁盘的数据库系统通常使用缓冲池技术来提高数据库的整体性能。缓冲池简单来说就是一块内存区域。在数据库中进行读取页的操作，首先将从磁盘读到的页存放到缓冲池中，这个过程称为将页”FIX”在缓冲池。下一次在读到相同的页时，首先判断该页是否在缓冲池中。若在缓冲池中，称该页在缓冲池中被命中，直接读取该页。否则，读取磁盘上的页。对于数据库中页的修改操作，则首先修改在缓冲池中的页，然后再以一定的频率刷新到磁盘上。页从缓冲池刷新回磁盘的操作并不是在每次页发生更新时触发，而是通过一种称为Checkpoint的机制刷新回磁盘。</p>
-<p>为了避免发生数据丢失的问题，当前事务数据库系统普遍使用WAL（Write Ahead Log）策略，即当事务提交时，先写重做日志，再写修改页。当数据库发生宕机而导致丢失数据时，可以通过重做日志来完成数据的恢复，从而满足事务ACID中Durability持久性的要求。CheckPoint技术是为了缩短恢复时间而对持久到硬盘的数据页设置检查点，只需要对CheckPoint之后的重做日志进行恢复。CheckPoint的触发条件：1）Master Thread每秒或者每10秒会进行一次刷脏；2）当LRU中少于100个空闲页时；3）重做日志是一块循环使用的空间（8M），重做日志不可用时会触发；4）当脏页太多时，达到某个阈值。<br>InnoDB内存数据对象：数据页（undo page）、索引页（index page）、插入缓冲（insert buffer）、自适应哈希索引（adaptive hash index）、锁信息（lock info）、数据字典信息（data dictionary）、重做日志缓冲（redo log_buffer）、额外内存池（innodb_additional_mem_pool_size）。</p>
-<p>数据库是一种基于磁盘存储系统，存储的数据量远大于内存的大小，故内存中的数据存在置换，数据库中的缓存池是通过LRU算法进行管理的。缓存池中的最小单元是页（一个页的默认大小是16kb）。Innodb对LRU进行了优化，默认配置下，新访问的数据是放到LRU列表的5/8处（防止遍历等导致常用的数据别刷出LRU列表），当达到一定时间后，才会被放入LRU的热端。</p>
-<p><strong>重做日志缓冲</strong></p>
-<p>重做日志缓冲是用于存放重做日志信息的，重做日志缓冲一般不需要设置的很大，因为一般情况下每一秒会将重做日志缓冲刷新到日志中去，默认大小是8M，重做日志在以下三种情况下会刷新到重做日志文件中去：1）Master Thread每一秒将重做日志缓冲刷新到重做日志文件；2）每个事物提交时会将重做日志缓冲刷新到重做日志；3）当重做日志缓冲池剩余空间小于1/2时，重做日志缓冲刷新到重做日志。</p>
-<p><strong>插入缓存</strong></p>
-<p>在InnoDB存储引擎中，主键是行唯一的标识符。通常应用程序中行记录的插入是按照主键递增的顺序进行插入的。因此，插入聚集索引一般是顺序的，不需要磁盘的随机读取。当一个表有非聚集索引时，对于非聚集索引的叶子节点的插入不是顺序的，这时候需要离散的访问非聚集索引页，性能就在这里降低了，这是由于B+树的原理导致的。插入缓存就是用来解决这个问题的。<br>对于非聚集索引的插入和更新操作，不是每一次都直接插入索引页，而是先判断插入的非聚集索引页是否在缓存中，如果在就直接插入，如果不在就放入到一个插入缓冲区中，好似欺骗数据库这个非聚集索引已经插入到叶子节点了。然后再以一定的频率插入缓存和非聚集索引页字节点的合并操作。插入缓存的使用需要满足以下两个条件(也就是非唯一的辅助索引)：索引是辅助索引；索引不是唯一的。插入索引自身也是一颗B+树，全局所有的表共享这颗树，这颗树存放在共享表空间。非叶结点存放的是表数据页的偏移量信息，叶子结点存放表数据页信息偏移量+非聚集索引页记录。</p>
-<p>关于插入缓存什么时候合并到真正的辅助索引页，合并插入索引在以下三种情况下发生。1）辅助索引页被读取到缓冲池时，当执行select操作时，这时会检查插入缓冲Bitmap页，当确认辅助索引页有记录在插入缓冲中，则将插入缓冲中的记录插入到辅助索引页中；2）插入缓冲Bitmap页追踪到辅助索引页可用空间小于1/32，会强制进行一次合并。3）Master Thread每秒或者每10秒会进行一次插入缓冲合并到辅助索引页。</p>
-<p><strong>自适应哈希索引</strong></p>
-<p>由于innodb不支持hash索引，但是在某些情况下hash索引的效率很高，于是出现了 adaptive hash index功能，innodb存储引擎会监控对表上索引的查找，如果观察到建立hash索引可以提高性能的时候，则自动建立hash索引。</p>
-<p><strong>双写</strong></p>
-<p>重做日志结合doublewrite来保证写入的持久性。两次写给innodb带来的是可靠性，主要用来解决部分写失败(partial page write)。在应用重做日志之前，我们需要一个页的副本，当写入失效发生时，先通过页的副本来还原该页，再进行重做。<br>Doublewrite由两部分组成，一部分是内存中的doublewrite buffer，大小为2M，另外一部分就是物理磁盘上的共享表空间中连续的128个页，即两个区，大小同样为2M。当缓冲池的脏页有刷新时，并不直接写硬盘，而是会通过memcpy函数将脏页先拷贝到内存中的doublewrite buffer，之后通过doublewrite buffer再分两次写，每次写入1M到共享表空间的物理磁盘上，然后马上调用fsync函数，同步磁盘。</p>
-<h3 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h3><p>Mysql 数据库的文件包括以下6中类型文件：</p>
-<p>√ 参数文件：my.cnf<br><br>√ 日志文件，包括错误日志、查询日志、慢查询日志、二进制日志<br><br>√ Mysql表结构文件：用来存放mysql表结构的文件，一般以.frm为后缀<br><br>√ Socket文件：当用unix域套接字方式进行连接时需要的文件<br><br>√ Pid文件：mysql实例的进程ID文件<br><br>√ innodb存储引擎文件：每个存储引擎都有自己的文件夹来保存各种数据，这些存储引擎真正存储了数据和索引等数据。</p>
-<h4 id="参数文件"><a href="#参数文件" class="headerlink" title="参数文件"></a>参数文件</h4><p>当MySQL示例启动时，数据库会先去读一个配置参数文件，用来寻找数据库的各种文件所在位置以及指定某些初始化参数，这些参数通常定义了某种内存结构有多大等。在默认情况下，MySQL实例会按照一定的顺序在指定的位置进行读取，可以通过命令mysql –help | grep my.cnf来寻找。如果启动时没有找到参数文件，这时所有的参数值取决于编译MySQL时指定的默认值和源代码中指定参数的默认值。（Oracle数据库启动时，如果找不到参数文件，是不能进行装载操作的。）<br>可以通过show variables like ‘innodb_buffer%’命令查看数据库所有参数，也可以通过查看information_schema架构下的GLOBAL_VARIABLES视图进行查找（不建议）。<br>参数类型分为动态参数和静态参数，动态参数可以在MySQL实例运行中进行更改，静态参数不能更改。可以通过SET | [global | session] system_var_name = expr | [@@global. | @@session. | @@] system_var_name = expr来更改</p>
-<h4 id="日志文件"><a href="#日志文件" class="headerlink" title="日志文件"></a>日志文件</h4><p>日志文件记录了影响MySQL数据库的各种类型活动，包括：</p>
-<ul>
-<li>错误日志</li>
-<li>二进制日志</li>
-<li>慢查询日志</li>
-<li>查询日志</li>
-</ul>
-<p><strong>错误日志（error log）</strong></p>
-<p>对MySQL的启动、运行、关闭过程进行了记录。文件不仅记录了所有的错误信息，也记录一些警告信息或正确的信息。用户可以通过命令<code>show variables like &#39;log_error&#39;</code>定位该文件。</p>
-<p><strong>慢查询日志（slow log）</strong></p>
-<p>慢查询日志可以帮助DBA定位可能存在问题的SQL语句，从而进行SQL语句层面的优化。例如，可以在MySQL启动时设置一个阈值，将运行时间超过该值得所有SQL语句都记录到慢查询日志文件中。通过参数long_query_time来设置，默认值为10，代表10秒。如果运行的SQL没有使用索引，则MySQL数据库同样会将SQL语句记录到慢查询日志文件。MySQL 5.6.5版本开始新增参数log_throttle_queries_not_using_indexs，用来表示每分钟允许记录到show log的且未使用索引的SQL语句次数。该值默认为0，表示没有限制。</p>
-<p><strong>查询日志</strong></p>
-<p>查询日志记录了所有对MySQL数据库请求的信息，无论这些请求是否正确执行。默认文件名为：主机名.log。查询日志从MySQL 5.1开始也支持放入mysql架构下的general_log表中。</p>
-<p><strong>二进制日志</strong></p>
-<p>二进制日志记录了对MySQL数据库执行更改的所有操作，但是不包括select和show这里操作，因为这类操作对数据库本身没有修改。然而，若操作本身没有导致数据库发生变化，那么该操作可能也会写入二进制日志。<br>二进制日志的几个作用：</p>
-<p><strong>恢复：</strong><br>某些数据的恢复需要二进制日志，例如，在一个数据库全备份文件恢复后，用户可以通过二进制日志进行point_in_time的恢复。</p>
-<p><strong>复制：</strong><br>通过复制和执行二进制日志使一台运行的MySQL数据库与一台MySQL数据库进行实时同步。</p>
-<p><strong>审计：</strong><br>用户可以通过二进制日志中的信息来进行审计，判断是否对数据库进行注入的攻击。<br>可以通过参数binlog_format配置二进制存储的格式。在使用恢复和复制同步时，有不同的效果。</p>
-<h4 id="Socket文件"><a href="#Socket文件" class="headerlink" title="Socket文件"></a>Socket文件</h4><p>在UNIX系统下本地连接MySQL可以采用UNIX域套接字方式，这种方式需要一个套接字文件。<code>show variables like &#39;socket&#39;\G;</code>命名可以查看套接字文件。</p>
-<h4 id="pid文件"><a href="#pid文件" class="headerlink" title="pid文件"></a>pid文件</h4><p>当MySQL实例启动时，会将自己的进程ID写入一个文件中——该文件即为pid文件。由参数pid_file控制。</p>
-<h4 id="表结构定义文件"><a href="#表结构定义文件" class="headerlink" title="表结构定义文件"></a>表结构定义文件</h4><p>因为MySQL插件式存储引擎的体系结构的关系，MySQL数据的存储时根据表进行的，每个表都会有与之对应的文件。但是不论采用何种存储引擎，MySQL都有一个以frm为后缀名的文件，这个文件记录了该表的表结构定义，还用来记录视图的定义。</p>
-<h4 id="InnoDB存储引擎文件"><a href="#InnoDB存储引擎文件" class="headerlink" title="InnoDB存储引擎文件"></a>InnoDB存储引擎文件</h4><p><strong>表空间文件</strong></p>
-<p>InnoDB采用将存储的数据按表空间进行存放的设计。在默认配置下会有一个初始化大小为10MB，名为ibdata1的文件。该文件就是默认的表空间文件（共享表空间），可以通过参数innodb_data_file_path设置。设置innodb_data_file_path参数后，所有基于InnoDB存储引擎的表数据都会记录到该共享表空间中。若设置参数innodb_file_per_table，则用户可以将每个基于InnoDB存储引擎的表产生一个独立表空间。独立表空间的命名规则为：表名.idb。需要注意：独立的表空间文件仅存储该表的数据，索引和插入缓冲BITMAP等信息，其余信息还是存放在默认表空间中。</p>
-<p><strong>重做日志文件</strong></p>
-<p>在默认情况下，在InnoDB存储引擎的数据目录下会有两个名为ib_logfile0和ib_logfile1的文件。每个InnoDB存储引擎至少有1个重做日志文件组，每个文件组下至少有2个重做日志文件。影响重做日志文件的属性有：innodb_log_file_size指定每个重做日志文件的大小；innodb_log_files_in_group指定了日志文件组中重做日志文件的数量，默认为2； innodb_mirrored_log_groups指定了日志镜像文件组的数量，默认为1，表示只有一个文件组，没有镜像； innodb_log_group_home_dir指定了日志文件所在路径，默认为./，表示在MySQL数据库的数据目录下。</p>
-<h3 id="数据表"><a href="#数据表" class="headerlink" title="数据表"></a>数据表</h3><p>在innoDB存储引擎中，表数据都是根据主键顺序组织存放的，这种存储方式存储的表称为索引组织表，数据即索引，索引即数据，B+树的叶子结点即为就是数据段，非叶子结点即为索引段。每张表都会有主键，如果用户没有指定，会找第一个非空唯一健，如果没有，innodb会长生一个6字节大小的指针。</p>
-<p>所有的数据都被逻辑存放在一个空间中，称之为表空间，表空间由段、区、页组成。Innodb引擎有一个共享表空间ibdata1，即所有的数据都存放在这个表空间内。如果用户启动了innodb_file_per_table，表内的数据都可以单独放到一个表空间，每张表的表空间内存放的只是数据、索引和插入缓冲Bitmap页。表空间常见的段有数据段、索引段、回滚段等。区为连续页组成的空间，区的大小为1M（即64个页）。页在也是我们常说的数据块。在InnoDB存储引擎中，常见的页类型有：数据页、undo页、系统页、事务页、事务数据页、插入缓冲位图页、插入缓冲空闲列表页等。页盘管理的最小单位，下面是InnoDB的表空间结构图：</p>
-<p><img src="/img/doc/mysql/Manual-MySQL-20170702/image8.jpg" alt=""></p>
-<p>Page页面存储格式如下图所示：</p>
-<p><img src="/img/doc/mysql/Manual-MySQL-20170702/image9.jpg" alt=""></p>
-<p>一个页面的存储由以下几部分组成：</p>
-<ol>
-<li>页头（Page Header）：记录页面的控制信息，共占56字节，包括页的左右兄弟页面指针、页面空间使用情况等。</li>
-<li>最小虚记录、最大虚记录：两个固定位置存储的虚记录，本身并不存储数据。最小虚记录比任何记录主键都小，而最大虚记录比任何记录主键都大。</li>
-<li>记录堆（record heap）：指上图的橙黄色部分。表示页面已分配的记录空间，也是索引数据的真正存储区域，存储行记录的数据。记录堆分为两种，即有效记录和已删除记录。有效记录就是索引正常使用的记录，而已删除记录表示索引已经删除，不在使用的记录，如上图的深蓝色部分。随着记录的更新和删除越来越频繁，记录堆中已删除记录将会越多，即会出现越来越多的空洞（碎片）。这些已删除记录连接起来，就会成为页面的自由空间链表。</li>
-<li>未分配空间：指页面未使用的存储空间，随着页面不断使用，未分配空间将会越来越小。当新插入一条记录时，首先尝试从自由空间链表中获得合适的存储位置（空间足够），如果没有满足的，就会在未分配空间中申请。</li>
-<li>slot区：slot是一些页面有效记录的指针，每个slot占两个字节，存储了记录相对页面首地址的偏移。如果页面有n条有效记录，那么slot的数量就在n/8+2~n/4+2之间。它是记录页面有序和二分查找的关键。</li>
-<li>页尾（Page Tailer）：页面最后部分，占8个字节，主要存储页面的校验信息。<br>页面中的页头，最大/最小虚记录以及页尾都是页面中有固定的存储位置。<br>InnoDB和大多数行式数据库一样，记录以行的格式存储，它提供了两种格式：Compact（5.0版本之后）和Redundant（5.0版本之前），我们只讲Compact格式，Redundant可以参考其他资料。</li>
-</ol>
-<p><strong>Compact</strong></p>
-<p>Compact格式是在MySQL5.0时才被引入，它是新的行格式，其设计目标是高效存放数据，示意图如下：</p>
-<p><img src="/img/doc/mysql/Manual-MySQL-20170702/image10.jpg" alt=""></p>
-<ol>
-<li>变长字段长度列表。按列的逆序放置，当列长度小于255字节，用1字节表示，若大于255字节，用2个字节表示，至多为2字节（这也很好解释了InnoDB中varchar的最大长度为什么是65535，因为2个字节为16位，2的16次方-1）。注意，对于固定长度字段（如char），是不需要记录其长度的。</li>
-<li>NULL标志位。指示该行中的列是否为NULL，1表示NULL。</li>
-<li>记录头信息。固定占用5个字节（40位）。</li>
-<li>最后就是实际存储的该行每列的数据了，注意：NULL不在该部分中占用存储。</li>
-<li>此外还有两个隐藏部分，分别存放事务ID和回滚指针，大小分别为6字节和7字节，如果表没有定义主键，每行还会自动增加6字节的ROWID。</li>
-</ol>
-<p>变长字符字段最大支持65532个字符，当行数据大小超过16Kb时，会在数据页中存放部分字节的前缀数据，之后都是偏移量，指向益出页（Uncompressed Blob Page）。一个页中至少存放两行记录。当行数据的大小很小（即便是varchar、blob、text字段），也可能存放在数据页中。</p>
-<h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><p>InnoDB使用B+Tree的方式存储索引， Innodb的一个表可能包含多个索引，每个索引都使用B+树来存储。而索引包括聚集索引和二级索引，聚集索引使用表的主键作为索引键，包含表的所有字段。二级索引只包含索引键和聚集索引键（主键）的内容，不包括其他字段。每一个索引都是一棵B+树，每棵B+树由很多页面组成，而每个页面大小一般为16K。从B+树的组织结构来看，B树的页面可分为：</p>
-<ul>
-<li>叶子节点：B树层次为0的页面，存储记录的所有内容</li>
-<li>非叶子节点：B树层次大于0的页面，只存储索引键和页面指针。</li>
-</ul>
-<p>一棵典型的B+树结构：</p>
-<p><img src="/img/doc/mysql/Manual-MySQL-20170702/image11.jpg" alt=""></p>
-<p>从上图可知，相同层次的页面是用一个双向链表连接起来的。一般情况下，从B+树的最左边叶子节点开始，一直向右扫描，就可以得到B+树的从小到大的所有数据。因此，对于叶子节点，有如下特征：</p>
-<ul>
-<li>页内数据是按索引键排序的。</li>
-<li>页面的任一记录的索引键值不小于其左兄弟页面的任何记录。</li>
-<li>不可能在非叶子结点命中，只有达到叶子结点才命中；</li>
-<li>非叶子结点相当于是叶子结点的索引，叶子结点是存储（关键字）数据的数据层；</li>
-</ul>
-<p>B+树的特性决定了索引的限制：</p>
-<ul>
-<li>必须从索引的最左列开始寻找</li>
-<li>不能跳过索引中的列</li>
-<li>范围查找列之后的索引列无法使用</li>
-</ul>
-<h4 id="聚簇索引VS辅助索引"><a href="#聚簇索引VS辅助索引" class="headerlink" title="聚簇索引VS辅助索引"></a>聚簇索引VS辅助索引</h4><p><strong>聚簇索引：</strong><br>索引指针直接指向数据页的索引，聚簇索引对数据物理页按索引键值进行物理组织排序；</p>
-<p><strong>主键索引：</strong><br>建在主键上的索引；innodb中，聚簇索引在有主键的情况下，默认指定主键为聚簇索引,因此,innodb中，主键索引一般都是聚簇索引。</p>
-<p><strong>二级索引：</strong><br>除了聚簇索引的，都称为2级索引；innodb中，二级索引查找数据行，需要先找到对应的主键，然后根据主键查找对应的行值。</p>
-<p>innodb中，聚簇索引是mysql自己来决定的。选择的顺序是：</p>
-<ol>
-<li>定义了主键，就选择主键；</li>
-<li>没有主键，选择第一个非空的唯一索引；</li>
-<li>两者都没有，innodb自己生成一个占6byte的自增长列。然后以它作为聚簇索引列</li>
-</ol>
-<h4 id="索引执行计划—Explain字段解析"><a href="#索引执行计划—Explain字段解析" class="headerlink" title="索引执行计划—Explain字段解析"></a>索引执行计划—Explain字段解析</h4><p>参考附录三</p>
-<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h3 id="附录一：MySQL基本数据类型"><a href="#附录一：MySQL基本数据类型" class="headerlink" title="附录一：MySQL基本数据类型"></a>附录一：MySQL基本数据类型</h3><table>
-<thead>
-<tr>
-<th>数据类型</th>
-<th>描述</th>
-<th>字节</th>
-<th>推荐使用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>SMALLINT</td>
-<td>整数，从-32000到 +32000范围</td>
-<td>2</td>
-<td>存储相对比较小的整数。比如: 年纪，数量</td>
-</tr>
-<tr>
-<td>INT</td>
-<td>整数，从-2000000000 到 +2000000000 范围</td>
-<td>4</td>
-<td>存储中等整数例如: 距离</td>
-</tr>
-<tr>
-<td>BIGINT</td>
-<td>不能用SMALLINT 或 INT描述的超大整数。</td>
-<td>8</td>
-<td>存储超大的整数例如: 科学/数学数据</td>
-</tr>
-<tr>
-<td>FLOAT</td>
-<td>单精度浮点型数据</td>
-<td>4</td>
-<td>存储小数数据例如:测量，温度</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td>双精度浮点型数据</td>
-<td>8</td>
-<td>需要双精度存储的小数数据例如:科学数据</td>
-</tr>
-<tr>
-<td>DECIMAL</td>
-<td>用户自定义精度的浮点型数据</td>
-<td>变量;取决于精度与长度</td>
-<td>以特别高的精度存储小数数据。例如:货币数额，科学数据</td>
-</tr>
-<tr>
-<td>CHAR</td>
-<td>固定长度的字符串</td>
-<td>特定字符串长度(高达255字符)</td>
-<td>存储通常包含预定义字符串的变量例如: 定期航线，国家或邮编</td>
-</tr>
-<tr>
-<td>VARCHAR</td>
-<td>具有最大限制的可变长度的字符串</td>
-<td>1 + 实际字符串长度</td>
-<td>存储不同长度的字符串值(高达一个特定的最大限度).例如:名字，密码，短文标签</td>
-</tr>
-<tr>
-<td>TEXT</td>
-<td>没有最大长度限制的可变长度的字符串</td>
-<td>2 +实际字符串长度</td>
-<td>存储大型文本数据例如: 新闻故事，产品描述</td>
-</tr>
-<tr>
-<td>BLOB</td>
-<td>二进制字符串</td>
-<td>变量；2 + 实际字符串长度</td>
-<td>存储二进制数据例如:图片，附件，二进制文档</td>
-</tr>
-<tr>
-<td>DATE</td>
-<td>以 yyyy-mm-dd格式的日期</td>
-<td>3</td>
-<td>存储日期例如:生日，产品满期</td>
-</tr>
-<tr>
-<td>TIME</td>
-<td>以 hh:mm:ss格式的时间</td>
-<td>3</td>
-<td>存储时间或时间间隔例如:报警声，两时间之间的间隔，任务开始/结束时间</td>
-</tr>
-<tr>
-<td>DATETIME</td>
-<td>以yyyy-mm-ddhh:mm:ss格式结合日期和时间</td>
-<td>8</td>
-<td>存储包含日期和时间的数据例如:提醒的人，事件</td>
-</tr>
-<tr>
-<td>TIMESTAMP</td>
-<td>以yyyy-mm-ddhh:mm:ss格式结合日期和时间</td>
-<td>4</td>
-<td>记录即时时间例如：事件提醒器，&quot;最后进入&quot;的时间标记</td>
-</tr>
-<tr>
-<td>YEAR</td>
-<td>以 yyyy格式的年份</td>
-<td>1</td>
-<td>存储年份例如:毕业年，出生年</td>
-</tr>
-<tr>
-<td>ENUM</td>
-<td>一组数据，用户可从中选择其中一个</td>
-<td>1或 2个字节</td>
-<td>存储字符属性，只能从中选择之一例如:布尔量选择，如性别</td>
-</tr>
-<tr>
-<td>SET</td>
-<td>一组数据，用户可从中选择其中0，1或更多。</td>
-<td>从1到8字节;取决于设置的大小</td>
-<td>存储字符属性，可从中选择多个字符的联合。例如:多选项选择，比如业余爱好和兴趣。</td>
-</tr>
-</tbody>
-</table>
-<h3 id="附录二：MySQL库表设计规范"><a href="#附录二：MySQL库表设计规范" class="headerlink" title="附录二：MySQL库表设计规范"></a>附录二：MySQL库表设计规范</h3><h4 id="表设计"><a href="#表设计" class="headerlink" title="表设计"></a>表设计</h4><ol>
-<li>表必须定义主键，默认为ID，整型自增，如果不采用默认设计必须咨询DBA进行设计评估</li>
-<li>ID字段作为自增主键，禁止在非事务内作为上下文作为条件进行数据传递，禁止非自增非数字类型主键设计出现</li>
-<li>禁止使用外键,触发器,存储过程</li>
-<li>多表中的相同列，必须保证列定义一致</li>
-<li>表默认使用InnoDB，国内表字符集默认使用gbk，国际默认使用utf8的表</li>
-<li>表必须包含gmt_create和gmt_modified字段，即表必须包含记录创建时间和修改时间的字段</li>
-<li>单表一到两年内数据量超过500w或数据容量超过10G考虑分表，且需要提前考虑历史数据迁移或应用自行删除历史数据</li>
-<li>单条记录大小禁止超过8k（列长度(中文)<em>2（gbk）/3(utf8)+列长度(英文)</em>1）</li>
-<li>日志类数据不建议存储在MySQL上，优先考虑Hbase或OB，如需要存储请找DBA评估使用压缩表存储</li>
-<li>主键不允许修改，如特殊需求，需要提前一个月和DBA沟通方案</li>
-<li><p>绝对禁止使用MySQL保留关键字作为表名、列名、索引名等</p>
-<p>   关键字列表：<br><br>   MySQL5.6：<a href="http://dev.mysql.com/doc/refman/5.6/en/keywords.html" target="_blank" rel="external">http://dev.mysql.com/doc/refman/5.6/en/keywords.html</a><br><br>   MySQL5.5：<a href="http://dev.mysql.com/doc/refman/5.5/en/keywords.html" target="_blank" rel="external">http://dev.mysql.com/doc/refman/5.5/en/keywords.html</a></p>
-</li>
-<li><p>可变长度设计(例如varchar)一定要按照需要设计，同时控制单行长度，如果过大会降低数据库Buffer命中率，导致更新、查询性能下降</p>
-</li>
-</ol>
-<h4 id="字段设计"><a href="#字段设计" class="headerlink" title="字段设计"></a>字段设计</h4><ol>
-<li>表被索引列必须定义为not null，并设置default值</li>
-<li>禁止使用float、double类型，建议使用decimal替代</li>
-<li>禁止使用blob、text类型保留大文本、文件、图片，建议使用其他方式存储（TFS/SFS），数据库(MySQL/Oracle)只保存指针信息</li>
-<li>禁止使用varchar类型作为主键语句设计</li>
-</ol>
-<h3 id="附录三：Mysql-Explain-详解"><a href="#附录三：Mysql-Explain-详解" class="headerlink" title="附录三：Mysql Explain 详解"></a>附录三：Mysql Explain 详解</h3><p>语法: <code>explain &lt; table_name</code><br><br>例如: <code>explain select * from t3 where id=3952602;</code></p>
-<h4 id="explain输出解释"><a href="#explain输出解释" class="headerlink" title="explain输出解释"></a>explain输出解释</h4><p>+—-+————-+——-+——-+——————-+———+———+——-+——+——-+<br><br>| id | select_type | table | type  | possible_keys     | key     | key_len | ref   | rows | Extra |<br><br>+—-+————-+——-+——-+——————-+———+———+——-+——+——-+<br></p>
-<p>其中type、key、key_len、ref、rows、Extra这几个关键字的信息比较重要。     </p>
-<p><strong>id</strong></p>
-<p>  我的理解是SQL执行的顺利的标识,SQL从大到小的执行。</p>
-<p><strong>select_type</strong></p>
-<p>就是select类型,可以有以下几种:</p>
-<p>(1) SIMPLE</p>
-<p>简单SELECT(不使用UNION或子查询等) 例如:<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt;explain select * from t3 where id=3952602;</div></pre></td></tr></table></figure></p>
-<p>(2) PRIMARY</p>
-<p>复合查询最外层的select.</p>
-<p>(3) UNION</p>
-<p>UNION中的第二个或后面的SELECT语句.例如<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt;explain select * from t3 where id=3952602 union all select * from t3 ;</div></pre></td></tr></table></figure></p>
-<p>+—-+————–+————+——-+——————-+———+———+——-+——+——-+<br><br>| id | select_type  | table      | type  | possible_keys     | key     | key_len | ref   | rows | Extra |<br><br>+—-+————–+————+——-+——————-+———+———+——-+——+——-+<br><br>|  1 | PRIMARY      | t3         | const | PRIMARY,idx_t3_id | PRIMARY | 4       | const |    1 |       |<br><br>|  2 | UNION        | t3         | ALL   | NULL              | NULL    | NULL    | NULL  | 1000 |       ||NULL | UNION RESULT | <union1,2 |="" all="" null="" |<br=""><br>+—-+————–+————+——-+——————-+———+———+——-+——+——-+<br></union1,2></p>
-<p>(4) DEPENDENT UNION</p>
-<p>UNION中的第二个或后面的SELECT语句，取决于外面的查询<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt;explain select * from t3 where id in (select id from t3 where id=3952602 union all select id from t3);+----+--------------------+------------+--------+-------------------+---------+---------+-------+------+--------------------------+| id | select_type        | table      | type   | possible_keys     | key     | key_len | ref   | rows | Extra                    |+----+--------------------+------------+--------+-------------------+---------+---------+-------+------+--------------------------+|  1 | PRIMARY            | t3         | ALL    | NULL              | NULL    | NULL    | NULL  | 1000 | Using where              ||  2 | DEPENDENT SUBQUERY | t3         | const  | PRIMARY,idx_t3_id | PRIMARY | 4       | const |    1 | Using index              ||  3 | DEPENDENT UNION    | t3         | eq_ref | PRIMARY,idx_t3_id | PRIMARY | 4       | func  |    1 | Using where; Using index ||NULL | UNION RESULT       | &lt;union2,3 | ALL    | NULL              | NULL    | NULL    | NULL  | NULL |                          |+----+--------------------+------------+--------+-------------------+---------+---------+-------+------+--------------------------+</div></pre></td></tr></table></figure></p>
-<p>(5) UNION RESULT</p>
-<p>UNION的结果。</p>
-<p>(6) SUBQUERY</p>
-<p>子查询中的第一个SELECT.<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt;explain select * from t3 where id = (select id from t3 where id=3952602);</div></pre></td></tr></table></figure></p>
-<p>+—-+————-+——-+——-+——————-+———+———+——-+——+————-+<br><br>| id | select_type | table | type  | possible_keys     | key     | key_len | ref   | rows | Extra       |<br><br>+—-+————-+——-+——-+——————-+———+———+——-+——+————-+<br><br>|  1 | PRIMARY     | t3    | const | PRIMARY,idx_t3_id | PRIMARY | 4       | const |    1 |             |<br><br>|  2 | SUBQUERY    | t3    | const | PRIMARY,idx_t3_id | PRIMARY | 4       |       |    1 | Using index |<br><br>+—-+————-+——-+——-+——————-+———+———+——-+——+————-+<br></p>
-<p>(7) DEPENDENT SUBQUERY</p>
-<p>子查询中的第一个SELECT，取决于外面的查询</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt;explain select id from t3 where id in (select id from t3 where id=3952602 )  ;</div></pre></td></tr></table></figure>
-<p>+—-+——————–+——-+——-+——————-+———+———+——-+——+————————–+<br><br>| id | select_type        | table | type  | possible_keys     | key     | key_len | ref   | rows | Extra                    |<br><br>+—-+——————–+——-+——-+——————-+———+———+——-+——+————————–+<br><br>|  1 | PRIMARY            | t3    | index | NULL              | PRIMARY | 4       | NULL  | 1000 | Using where; Using index |<br><br>|  2 | DEPENDENT SUBQUERY | t3    | const | PRIMARY,idx_t3_id | PRIMARY | 4       | const |    1 | Using index              |<br><br>+—-+——————–+——-+——-+——————-+———+———+——-+——+————————–+<br><br>(8) DERIVED</p>
-<p>派生表的SELECT(FROM子句的子查询)<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt;explain select * from (select * from t3 where id=3952602) a ;</div></pre></td></tr></table></figure></p>
-<p>+—-+————-+————+——–+——————-+———+———+——+——+——-+<br><br>| id | select_type | table      | type   | possible_keys     | key     | key_len | ref  | rows | Extra |<br><br>+—-+————-+————+——–+——————-+———+———+——+——+——-+<br><br>|  1 | PRIMARY     | <derived2 1="" |="" system="" null="" |<br=""><br>|  2 | DERIVED     | t3         | const  | PRIMARY,idx_t3_id | PRIMARY | 4       |      |    1 |       |<br><br>+—-+————-+————+——–+——————-+———+———+——+——+——-+<br></derived2></p>
-<p><strong>table</strong></p>
-<p>显示这一行的数据是关于哪张表的。有时不是真实的表名字,看到的是derivedx(x是个数字,是第几步执行的结果)。<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt;explain select * from (select * from ( select * from t3 where id=3952602) a) b;</div></pre></td></tr></table></figure></p>
-<p>+—-+————-+————+——–+——————-+———+———+——+——+——-+<br><br>| id | select_type | table      | type   | possible_keys     | key     | key_len | ref  | rows | Extra |<br><br>+—-+————-+————+——–+——————-+———+———+——+——+——-+<br><br>|  1 | PRIMARY     | <derived2 1="" |="" system="" null="" |<br=""><br>|  2 | DERIVED     | <derived3 1="" |="" system="" null="" |<br=""><br>|  3 | DERIVED     | t3         | const  | PRIMARY,idx_t3_id | PRIMARY | 4       |      |    1 |       |<br><br>+—-+————-+————+——–+——————-+———+———+——+——+——-+<br></derived3></derived2></p>
-<p><strong>type</strong></p>
-<p>这列很重要,显示了连接使用了哪种类别,有无使用索引.从最好到最差的连接类型为const、eq_ref、ref、range、index和ALL </p>
-<p>(1) system</p>
-<p>这是const联接类型的一个特例。表仅有一行满足条件。如下(t3表上的id是 primary key)<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt;explain select * from (select * from t3 where id=3952602) a ;</div></pre></td></tr></table></figure></p>
-<p>+—-+————-+————+——–+——————-+———+———+——+——+——-+<br><br>| id | select_type | table      | type   | possible_keys     | key     | key_len | ref  | rows | Extra |<br><br>+—-+————-+————+——–+——————-+———+———+——+——+——-+<br><br>|  1 | PRIMARY     | <derived2 1="" |="" system="" null="" |<br=""><br>|  2 | DERIVED     | t3         | const  | PRIMARY,idx_t3_id | PRIMARY | 4       |      |    1 |       |<br><br>+—-+————-+————+——–+——————-+———+———+——+——+——-+</derived2></p>
-<p>(2)const</p>
-<p>表最多有一个匹配行，它将在查询开始时被读取。因为仅有一行，在这行的列值可被优化器认为是常数。const表很快，因为它们只读取一次！const用于用常数值比较PRIMARY KEY或UNIQUE索引的所有部分时。在下面的查询中，tbl_name可以用于const表：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> * <span class="keyword">from</span> tbl_name <span class="keyword">WHERE</span> primary_key=<span class="number">1</span>;</div><div class="line"><span class="keyword">SELECT</span> * <span class="keyword">from</span> tbl_name <span class="keyword">WHERE</span> primary_key_part1=<span class="number">1</span> <span class="keyword">and</span> primary_key_part2=<span class="number">2</span>;</div></pre></td></tr></table></figure></p>
-<p>例如:<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt;explain select * from t3 where id=3952602;</div></pre></td></tr></table></figure></p>
-<p>+—-+————-+——-+——-+——————-+———+———+——-+——+——-+<br><br>| id | select_type | table | type  | possible_keys     | key     | key_len | ref   | rows | Extra |<br><br>+—-+————-+——-+——-+——————-+———+———+——-+——+——-+<br><br>|  1 | SIMPLE      | t3    | const | PRIMARY,idx_t3_id | PRIMARY | 4       | const |    1 |       |<br><br>+—-+————-+——-+——-+——————-+———+———+——-+——+——-+<br></p>
-<p>(3) eq_ref</p>
-<p>除了const类型。一个索引被联接使用并且索引是UNIQUE或PRIMARY KEY。且使用=操作符比较的带索引的列。比较值可以为常量或一个使用在该表前面所读取的表的列的表达式。在下面的例子中，MySQL可以使用eq_ref联接来处理ref_tables：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> ref_table,other_table <span class="keyword">WHERE</span> ref_table.key_column=other_table.column;</div><div class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> ref_table,other_table <span class="keyword">WHERE</span> ref_table.key_column_part1=other_table.column <span class="keyword">AND</span> ref_table.key_column_part2=<span class="number">1</span>;</div></pre></td></tr></table></figure></p>
-<p>例如<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt;create unique index idx_t3_id on t3(id) ;</div></pre></td></tr></table></figure></p>
-<p>Query OK, 1000 rows affected (0.03 sec)<br><br>Records: 1000  Duplicates: 0  Warnings: 0<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt;explain select * from t3,t4 where t3.id=t4.accountid;</div></pre></td></tr></table></figure></p>
-<p>+—-+————-+——-+——–+——————-+———–+———+———————-+——+——-+<br><br>| id | select_type | table | type   | possible_keys     | key       | key_len | ref                  | rows | Extra |<br><br>+—-+————-+——-+——–+——————-+———–+———+———————-+——+——-+<br><br>|  1 | SIMPLE      | t4    | ALL    | NULL              | NULL      | NULL    | NULL                 | 1000 |       |<br><br>|  1 | SIMPLE      | t3    | eq_ref | PRIMARY,idx_t3_id | idx_t3_id | 4       | dbatest.t4.accountid |    1 |       |<br><br>+—-+————-+——-+——–+——————-+———–+———+———————-+——+——-+<br></p>
-<p> (4) ref</p>
-<p>如果联接只使用主键的最左边的前缀，或如果键不是UNIQUE或PRIMARY KEY（换句话说，如果联接不能基于关键字选择单个行的话），则使用ref。如果使用的键仅仅匹配少量行，该联接类型是不错的。ref可以用于使用=或&lt;=操作符的带索引的列。在下面的例子中，MySQL可以使用ref联接来处理ref_tables：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> ref_table <span class="keyword">WHERE</span> key_column=expr;</div><div class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> ref_table,other_table <span class="keyword">WHERE</span> ref_table.key_column=other_table.column;</div><div class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> ref_table,other_table <span class="keyword">WHERE</span> ref_table.key_column_part1=other_table.column <span class="keyword">AND</span> ref_table.key_column_part2=<span class="number">1</span>;</div></pre></td></tr></table></figure></p>
-<p>例如:<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt;drop index idx_t3_id on t3;</div></pre></td></tr></table></figure></p>
-<p>Query OK, 1000 rows affected (0.03 sec)<br><br>Records: 1000  Duplicates: 0  Warnings: 0<br><br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt;create index idx_t3_id on t3(id) ;</div></pre></td></tr></table></figure></p>
-<p>Query OK, 1000 rows affected (0.04 sec)<br><br>Records: 1000  Duplicates: 0  Warnings: 0<br></p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt;explain select * from t3,t4 where t3.id=t4.accountid;</div></pre></td></tr></table></figure>
-<p>+—-+————-+——-+——+——————-+———–+———+———————-+——+——-+<br><br>| id | select_type | table | type | possible_keys     | key       | key_len | ref                  | rows | Extra |<br><br>+—-+————-+——-+——+——————-+———–+———+———————-+——+——-+<br><br>|  1 | SIMPLE      | t4    | ALL  | NULL              | NULL      | NULL    | NULL                 | 1000 |       |<br><br>|  1 | SIMPLE      | t3    | ref  | PRIMARY,idx_t3_id | idx_t3_id | 4       | dbatest.t4.accountid |    1 |       |<br><br>+—-+————-+——-+——+——————-+———–+———+———————-+——+——-+<br></p>
-<p>2 rows in set (0.00 sec)</p>
-<p>(5) ref_or_null</p>
-<p>该联接类型如同ref，但是添加了MySQL可以专门搜索包含NULL值的行，在解决子查询中经常使用该联接类型的优化。<br>在下面的例子中，MySQL可以使用ref_or_null联接来处理ref_tables：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> ref_table <span class="keyword">WHERE</span> key_column=expr <span class="keyword">OR</span> key_column <span class="keyword">IS</span> <span class="literal">NULL</span>;</div></pre></td></tr></table></figure></p>
-<p>(6) index_merge</p>
-<p>该联接类型表示使用了索引合并优化方法。在这种情况下，key列包含了使用的索引的清单，key_len包含了使用的索引的最长的关键元素。例如:<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt;explain select * from t4 where id=3952602 or accountid=31754306 ;</div></pre></td></tr></table></figure></p>
-<p>+—-+————-+——-+————-+—————————-+—————————-+———+——+——+——————————————————+<br><br>| id | select_type | table | type        | possible_keys              | key                        | key_len | ref  | rows | Extra                                                |<br><br>+—-+————-+——-+————-+—————————-+—————————-+———+——+——+——————————————————+<br><br>|  1 | SIMPLE      | t4    | index_merge | idx_t4_id,idx_t4_accountid | idx_t4_id,idx_t4_accountid | 4,4     | NULL |    2 | Using union(idx_t4_id,idx_t4_accountid); Using where |<br><br>+—-+————-+——-+————-+—————————-+—————————-+———+——+——+——————————————————+<br></p>
-<p>1 row in set (0.00 sec)</p>
-<p>(7) unique_subquery</p>
-<p>该类型替换了下面形式的IN子查询的ref：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">value IN (<span class="keyword">SELECT</span> primary_key <span class="keyword">FROM</span> single_table <span class="keyword">WHERE</span> some_expr)</div></pre></td></tr></table></figure></p>
-<p>unique_subquery是一个索引查找函数，可以完全替换子查询，效率更高。</p>
-<p>(8) index_subquery</p>
-<p>该联接类型类似于unique_subquery。可以替换IN子查询，但只适合下列形式的子查询中的非唯一索引：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">value IN (<span class="keyword">SELECT</span> key_column <span class="keyword">FROM</span> single_table <span class="keyword">WHERE</span> some_expr)</div></pre></td></tr></table></figure></p>
-<p>(9) range</p>
-<p>只检索给定范围的行，使用一个索引来选择行。key列显示使用了哪个索引。key_len包含所使用索引的最长关键元素。在该类型中ref列为NULL。当使用=、&lt;>、>、>=、&lt;、&lt;=、IS NULL、&lt;=>、BETWEEN或者IN操作符，用常量比较关键字列时，可以使用range<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt;explain select * from t3 where id=3952602 or id=3952603;</div></pre></td></tr></table></figure></p>
-<p>+—-+————-+——-+——-+——————-+———–+———+——+——+————-+<br><br>| id | select_type | table | type  | possible_keys     | key       | key_len | ref  | rows | Extra       |<br><br>+—-+————-+——-+——-+——————-+———–+———+——+——+————-+<br><br>|  1 | SIMPLE      | t3    | range | PRIMARY,idx_t3_id | idx_t3_id | 4       | NULL |    2 | Using where |<br><br>+—-+————-+——-+——-+——————-+———–+———+——+——+————-+<br></p>
-<p>1 row in set (0.02 sec)</p>
-<p>(10) index</p>
-<p>该联接类型与ALL相同，除了只有索引树被扫描。这通常比ALL快，因为索引文件通常比数据文件小。当查询只使用作为单索引一部分的列时，MySQL可以使用该联接类型。</p>
-<p>(11) ALL</p>
-<p>对于每个来自于先前的表的行组合，进行完整的表扫描。如果表是第一个没标记const的表，这通常不好，并且通常在它情况下很差。通常可以增加更多的索引而不要使用ALL，使得行能基于前面的表中的常数值或列值被检索出。</p>
-<p>possible_keys</p>
-<p>possible_keys列指出MySQL能使用哪个索引在该表中找到行。注意，该列完全独立于EXPLAIN输出所示的表的次序。这意味着在possible_keys中的某些键实际上不能按生成的表次序使用。如果该列是NULL，则没有相关的索引。在这种情况下，可以通过检查WHERE子句看是否它引用某些列或适合索引的列来提高你的查询性能。如果是这样，创造一个适当的索引并且再次用EXPLAIN检查查询。</p>
-<p>Key</p>
-<p>key列显示MySQL实际决定使用的键（索引）。如果没有选择索引，键是NULL。要想强制MySQL使用或忽视possible_keys列中的索引，在查询中使用FORCE INDEX、USE INDEX或者IGNORE INDEX。</p>
-<p>key_len</p>
-<p>key_len列显示MySQL决定使用的键长度。如果键是NULL，则长度为NULL。ken_len就是真实实用索引的长度。当遇到范围查找时，该索引列之后的列不会使用，索引长度不会计算进去。</p>
-<p>ken_len计算注意点：</p>
-<ul>
-<li>如果列可空，则该索引列长度+1，用于标记是否为空</li>
-<li>utf-8使用3个字节存储一个字符，所以索引长度时字符数*3</li>
-</ul>
-<p>ref</p>
-<p>ref列显示使用哪个列或常数与key一起从表中选择行。</p>
-<p>Rows</p>
-<p>rows列显示MySQL认为它执行查询时必须检查的行数。</p>
-<p>Extra</p>
-<p>该列包含MySQL解决查询的详细信息：</p>
-<p>(1) Distinct</p>
-<p>一旦MYSQL找到了与行相联合匹配的行，就不再搜索了</p>
-<p>(2) Not exists</p>
-<p>MYSQL优化了LEFT JOIN，一旦它找到了匹配<code>LEFT JOIN</code>标准的行，就不再搜索了</p>
-<p>(3) Range checked for each</p>
-<p>没有找到理想的索引，因此对于从前面表中来的每一个行组合，MYSQL检查使用哪个索引，并用它来从表中返回行。这是使用索引的最慢的连接之一。</p>
-<p>(4) Using filesort</p>
-<p>看到这个的时候，查询就需要优化了。MYSQL需要进行额外的步骤来发现如何对返回的行排序。</p>
-<p>(5) Using index</p>
-<p>列数据是从仅仅使用了索引中的信息而没有读取实际的行动的表返回的，这发生在对表的全部的请求列都是同一个索引的部分的时候</p>
-<p>(6) Using temporary</p>
-<p>看到这个的时候，查询需要优化了。这里，MYSQL需要创建一个临时表来存储结果，这通常发生在对不同的列集进行<code>ORDER BY</code>上，而不是<code>GROUP BY</code>上。</p>
-<p>(7) Using where</p>
-<p>这说明服务器在存储引擎收到行后将进行过滤。有些where中的条件会有属于索引的列，当它读取使用索引的时候，就会被过滤，所以会出现有些where语句并没有在extra列中出现using where这么一个说明。</p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>【1】李海翔.数据库查询优化器的艺术：原理解析与SQL性能优化[M].北京:北京华章图文信息有限公司:2014</p>
-<p>【2】[美] 加西亚·莫利纳 等著，杨冬青 等译.数据库系统实现（第2版） [Database System Implementation,Second Edition][M].机械工业出版社:2010</p>
-<p>【3】[美]施瓦茨 等著，宁海元等译    高性能MySQL（第3版）.电子工业出版社</p>
-<p>【4】姜承尧.MySQL技术内幕:InnoDB存储引擎 第2版.[M].机械工业出版社</p>
-<p>【5】<a href="http://tech.meituan.com/innodb-lock.html?utm_source=tuicool&amp;utm_medium=referral" target="_blank" rel="external">http://tech.meituan.com/innodb-lock.html?utm_source=tuicool&amp;utm_medium=referral</a></p>
-<p>【6】<a href="http://blog.csdn.net/jiangguilong2000/article/details/12200903" target="_blank" rel="external">http://blog.csdn.net/jiangguilong2000/article/details/12200903</a></p>
-]]></content>
-      
-        <categories>
-            
-            <category> MySQL </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> MySQL </tag>
-            
-            <tag> 解析 </tag>
-            
-        </tags>
-        
-    </entry>
+
     
-    <entry>
-      <title><![CDATA[Java反射(Reflection)]]></title>
-      <url>/2017/06/26/java/basic/Manual-Java_Reflection-20170626/</url>
-      <content type="html"><![CDATA[<p>Java中很多框架和应用都会使用反射，本文简单的介绍了Java的反射。</p>
-<a id="more"></a>
-<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>Reflection和Introspection这两个机制都是作用在Java运行时。<br>每一个类在JVM运行时，都是一个Class实例，该对象描述了响应类的全部属性，包括Annotation、Field、Method等等。<br>Java的反射和内省都非常的使用，在比较流行的框架Spring和MyBatis中就使用了反射和内省。</p>
-<p>先看一个简单的Demo</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.lang.reflect.Field;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.Method;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.Modifier;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.Parameter;</div><div class="line"><span class="keyword">import</span> java.util.HashMap;</div><div class="line"><span class="keyword">import</span> java.util.Map;</div><div class="line"><span class="keyword">import</span> java.util.Objects;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StartDemo</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></div><div class="line">        <span class="keyword">throws</span> ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException &#123;</div><div class="line">        Class&lt;HashMap&gt; mapClazz = (Class&lt;HashMap&gt;) Class.forName(<span class="string">"java.util.HashMap"</span>);</div><div class="line">        System.out.println(mapClazz.getName());</div><div class="line">        System.out.println(<span class="string">"------------------------------------------"</span>);</div><div class="line">        Method[] methods = mapClazz.getMethods();</div><div class="line">        <span class="keyword">for</span> (Method method : methods) &#123;</div><div class="line">            System.out.print(<span class="string">" "</span> + method.getName() + <span class="string">"("</span>);</div><div class="line">            Parameter[] parameters = method.getParameters();</div><div class="line">            <span class="keyword">for</span> (Parameter parameter : parameters) &#123;</div><div class="line">                System.out.print(parameter.getType().getName() + <span class="string">","</span>);</div><div class="line">            &#125;</div><div class="line">            System.out.println(<span class="string">");"</span>);</div><div class="line">        &#125;</div><div class="line">        System.out.println(<span class="string">"------------------------------------------"</span>);</div><div class="line">        Field[] fields = mapClazz.getDeclaredFields();</div><div class="line">        <span class="keyword">for</span> (Field field : fields) &#123;</div><div class="line">            System.out.println(<span class="string">" "</span> + Modifier.toString(field.getModifiers()) + <span class="string">" "</span> + field.getName());</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        Map&lt;String,String&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</div><div class="line">        Method putMethod = mapClazz.getMethod(<span class="string">"put"</span>, Object.class,Object.class);</div><div class="line">        Method getMethod = mapClazz.getMethod(<span class="string">"get"</span>,Object.class);</div><div class="line">        putMethod.invoke(map,<span class="string">"hello"</span>,<span class="string">"world"</span>);</div><div class="line">        String world = (String) getMethod.invoke(map,<span class="string">"hello"</span>);</div><div class="line">        System.out.println(<span class="string">"------------------------------------------"</span>);</div><div class="line">        System.out.println(world);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这个示例中首先通过Class的描述符获取ClassLoader中对应的Class实例对象。<br>第二步，遍历该类可访问方法（包含父类继承的）。<br>第三步，遍历该类声明的属性（不包括父类声明的属性）。<br>第四步，获取Map接口的<code>put</code>方法，获取Map接口的<code>get</code>方法。通过反射得到的put方法将[“hello”:”world”]放入到map对象中，在通过反射得到的方法get，获得map中对应的value。</p>
-<h4 id="Java反射的机制的主要作用："><a href="#Java反射的机制的主要作用：" class="headerlink" title="Java反射的机制的主要作用："></a>Java反射的机制的主要作用：</h4><ol>
-<li>Jvm运行时校验类的信息。</li>
-<li>Jvm运行时修改类或者对象的信息。</li>
-<li>Jvm运行时动态创建对象实例。</li>
-<li>Jvm运行时动态调用对象方法。</li>
-<li>修改构造函数、方法、属性的访问权限。</li>
-</ol>
-<h4 id="不足"><a href="#不足" class="headerlink" title="不足"></a>不足</h4><ol>
-<li>性能消耗<ul>
-<li>由于反射是动态解析类的结构，所有不能执行包含了虚拟机优化的动作。因此，反射操作会比未使用反射的部分性能要差，应当避免在频繁调用的、性能敏感的代码块中使用反射。</li>
-</ul>
-</li>
-<li>安全限制<ul>
-<li>反射需要运行时的权限，当一个安全管理器内运行时，肯能是不存在该权限的。当代码必须在受限的安全上下文中调用时，这是一个重要的考虑因素，例如Applet。</li>
-</ul>
-</li>
-<li>私有信息曝光<ul>
-<li>由于反射允许非反射代码执行代码操作，这可能导致非法操作，例如访问私有（private）属性和变量，使用反射可能导致意外的副作用，可能是使代码功能失调和破坏可移植性。<br>反射会打破抽象设计，因此升级平台后可能导致不同的执行动作。</li>
-</ul>
-</li>
-</ol>
-<h3 id="类"><a href="#类" class="headerlink" title="类"></a>类</h3><p>在Java中，每个对象不是一个引用类型，就是一个原始类型。所有的引用类型都继承自<code>java.lang.Object</code>。类、枚举、数组和接口都是引用类型。<br>原始类型的固定集合是<code>boolean</code>、<code>char</code>、<code>byte</code>、<code>short</code>、<code>int</code>、<code>long</code>、<code>float</code>、<code>double</code>。<br>对于每种类型，JVM都会实例化一个不可变的<code>java.lang.Class</code>实例，该实例提供了一系列的方法，检查该对象运行时的属性（包括成员和类型信息）。<br><code>java.lang.Class</code>还提供了创建新类和新对象的能力。最重要的是，它是所有反射接口的入口。</p>
-<h4 id="Class的获取方式"><a href="#Class的获取方式" class="headerlink" title="Class的获取方式"></a>Class的获取方式</h4><p>所有反射操作的入口，都是<code>java.lang.Class</code>。有多种获取<code>java.lang.Class</code>对象的方法，使用何种，取决于代码是否有权访问该类的对象、或者该类的名称、或者一个类型、或者一个已有的<code>java.lang.Class</code>对象。</p>
-<p>可以获取<code>java.lang.Class</code>的方法和描述如下：</p>
-<ol>
-<li>Object.getClass()</li>
-</ol>
-<p>如果有一个该类的实例，获取<code>Class</code>最简单的方法就是通过调用对象的<code>getClass()</code>方法获取。这只适用于引用类型的对象。<br>示例：</p>
-<blockquote>
-<p>Class stringClazz = “foo”.getClass()</p>
-</blockquote>
-<ol>
-<li><code>.class</code>语法</li>
-</ol>
-<p>如果不能访问对象实例，可以访问对象的类型，那么可以通过”Class.class”语法获取Class实例。这个语法可用于原始类型和引用数据类型。<br>示例：</p>
-<blockquote>
-<p>Class intClazz = int.class;</p>
-<p>Class mapClazz = java.util.Map.class;</p>
-</blockquote>
-<ol>
-<li><code>java.lang.Class.forName</code>方法</li>
-</ol>
-<p>如果类的全限定名称是可用的，则可以通过静态方法<code>Class.forName</code>获取Class对象。该方法不适用于原始类型。<br>数组的全限定名称的语法可以通过”Class.getName()”方法获取。该语法适用于引用对象的数组和原始类型的数组。<br>示例：</p>
-<blockquote>
-<p>Class c = Class.forName(“com.duke.MyLocaleServiceProvider”);</p>
-<p>Class cDoubleArray = Class.forName(“[D”);</p>
-<p>Class cStringArray = Class.forName(“[[Ljava.lang.String;”);</p>
-</blockquote>
-<ol>
-<li>原始类型包装类的TYPE属性</li>
-</ol>
-<p><code>.class</code>语法用于获取一个原始类型的Class对象是更为方便的方式；但还有其他获取该对象的方式。<br>每一个原始类型和void类型都有一个在<code>java.lang</code>包中的包装类，用于原始类型和引用类型之间的装箱和拆箱操作。<br>每一个对应的包装类，都有一个命名为<code>TYPE</code>的属性，这个属性的值就是被包装的原始类型的Class实例。</p>
-<ol>
-<li>Class.getSuperclass()</li>
-</ol>
-<p>返回该类的超类。</p>
-<ol>
-<li>Class.getClasses()</li>
-</ol>
-<p>返回该类声明的或者从超类声明继承的内部公共类、接口、枚举。</p>
-<ol>
-<li>Class.getDeclaredClasses()</li>
-</ol>
-<p>返回该类声明的内部类、接口、枚举。</p>
-<ol>
-<li>Class、Field、Method、Constructor.getDeclaringClass()</li>
-</ol>
-<p>返回声明该Class、Field、Method、Constructor的Class，如果Class不是被其他Class所声明的、或者是匿名内部类，则该接口返回null。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.lang.reflect.Field;</div><div class="line"></div><div class="line">Field f = System.class.getField(<span class="string">"out"</span>);</div><div class="line">Class c = f.getDeclaringClass();</div></pre></td></tr></table></figure>
-<ol>
-<li>Class.getEnclosingClass()</li>
-</ol>
-<p>返回声明该内部类、或者匿名类的Class对象。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> Object o = <span class="keyword">new</span> Object() &#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">m</span><span class="params">()</span> </span>&#123;&#125;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">static</span> Class&lt;?&gt; c = o.getClass().getEnclosingClass();</div></pre></td></tr></table></figure>
-<h3 id="Class的方法"><a href="#Class的方法" class="headerlink" title="Class的方法"></a>Class的方法</h3><p>自身非私有：自身声明的成员，包括public、protected、default</p>
-<p>继承的公共：父类声明的public成员</p>
-<p>自身私有：自身声明的private成员</p>
-<table>
-<thead>
-<tr>
-<th>Class接口</th>
-<th>自身非私有</th>
-<th>继承的公共</th>
-<th>自身私有</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>getDeclaredField()</td>
-<td>Yes</td>
-<td>No</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>getField()</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>No</td>
-</tr>
-<tr>
-<td>getDeclaredFields()</td>
-<td>Yes</td>
-<td>No</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>getFields()</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>No</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th>Class接口</th>
-<th>自身非私有</th>
-<th>继承的公共</th>
-<th>自身私有</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>getDeclaredMethod()</td>
-<td>Yes</td>
-<td>No</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>getMethod()</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>No</td>
-</tr>
-<tr>
-<td>getDeclaredMethods()</td>
-<td>Yes</td>
-<td>No</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>getMethods()</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>No</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th>Class接口</th>
-<th>自身非私有</th>
-<th>继承的</th>
-<th>自身私有</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>getDeclaredConstructor()</td>
-<td>Yes</td>
-<td>N/A</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>getConstructor()</td>
-<td>Yes</td>
-<td>N/A</td>
-<td>No</td>
-</tr>
-<tr>
-<td>getDeclaredConstructors()</td>
-<td>Yes</td>
-<td>N/A</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>getConstructors()</td>
-<td>Yes</td>
-<td>N/A</td>
-<td>No</td>
-</tr>
-</tbody>
-</table>
-<h4 id="获取父类"><a href="#获取父类" class="headerlink" title="获取父类"></a>获取父类</h4><p>通过Class实例的<code>getSuperClass()</code>方法可以获取class的父类，<br>如果该Class实例表示的是Object、一个接口、一个原始类型或者void类型，该方法会返回null。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Class&lt;?&gt; superClass = HashMap.class.getSuperclass();</div><div class="line">System.out.println(superClass);                        <span class="comment">// "class java.util.AbstractMap"</span></div><div class="line">System.out.println(Object.class.getSuperclass());      <span class="comment">// "null"</span></div><div class="line">System.out.println(String[][].class.getSuperclass());  <span class="comment">// "class java.lang.Object"</span></div></pre></td></tr></table></figure>
-<h4 id="获取Package"><a href="#获取Package" class="headerlink" title="获取Package"></a>获取Package</h4><p><code>getPackage()</code>将返回该类的包信息。可以调用<code>Package.getName()</code>获取包名称。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">System.out.println(HashMap.class.getPackage().getName());</div></pre></td></tr></table></figure></p>
-<p>Package 对象包含有关 Java 包的实现和规范的版本信息。<br>规范的版本号使用了一个由句点 “.” 分隔的十进制正整数组成的语法，例如 “2.0” 或 “1.2.3.4.5.6.7”。这允许使用可扩展的编号来表示主版本号、次版本号、缩微版本号，等等。</p>
-<h4 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h4><p>Java中共有四种访问限制修饰符：private、protected、缺省、public</p>
-<ul>
-<li>private：私有,内部访问</li>
-<li>缺省：是默认的,同一个package下可以访问。</li>
-<li>protected：同一个packege或者子类可以访问</li>
-<li>public:共有,都可以访问</li>
-</ul>
-<p>每种修饰符，具体可以修饰的组件如下：</p>
-<table>
-<thead>
-<tr>
-<th>修饰符</th>
-<th>类</th>
-<th>成员方法</th>
-<th>构造方法</th>
-<th>成员变量</th>
-<th>局部变量</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>abstract（抽象的）</td>
-<td>√</td>
-<td>√</td>
-<td>－</td>
-<td>－</td>
-<td>－</td>
-</tr>
-<tr>
-<td>static （静态的）</td>
-<td>√</td>
-<td>√</td>
-<td>－</td>
-<td>√</td>
-<td>－</td>
-</tr>
-<tr>
-<td>public（公共的）</td>
-<td>√</td>
-<td>√</td>
-<td>√</td>
-<td>√</td>
-<td>－</td>
-</tr>
-<tr>
-<td>protected（受保护的）</td>
-<td>√</td>
-<td>√</td>
-<td>√</td>
-<td>－</td>
-<td>－</td>
-</tr>
-<tr>
-<td>private（私有的）</td>
-<td>√</td>
-<td>√</td>
-<td>√</td>
-<td>√</td>
-<td>－</td>
-</tr>
-<tr>
-<td>synchronized（同步的）</td>
-<td>－</td>
-<td>√</td>
-<td>－</td>
-<td>－</td>
-<td>－</td>
-</tr>
-<tr>
-<td>native（本地的）</td>
-<td>－</td>
-<td>√</td>
-<td>－</td>
-<td>－</td>
-<td>－</td>
-</tr>
-<tr>
-<td>transient（暂时的）</td>
-<td>－</td>
-<td>－</td>
-<td>－</td>
-<td>√</td>
-<td>－</td>
-</tr>
-<tr>
-<td>volatie（易失的）</td>
-<td>－</td>
-<td>－</td>
-<td>－</td>
-<td>√</td>
-<td>－</td>
-</tr>
-<tr>
-<td>final（不要改变的）</td>
-<td>√</td>
-<td>√</td>
-<td>－</td>
-<td>√</td>
-<td>√</td>
-</tr>
-</tbody>
-</table>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">System.out.println(Modifier.toString(HashMap.class.getModifiers())); </div><div class="line"><span class="comment">//"public"</span></div><div class="line">System.out.println(Modifier.toString(AbstractMap.class.getModifiers()));</div><div class="line"><span class="comment">//"public abstract"</span></div></pre></td></tr></table></figure>
-<h4 id="泛型的参数"><a href="#泛型的参数" class="headerlink" title="泛型的参数"></a>泛型的参数</h4><p><code>getTypeParameters()</code>方法按照顺序返回定义该类所使用泛型参数信息。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Class&lt;?&gt; hashClass = HashMap.class.getSuperclass();</div><div class="line">TypeVariable&lt;?&gt;[] typeParameters = hashClass.getTypeParameters();</div><div class="line"><span class="keyword">for</span> (TypeVariable&lt;?&gt; typeVariable : typeParameters) &#123;</div><div class="line">    System.out.print(typeVariable+<span class="string">","</span>);</div><div class="line">&#125;</div><div class="line"><span class="comment">//输出 K,V,</span></div></pre></td></tr></table></figure></p>
-<h4 id="获取所有实现的接口"><a href="#获取所有实现的接口" class="headerlink" title="获取所有实现的接口"></a>获取所有实现的接口</h4><p><code>getGenericInterfaces()</code>：该方法返回一个Type数组，携带了泛型信息。表示该class所有实现的接口集合。<br><code>getInterfaces()</code>：该方法返回一个Class数组。表示该class所有实现的接口集合。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Class&lt;?&gt; listClass = ArrayList.class;</div><div class="line">Type[] typeInterfaces = listClass.getGenericInterfaces();</div><div class="line">System.out.println(Arrays.toString(typeInterfaces));</div><div class="line"><span class="comment">// [java.util.List&lt;E&gt;, interface java.util.RandomAccess, interface java.lang.Cloneable, interface java.io.Serializable]</span></div><div class="line">Class[] interfaces = listClass.getInterfaces();</div><div class="line">System.out.println(Arrays.toString(interfaces));</div><div class="line"><span class="comment">//[interface java.util.List, interface java.util.RandomAccess, interface java.lang.Cloneable, interface java.io.Serializable]</span></div></pre></td></tr></table></figure>
-<h3 id="操作对象"><a href="#操作对象" class="headerlink" title="操作对象"></a>操作对象</h3><p>首先声明一个Demo类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">   </div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Comparable</span>&lt;<span class="title">Person</span>&gt;</span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age = <span class="number">0</span>;</div><div class="line">    </div><div class="line">    <span class="keyword">public</span> String name = <span class="string">"demo"</span>;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 无参公共构造函数</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Person</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(<span class="keyword">int</span> age, String name)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.age = age;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Person o)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.age - o.age;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> age;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> Person <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.age = age;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> Person <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"Person&#123;"</span> + <span class="string">"age="</span> + age + <span class="string">", name='"</span> + name + <span class="string">'\''</span> + <span class="string">'&#125;'</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h4 id="获取-设置公共属性"><a href="#获取-设置公共属性" class="headerlink" title="获取/设置公共属性"></a>获取/设置公共属性</h4><p><code>get()</code>方法返回的是一个对象，所以原始类型的属性，会返回相应的包装类。<br> 如果属性是<code>static</code>的，那么方法的对象入参需要是<code>null</code>。</p>
-<p>有一系列的<code>set*()</code>方法，用于设置不同的类型的属性，需要获取相应属性的类型，来确定使用正确的<code>set</code>方法。<br>如果属性是<code>final</code>的，则会抛出<code>java.lang.IllegalAccessException</code>。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Field field = Person.class.getField(<span class="string">"name"</span>);</div><div class="line">Person person = <span class="keyword">new</span> Person(<span class="number">1</span>, <span class="string">"demo-01"</span>);</div><div class="line">System.out.println(field.get(person)); <span class="comment">//demo-01</span></div><div class="line">field.set(person, <span class="string">"demo-02"</span>); <span class="comment">//设置成 demo-02</span></div><div class="line">System.out.println(field.get(person)); <span class="comment">//demo-01</span></div></pre></td></tr></table></figure></p>
-<h4 id="获取-设置私有成员变量"><a href="#获取-设置私有成员变量" class="headerlink" title="获取/设置私有成员变量"></a>获取/设置私有成员变量</h4><p>私有的属性在类的外部是不能被访问的，但是使用反射，我们可以关闭私有属性的访问限制。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Field field = Person.class.getDeclaredField(<span class="string">"age"</span>);</div><div class="line">Person person = <span class="keyword">new</span> Person(<span class="number">1</span>, <span class="string">"demo-01"</span>);</div><div class="line">field.setAccessible(<span class="keyword">true</span>); <span class="comment">//关闭访问限制</span></div><div class="line">System.out.println(field.get(person)); <span class="comment">// 1</span></div><div class="line">field.set(person, <span class="number">2</span>); <span class="comment">//设置成 2</span></div><div class="line">System.out.println(field.get(person)); <span class="comment">//2</span></div></pre></td></tr></table></figure>
-<h4 id="调用公共方法"><a href="#调用公共方法" class="headerlink" title="调用公共方法"></a>调用公共方法</h4><p>我们可以通过调用<code>Method.invoke()</code>方法来调用一个方法。<br>如果这个方法是一个<code>static</code>的方法，则相应的对象入参，需要设置为<code>null</code>。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Method setMethod = Person.class.getMethod(<span class="string">"setName"</span>, String.class);</div><div class="line">Person person = <span class="keyword">new</span> Person(<span class="number">1</span>, <span class="string">"demo-01"</span>);</div><div class="line">System.out.println(setMethod.invoke(person, <span class="string">"demo-02"</span>));</div><div class="line">Method getMethod = Person.class.getMethod(<span class="string">"getName"</span>);</div><div class="line">System.out.println(getMethod.invoke(person)); <span class="comment">//demo-02</span></div></pre></td></tr></table></figure>
-<h4 id="调用私有方法"><a href="#调用私有方法" class="headerlink" title="调用私有方法"></a>调用私有方法</h4><p>调用私有方法需要使用<code>setAccessible()</code>方法关闭访问限制。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Method setMethod = Person.class.getDeclaredMethod(<span class="string">"setAge"</span>, <span class="keyword">int</span>.class);</div><div class="line">Person person = <span class="keyword">new</span> Person(<span class="number">1</span>, <span class="string">"demo-01"</span>);</div><div class="line">setMethod.setAccessible(<span class="keyword">true</span>);<span class="comment">//关闭访问限制</span></div><div class="line">System.out.println(setMethod.invoke(person, <span class="number">2</span>));</div><div class="line">Method getMethod = Person.class.getDeclaredMethod(<span class="string">"getAge"</span>);</div><div class="line">getMethod.setAccessible(<span class="keyword">true</span>);<span class="comment">//关闭访问限制</span></div><div class="line">System.out.println(getMethod.invoke(person)); <span class="comment">//2</span></div></pre></td></tr></table></figure>
-<h4 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h4><p>我们可以通过调用构造函数的<code>newInstance()</code></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//获取无参构造函数</span></div><div class="line">Constructor&lt;Person&gt; constructor = Person.class.getDeclaredConstructor();</div><div class="line">constructor.setAccessible(<span class="keyword">true</span>);<span class="comment">//关闭访问限制</span></div><div class="line">Person person = constructor.newInstance();</div><div class="line">System.out.println(person);<span class="comment">// Person&#123;age=0, name='demo'&#125;</span></div><div class="line"></div><div class="line"><span class="comment">//获取入参属性顺序是int.class、String.class的构造函数</span></div><div class="line">constructor = Person.class.getConstructor(<span class="keyword">int</span>.class, String.class);</div><div class="line">person = constructor.newInstance(<span class="number">1</span>, <span class="string">"demo-2"</span>);</div><div class="line">System.out.println(person);<span class="comment">// Person&#123;age=1, name='demo-2'&#125;</span></div></pre></td></tr></table></figure>
-<ol>
-<li><p><a href="http://tutorials.jenkov.com/java-reflection/index.html" target="_blank" rel="external">参考文章：http://tutorials.jenkov.com/java-reflection/index.html</a></p>
-</li>
-<li><p><a href="http://docs.oracle.com/javase/tutorial/reflect/index.html" target="_blank" rel="external">参考文章： http://docs.oracle.com/javase/tutorial/reflect/index.html</a></p>
-</li>
-</ol>
-<div style="display: none;"><br>TODO:<br> 注解、泛型、数组<br></div>]]></content>
-      
-        <categories>
-            
-            <category> Java </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> Java </tag>
-            
-            <tag> Manual </tag>
-            
-        </tags>
-        
-    </entry>
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
     
-  
-  
-</search>
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2017/07/02/mysql/Manual-MySQL-20170702/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar-white.png" alt="IOTA's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        iota#guahao.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="#" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/06/">六月 2017<span class="sidebar_archives-count">1</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/Java/">Java<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/MySQL/">MySQL<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/Spring/">Spring<span class="sidebar_archives-count">1</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/tags" title="标签云">
+                
+                    <i class="material-icons sidebar-material-icons">cloud</i>
+                
+                标签云
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/timeline" title="时间轴">
+                
+                    <i class="material-icons sidebar-material-icons">list</i>
+                
+                时间轴
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/about" title="我们">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                我们
+            </a>
+        </li>
+        
+            <li class="divider"></li>
+        
+    
+        <li>
+            <a href="/links" title="友情链接">
+                
+                    <i class="material-icons sidebar-material-icons">link</i>
+                
+                友情链接
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©&nbsp;2017&nbsp;-<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>微医系统架构技术博客
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import File -->
+
+
+    <script>lsloader.load("js/lazyload.min.js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==")</script>
+    <script>lsloader.load("js/js.min.js","/js/js.min.js?oAl/+lvaqTFV31JXTmbrNA==")</script>
+
+
+
+    <script>lsloader.load("js/nprogress.js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==")</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Window Load-->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+</script>
+
+<!-- MathJax Load-->
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Bing Background -->
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.4.0 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>
