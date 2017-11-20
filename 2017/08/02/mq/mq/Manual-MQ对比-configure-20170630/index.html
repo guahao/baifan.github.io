@@ -12,7 +12,7 @@
     
     <title>
         
-            系统架构团队 | 
+            Kafka VS RocketMQ VS RabbitMQ | 
         
         微医系统架构技术博客
     </title>
@@ -37,8 +37,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="IOTA">
-    <meta name="description" itemprop="description" content="薪火相传">
-    <meta name="keywords" content="null">
+    <meta name="description" itemprop="description" content="本文通过在设计定位，基础对比，可用性、可靠性比较，功能对比，运维成本上对Kafka、RocketMQ、RabbitMQ做了一个对比，希望能够帮助大家对这三个MQ有一些比较具像的理解，并为大家开发选型提供帮助。">
+    <meta name="keywords" content="null,Kafka,RocketMQ,RabbitMQ">
 
     <!-- Site Verification -->
     
@@ -67,29 +67,62 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://weiyi.tech">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="系统架构团队 | 微医系统架构技术博客">
+    <meta property="og:title" content="Kafka VS RocketMQ VS RabbitMQ | 微医系统架构技术博客">
     <meta property="og:image" content="/favicon.ico" />
-    <meta property="og:description" content="薪火相传">
-    
+    <meta property="og:description" content="本文通过在设计定位，基础对比，可用性、可靠性比较，功能对比，运维成本上对Kafka、RocketMQ、RabbitMQ做了一个对比，希望能够帮助大家对这三个MQ有一些比较具像的理解，并为大家开发选型提供帮助。">
+    <meta property="og:article:tag" content="Kafka"> <meta property="og:article:tag" content="RocketMQ"> <meta property="og:article:tag" content="RabbitMQ"> 
 
+    
+        <meta property="article:published_time" content="Wed Aug 02 2017 19:35:00 GMT+0800" />
+        <meta property="article:modified_time" content="Mon Nov 20 2017 17:04:45 GMT+0800" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="系统架构团队 | 微医系统架构技术博客">
-    <meta name="twitter:description" content="薪火相传">
+    <meta name="twitter:title" content="Kafka VS RocketMQ VS RabbitMQ | 微医系统架构技术博客">
+    <meta name="twitter:description" content="本文通过在设计定位，基础对比，可用性、可靠性比较，功能对比，运维成本上对Kafka、RocketMQ、RabbitMQ做了一个对比，希望能够帮助大家对这三个MQ有一些比较具像的理解，并为大家开发选型提供帮助。">
     <meta name="twitter:image" content="/favicon.ico">
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="http://weiyi.tech" />
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://weiyi.tech/about/index.html" />
+        <link rel="canonical" href="http://weiyi.tech/2017/08/02/mq/mq/Manual-MQ对比-configure-20170630/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "微医系统架构技术博客",
+        "logo": "/favicon.ico"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "IOTA",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/favicon.ico"
+        },
+        "description": "任何足够先进的技术都等同于魔术"
+    },
+    "headline": "Kafka VS RocketMQ VS RabbitMQ",
+    "url": "http://weiyi.tech/2017/08/02/mq/mq/Manual-MQ对比-configure-20170630/index.html",
+    "datePublished": "Wed Aug 02 2017 19:35:00 GMT+0800",
+    "dateModified": "Mon Nov 20 2017 17:04:45 GMT+0800",
+    "description": "本文通过在设计定位，基础对比，可用性、可靠性比较，功能对比，运维成本上对Kafka、RocketMQ、RabbitMQ做了一个对比，希望能够帮助大家对这三个MQ有一些比较具像的理解，并为大家开发选型提供帮助。",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://weiyi.tech"
+    }
+}
+</script>
 
 
     
@@ -269,6 +302,43 @@
 
                     <!-- Post TOC -->
 
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-Kafka-VS-RocketMQ-VS-RabbitMQ"><span class="post-toc-number">1.</span> <span class="post-toc-text">1 Kafka VS RocketMQ VS RabbitMQ</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-参考博客"><span class="post-toc-number">2.</span> <span class="post-toc-text">2 参考博客</span></a></li></ol>
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
+    
+
+
+
+
 
 <!-- Layouts -->
 
@@ -295,7 +365,7 @@
         
     
             <p class="article-headline-p">
-                系统架构团队
+                Kafka VS RocketMQ VS RabbitMQ
             </p>
         </div>
 
@@ -309,12 +379,12 @@
 
     <!-- Author Avatar -->
     <div id="author-avatar">
-        <img src="/img/avatar/weiyi-44.jpg" width="44px" height="44px" alt="Author Avatar"/>
+        <img src="/img/avatar/wuzhengfei-44.jpg" width="44px" height="44px" alt="Author Avatar"/>
     </div>
     <!-- Author Name & Date -->
     <div>
-        <strong>IOTA</strong>
-        <span>11月 19, 2015</span>
+        <strong>伍正飞</strong>
+        <span>8月 02, 2017</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -336,7 +406,7 @@
 <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-qrcode-button">
     <li class="mdl-menu__item">在其它设备中阅读本文章</li>
     
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAAB6klEQVR42u3aQU4DMQwF0N7/0rBFgpn+nwwtg19WqFRJXheWY/vx8S/WAwMDAwMDAwPjzzAe8fr6/e87HO32w/EHe+Z3wMDAmMl4Etriix59ksDyO2BgYExm5EH2KHRGx5/uXwR6DAwMjOCY9qLne2JgYGBcG3DzBDFPHzEwMDCuesQmBbK8iPa2tzgGBsYNGWtHXvv32/obGBgYf55RjzhspI9Jee5FMyMYGBi3YiRFsfbzc0aeep63HzAwMCYz9huNv/GgxcDAwFgD5IMXO+Nih//FwMAYw7hqrRX386tfXG7DwMC4ISNJ6drnawvIQy0GBsY0RpL2tRdth8aeXHe/aoiBgXFzRg5YK4rl5ba2qYCBgTGH0SZ5bVNhP2XcqhpiYGD8I8baFduEr/0OBgYGRtvIbANrHqyTNicGBsZkxs5YavJAbRnFDhgYGGMYOw/aJETme+ZFPQwMjJmMtnlZF/GXhu8xMDAw1lY+VJGE17bZiYGBMZOxNgaRXzcJymsJIgYGxjRGG2R3nqx5gH5yKwwMjJGMNsjmx+chOH/KYmBgYKy1B9aCb5s+YmBgYKwxkjGy8yZE/gNhYGBMZrRp32+MVryo3IaBgXFDRtsYyENw3qSsf0QMDIwxjPsuDAwMDAwMDIy3rk/4532CvmUIqgAAAABJRU5ErkJggg==">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAAC4UlEQVR42u3a0W7cIBQEUP//T7evlSp7Z4BtHTh+ijaszcFSJtzL9evI68LGxsbGxsbGxsZ+JfuKr7/H393nz0+en5V8fvdzPmdsbGzsE9gf/vQ/YpLxd0uQf2tmDtjY2NjnsJMgyaMlGZkEUr6sH+aMjY2NjR0EyfNEE9LzTLCxsbGxVwXYc1yNLU2Ox8bGxsaeKSo9l4q+EWb5nb9YS8PGxsZ+Pbtt9L7h5//Q38bGxsZ+Jbu98jDLW7Pzd4hmjo2Njb0pOykJJZ/nxy6TslSymckV2NjY2Huz5wNjVXs4b+62i4KNjY29NzufxMxhnbwwlL+GtsGAjY2NvTe7DoPgX/92ZL5YbdMXGxsbe2922wDIJ9EuZRt7edxiY2Njn8DOC/f5ofn5ELrKq24PYGNjY2/EbiddxEbcNm7DMv8uNjY29t7smaJPUk5addCnXQhsbGzsc9htXI0Vg5Kty9gTi9eAjY2NfQC7LdYUBZ14izJT8BoMMGxsbOwfzs43FWMbhiRy8tcwE2PY2NjYu7LzkMjbtHnzYOxATxuf2NjY2Huz2+ZrW74fO14zU6i6HYmNjY29NbttrLblpORYz1hJa6qohI2Njb0Fe1WrIF/Kbxekbr+FjY2NfQA7f3wbbDMtgWX3x8bGxt6UnTd687BpYykpCbVxiI2NjX0OOynBt2Wdsfu3W6PFR3awsbGxt2CPHdNpSfnWot38DAYYNjY29g9nJ4+Z2Ta0Jf75ktPtPLGxsbE3Za/acrRj2iha0H7GxsbGPoadbySetzEf4mSioZvHJDY2NvYJ7Cu+8q1IW8ofi7q2CY2NjY29N7st6OcNhvzITk5dFmDY2NjY27Hz0Mrbvd87dtkewcTGxsbGzqeVb3LytsTMGGxsbGzs+SVo27prXwk2Njb2Oez55m5+57Hf5tskbGxs7NPYbaN37NBk2ypOXsY/7W9jY2Njv5J9zoWNjY2NjY2NjY39mus3Z9eHKdKzT+wAAAAASUVORK5CYII=">
     
 </ul>
     
@@ -349,7 +419,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        
+        <a class="post_tag-link" href="/tags/Kafka/">Kafka</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/RabbitMQ/">RabbitMQ</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/RocketMQ/">RocketMQ</a>
     </ul>
     
 
@@ -365,7 +435,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=系统架构团队&url=http://weiyi.tech/about/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Kafka VS RocketMQ VS RabbitMQ&url=http://weiyi.tech/2017/08/02/mq/mq/Manual-MQ对比-configure-20170630/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -374,7 +444,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=系统架构团队&url=http://weiyi.tech/about/index.html&via=IOTA" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Kafka VS RocketMQ VS RabbitMQ&url=http://weiyi.tech/2017/08/02/mq/mq/Manual-MQ对比-configure-20170630/index.html&via=IOTA" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -383,7 +453,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://weiyi.tech/about/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://weiyi.tech/2017/08/02/mq/mq/Manual-MQ对比-configure-20170630/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -392,7 +462,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=http://weiyi.tech/about/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://weiyi.tech/2017/08/02/mq/mq/Manual-MQ对比-configure-20170630/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -416,60 +486,381 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <p>一群追风的少年</p>
-<p><img src="/img/about/iota-team.jpeg" alt="2017年4月23日千岛湖春游"></p>
-<h3 id="招兵买马"><a href="#招兵买马" class="headerlink" title="招兵买马"></a>招兵买马</h3><p><strong>联系方式</strong></p>
-<table>
+        <p>本文通过在设计定位，基础对比，可用性、可靠性比较，功能对比，运维成本上对Kafka、RocketMQ、RabbitMQ做了一个对比，希望能够帮助大家对这三个MQ有一些比较具像的理解，并为大家开发选型提供帮助。</p>
+<a id="more"></a>
+<h3 id="1-Kafka-VS-RocketMQ-VS-RabbitMQ"><a href="#1-Kafka-VS-RocketMQ-VS-RabbitMQ" class="headerlink" title="1 Kafka VS RocketMQ VS RabbitMQ"></a>1 Kafka VS RocketMQ VS RabbitMQ</h3><table>
 <thead>
 <tr>
-<th>Key</th>
-<th>Value</th>
-<th>Note</th>
+<th></th>
+<th></th>
+<th>kafka</th>
+<th>RocketMQ</th>
+<th>RabbitMQ</th>
+<th>数据来源</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Email</td>
-<td>shenwr#guahao.com</td>
-<td>来信请使用标题: 应聘-岗位-姓名</td>
+<td>设计定位</td>
+<td>设计定位</td>
+<td>系统间的数据流管道，实时数据处理。<br>例如：常规的消息系统、网站活性跟踪，监控数据，日志收集、处理等”</td>
+<td>“非日志的可靠消息传输。<br>例如：订单，交易，充值，流计算，消息推送，日志流式处理，binglog分发等”</td>
+<td>可靠消息传输。和RocketMQ类似。</td>
+<td></td>
 </tr>
 <tr>
-<td>QQ</td>
-<td>贰四31零二47</td>
-<td>申请请备注 : 应聘-岗位-姓名</td>
+<td>基础对比</td>
+<td>成熟度</td>
+<td>日志领域成熟</td>
+<td>成熟</td>
+<td>成熟</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>所属社区／公司</td>
+<td>Apache</td>
+<td>Alibaba开发，已加入到Apache下</td>
+<td>Mozilla Public License</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>社区活跃度</td>
+<td>高</td>
+<td>中</td>
+<td>高</td>
+<td>来源于网络</td>
+</tr>
+<tr>
+<td></td>
+<td>API完备性</td>
+<td>高</td>
+<td>高</td>
+<td>高</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>文档完备性</td>
+<td>高</td>
+<td>高</td>
+<td>高</td>
+<td>来源于网络</td>
+</tr>
+<tr>
+<td></td>
+<td>开发语言</td>
+<td>Scala</td>
+<td>Java</td>
+<td>Erlang</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>支持协议</td>
+<td>一套自行设计的基于TCP的二进制协议</td>
+<td>自己定义的一套</td>
+<td>AMQP</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>客户端语言</td>
+<td>C/C++、Python、Go、Erlang、.NET、Ruby、Node.js、PHP等</td>
+<td>Java</td>
+<td>Java、C、 C++、 Python、 PHP、Perl 等</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>持久化方式</td>
+<td>磁盘文件</td>
+<td>磁盘文件</td>
+<td>内存、文件</td>
+<td></td>
+</tr>
+<tr>
+<td>可用性、可靠性比较</td>
+<td>部署方式</td>
+<td>单机／集群</td>
+<td>单机／集群</td>
+<td>单机／集群</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>集群管理</td>
+<td>zookeeper</td>
+<td>name server</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>选主方式</td>
+<td>从ISR中自动选举一个leader</td>
+<td>不支持自动选主。通过设定brokername、brokerId实现，brokername相同，brokerid=0时为maser，其他为slave</td>
+<td>最早加入集群的broker</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>可用性</td>
+<td>非常高 <br>分布式、主从</td>
+<td>非常高 <br>分布式、主从</td>
+<td>高 <br>主从，采用镜像模式实现，数据量大时可能产生性能瓶颈”</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>主从切换</td>
+<td>自动切换 <br>N个副本，允许N-1个失效；master失效以后自动从isr中选择一个主；</td>
+<td>不支持自动切换 <br>master失效以后不能向master发送信息，consumer大概30s（默认）可以感知此事件，此后从slave消费；如果master无法恢复，异步复制时可能出现部分信息丢失</td>
+<td>自动切换 <br>最早加入集群的slave会成为master；因为新加入的slave不同步master之前的数据，所以可能会出现部分数据丢失</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>数据可靠性</td>
+<td>很好 <br>支持producer单条发送、同步刷盘、同步复制、异步。</td>
+<td>很好 <br>producer单条发送，broker端支持同步刷盘、异步刷盘，同步双写，异步复制。</td>
+<td>好 <br>producer支持同步／异步ack。支持队列数据持久化，镜像模式中支持主从同步”</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>消息写入性能</td>
+<td>非常好 <br>每条10个字节测试：百万条/s</td>
+<td>很好 <br>每条10个字节测试：单机单broker约7w/s，单机3个broker约12w/s</td>
+<td>RAM约为RocketMQ的1/2，<br> Disk的性能约为RAM性能的1/3</td>
+<td>数据来源于网络 <br>单条消息的数据量越小，性能对比时kafka表现越好</td>
+</tr>
+<tr>
+<td></td>
+<td>性能的稳定性</td>
+<td>队列/分区多时性能不稳定，明显下降。消息堆积时性能稳定</td>
+<td>队列较多、消息堆积时性能稳定</td>
+<td>消息堆积时，性能不稳定、明显下降</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>单机支持的队列数</td>
+<td>单机超过64个队列/分区，Load会发生明显的飙高现象，队列越多，load越高，发送消息响应时间变长</td>
+<td>单机支持最高5万个队列，Load不会发生明显变化</td>
+<td>依赖于内存</td>
+<td>数据来源于网络测评 <br>kafka新能降低是因为topic增多时，顺序写变成了随机写”</td>
+</tr>
+<tr>
+<td></td>
+<td>堆积能力</td>
+<td>非常好 <br>消息存储在log中，每个分区由一个或多个segment  log文件</td>
+<td>非常好 <br>所有消息存储在同一个commit log中</td>
+<td>一般 <br>生产者、消费者正常时，性能表现稳定；消费者不消费时，性能不稳定</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>复制备份</td>
+<td>消息先写入leader的log，followers从leader中pull数据，pull到数据以后先ack leader，然后写入log中。 <br>ISR中维护与leader同步的列表，落后太多的follwer会被删除掉</td>
+<td>同步双写 <br>异步复制：slave启动线程从master中拉数据</td>
+<td>普通模式下不复制；<br>镜像模式下：消息先到mster，然后写到slave上。加入集群之前的消息不会被复制到新的slave上。</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>消息投递实时性</td>
+<td>毫秒级<br>具体由consumer轮询间隔时间决定</td>
+<td>毫秒级</td>
+<td>支持pull、push两种模式，延时通常在毫秒级</td>
+<td>毫秒级</td>
+</tr>
+<tr>
+<td>功能对比</td>
+<td>顺序消费</td>
+<td>支持顺序消费</td>
+<td>支持顺序消费 <br>在顺序消息场景下，消费失败时消费队列将会暂停</td>
+<td>支持顺序消费</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>定时消息</td>
+<td>不支持</td>
+<td>开源版本仅支持定时Level</td>
+<td>不支持</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>事务消息</td>
+<td>不支持</td>
+<td>支持</td>
+<td>不支持</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Broker端消息过滤</td>
+<td>不支持</td>
+<td>支持 <br>通过tag过滤，类似于子topic</td>
+<td>不支持</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>消息查询</td>
+<td>不支持</td>
+<td>支持 <br>根据MessageId查询<br>支持根据MessageKey查询消息</td>
+<td>不支持</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>消费失败重试</td>
+<td>不支持失败重试 <br>offset存储在consumer中，无法保证。<br>0.8.2版本后支持将offset存储在zk中</td>
+<td>支持失败重试 <br>offset存储在broker中</td>
+<td>支持失败重试</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>消息重新消费</td>
+<td>支持通过修改offset来重新消费</td>
+<td>支持按照时间来重新消息</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>发送端负载均衡</td>
+<td>可自由指定</td>
+<td>可自由指定</td>
+<td>需要单独loadbalancer支持</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>消费并行度</td>
+<td>消费并行度和分区数一致</td>
+<td>顺序消费：消费并行度和分区数一致 <br>乱序消费：消费服务器的消费线程数之和</td>
+<td>可一次抓取多条一起消费。 <br>镜像模式下其实也是从master消费</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>消费方式</td>
+<td>consumer pull</td>
+<td>consumer pull ／broker push</td>
+<td>broker push</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>批量发送</td>
+<td>支持 <br>默认producer缓存、压缩，然后批量发送</td>
+<td>不支持</td>
+<td>不支持</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>消息清理</td>
+<td>指定文件保存时间，过期删除</td>
+<td>指定文件保存时间，过期删除</td>
+<td>Consumer ack以后，消息将被标记为删除 <br>可用内存少于40%（默认），触发gc，gc时找到相邻的两个文件，合并right文件到left。</td>
+<td></td>
+</tr>
+<tr>
+<td>运维</td>
+<td>系统维护</td>
+<td>Scala语言开发，维护成本高</td>
+<td>java语言开发，维护成本低</td>
+<td>Erlang语言开发，维护成本高</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>部署依赖</td>
+<td>zookeeper</td>
+<td>nameserver</td>
+<td>Erlang环境</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>管理后台</td>
+<td>官网不提供，第三方开源管理工具可供使用；不用重新开发</td>
+<td>官方提供，rocketmq-console</td>
+<td>官方提供rabbitmqadmin</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>管理后台功能</td>
+<td>Kafka Web Conslole  <br> Brokers列表；Kafka 集群中 Topic列表，及对应的Partition、LogSize等信息；Topic对应的Consumer Groups、Offset、Lag等信息；生产和消费流量图、消息预览 <br>KafkaOffsetMonitor： <br>Kafka集群状态；Topic、Consumer Group列表；图形化展示topic和consumer之间的关系；图形化展示consumer的Offset、Lag等信息 <br>Kafka Manager:管理几个不同的集群；监控集群的状态(topics, brokers, 副本分布, 分区分布)；产生分区分配(Generate partition assignments)基于集群的当前状态；重新分配分区</td>
+<td>Cluster、Topic、Connection、NameServ、Message、Broker、Offset、Consumer</td>
+<td>overview、connections、channels、exchanges、queues、admin</td>
+<td></td>
+</tr>
+<tr>
+<td>总结</td>
+<td>优点</td>
+<td>1、在高吞吐、低延迟、高可用、集群热扩展、集群容错上有非常好的表现； <br>2、producer端提供缓存、压缩功能，可节省性能，提高效率。 <br>3、提供顺序消费能力 <br>4、提供多种客户端语言 <br>5、生态完善，在大数据处理方面有大量配套的设施。</td>
+<td>1、在高吞吐、低延迟、高可用上有非常好的表现；消息堆积时，性能也很好。 <br>2、api、系统设计都更加适在业务处理的场景。 <br>3、支持多种消费方式。 <br>4、支持broker消息过滤。 <br>5、支持事务。 <br>6、提供消息顺序消费能力；consumer可以水平扩展，消费能力很强。 <br>7、集群规模在50台左右，单日处理消息上百亿；经历过大数据量的考验，比较稳定可靠。</td>
+<td><br>1、在高吞吐量、高可用上较前两者有所不如。 <br>2、支持多种客户端语言；支持amqp协议。 <br>3、由于erlang语言的特性，性能也比较好; 使用RAM模式时，性能很好。 <br>4、管理界面较丰富，在互联网公司也有较大规模的应用;</td>
+<td>数据来自网络</td>
+</tr>
+<tr>
+<td></td>
+<td>缺点</td>
+<td>1、消费集群数目受到分区数目的限制。 <br>2、单机topic多时，性能会明显降低。 <br>3、不支持事务</td>
+<td>1、相比于kafka，使用者较少，生态不够完善。消息堆积、吞吐率上也有所不如。 <br>2、不支持主从自动切换，master失效后，消费者需要一定的时间才能感知。 <br>3、客户端只支持Java</td>
+<td>1、erlang 语言难度较大。集群不支持动态扩展。 <br>2、不支持事务、消息吞吐能力有限 <br>3、消息堆积时，性能会明显降低</td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<p><strong>招募人才</strong></p>
-<p>一、基本要求：</p>
-<pre><code>+ 你是逻辑性强、思路活跃，并且热爱技术、喜欢专研的。
-+ 你是好好干过两年及以上研发的。
-+ 你是有一定的java技术积累的。
-</code></pre><p>二、技能要求:</p>
-<p> 1.Java高级工程师:</p>
-<ul>
-<li>Java基础知识。</li>
-<li>服务端流行开源框架（Spring Framework、MyBatis）（PS：有源码研究经验+分）。</li>
-<li>项目开发工具（Maven或Gradle、Git）。</li>
-<li>服务端MySQL<strong> SQL语句</strong>的编写、调优。</li>
-<li>缓存Redis、Memcached，有Java客户端使用经验。</li>
-<li>算法能力。</li>
-<li>动手编码能力。</li>
-</ul>
-<p>2.Java技术专家:</p>
-<ul>
-<li>继承所有Java高级工程师的属性。</li>
-<li>对JVM有深入了解。</li>
-<li>对Java本身有一定的认知。PS：字节码、线程、安全沙箱等。</li>
-<li>Java NIO熟习。</li>
-<li>Java Concurrent熟习。</li>
-</ul>
-<p>3.Java服务端架构师:</p>
-<ul>
-<li>继承所有Java高级工程师的属性。</li>
-<li>对Java服务端架构、设计、经典模式有一定经验。</li>
-<li>对高并发服务端优化有一定经验。</li>
-</ul>
+<h3 id="2-参考博客"><a href="#2-参考博客" class="headerlink" title="2 参考博客"></a>2 参考博客</h3><p>上述内容，主要参考以下博客内容。</p>
+<table>
+<thead>
+<tr>
+<th>标题</th>
+<th>链接</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rabbitMQ集群部署</td>
+<td><a href="http://www.cnblogs.com/knowledgesea/p/6535766.html" target="_blank" rel="external">http://www.cnblogs.com/knowledgesea/p/6535766.html</a></td>
+</tr>
+<tr>
+<td>RabbitMQ可用性、可靠性分析</td>
+<td><a href="http://blog.csdn.net/cadem/article/details/53422912?utm_source=itdadao&amp;utm_medium=referral" target="_blank" rel="external">http://blog.csdn.net/cadem/article/details/53422912?utm_source=itdadao&amp;utm_medium=referral</a></td>
+</tr>
+<tr>
+<td>kafka也同步刷盘，但是效率较低</td>
+<td><a href="http://jm.taobao.org/2016/04/28/kafka-vs-rocktemq-4/" target="_blank" rel="external">http://jm.taobao.org/2016/04/28/kafka-vs-rocktemq-4/</a></td>
+</tr>
+<tr>
+<td>kafka vs RocktMQ</td>
+<td><a href="https://engineering.linkedin.com/kafka/benchmarking-apache-kafka-2-million-writes-second-three-cheap-machines" target="_blank" rel="external">https://engineering.linkedin.com/kafka/benchmarking-apache-kafka-2-million-writes-second-three-cheap-machines</a></td>
+</tr>
+<tr>
+<td>kafka vs RocktMQ VS RabbitMQ</td>
+<td><a href="http://www.cnblogs.com/felixzh/p/6198070.html" target="_blank" rel="external">http://www.cnblogs.com/felixzh/p/6198070.html</a> <br> <a href="http://ju.outofmemory.cn/entry/177937" target="_blank" rel="external">http://ju.outofmemory.cn/entry/177937</a></td>
+</tr>
+<tr>
+<td>Kafka vs RocketMQ Topic数量对单机性能的影响</td>
+<td><a href="http://jm.taobao.org/2016/04/07/kafka-vs-rocketmq-topic-amout/?utm_source=tuicool&amp;utm_medium=referral" target="_blank" rel="external">http://jm.taobao.org/2016/04/07/kafka-vs-rocketmq-topic-amout/?utm_source=tuicool&amp;utm_medium=referral</a> <br> <a href="http://www.cnblogs.com/purpleraintear/p/6033136.html" target="_blank" rel="external">http://www.cnblogs.com/purpleraintear/p/6033136.html</a></td>
+</tr>
+<tr>
+<td>kafka管理后台比较</td>
+<td><a href="http://top.jobbole.com/31084/" target="_blank" rel="external">http://top.jobbole.com/31084/</a></td>
+</tr>
+</tbody>
+</table>
 
     
 
@@ -494,6 +885,14 @@
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
+    
+        <a href="/2017/07/02/spring/framework/Manual-spring-configure-20170630/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
     
 </nav>
 
@@ -695,6 +1094,14 @@ It will not impact the appearance and can give developers a lot of support :)
 </aside>
 
                     
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
 
                     
 
